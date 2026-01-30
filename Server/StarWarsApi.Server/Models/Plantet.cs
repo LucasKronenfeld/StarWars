@@ -26,6 +26,8 @@ namespace StarWarsApi.Server.Models
         // Relationships
         public List<PlanetResident> PlanetResidents { get; set; } = new();
         public List<FilmPlanet> FilmPlanets { get; set; } = new();
+        public List<Person> HomeworldPeople { get; set; } = new();
+
 
     }
 }

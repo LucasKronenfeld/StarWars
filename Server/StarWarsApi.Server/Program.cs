@@ -1,7 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using StarWarsApi.Server.Data;
+using StarWarsApi.Server.Data.Seeding;
+using StarWarsApi.Server.Swapi;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddHttpClient<SwapiClient>();
+builder.Services.AddScoped<DatabaseSeeder>();
 
 var app = builder.Build();
 

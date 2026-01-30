@@ -22,7 +22,9 @@ namespace StarWarsApi.Server.Models
         public string? Gender { get; set; }
 
         // Relationships
-        public string? HomeworldUrl { get; set; }
+        public int? HomeworldId { get; set; }
+        public Planet? Homeworld { get; set; }
+
 
         public List<FilmCharacter> FilmCharacters { get; set; } = new();
         public List<VehiclePilot> VehiclePilots { get; set; } = new();
