@@ -1,9 +1,10 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using StarWarsApi.Server.Models;
 
 namespace StarWarsApi.Server.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -17,7 +18,8 @@ namespace StarWarsApi.Server.Data
         public DbSet<Starship> Starships => Set<Starship>();
         public DbSet<Vehicle> Vehicles => Set<Vehicle>();
         public DbSet<Species> Species => Set<Species>();
-
+        public DbSet<Fleet> Fleets => Set<Fleet>();
+        public DbSet<FleetStarship> FleetStarships => Set<FleetStarship>();
         // Join tables
         public DbSet<FilmCharacter> FilmCharacters => Set<FilmCharacter>();
         public DbSet<FilmPlanet> FilmPlanets => Set<FilmPlanet>();
@@ -45,6 +47,49 @@ namespace StarWarsApi.Server.Data
                 .WithMany(pl => pl.HomeworldPeople)
                 .HasForeignKey(p => p.HomeworldId)
                 .OnDelete(DeleteBehavior.SetNull);
+            
+           
+            // ---- Starship ownership + catalog constraints ----
+            modelBuilder.Entity<Starship>()
+                .HasOne(s => s.OwnerUser)
+                .WithMany()
+                .HasForeignKey(s => s.OwnerUserId)
+                .OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<Starship>()
+                .HasOne(s => s.BaseStarship)
+                .WithMany()
+                .HasForeignKey(s => s.BaseStarshipId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            // SwapiUrl should be unique when present (catalog rows)
+            modelBuilder.Entity<Starship>()
+                .HasIndex(s => s.SwapiUrl)
+                .IsUnique();
+
+             // ---- Starship indexes for catalog queries ----
+            modelBuilder.Entity<Starship>()
+                .HasIndex(s => s.Name);
+
+            modelBuilder.Entity<Starship>()
+                 .HasIndex(s => s.Manufacturer);
+
+            modelBuilder.Entity<Starship>()
+                .HasIndex(s => s.StarshipClass);
+
+            modelBuilder.Entity<Starship>()
+                .HasIndex(s => s.CostInCredits);
+
+            modelBuilder.Entity<Starship>()
+                .HasIndex(s => s.Length);
+
+            modelBuilder.Entity<Starship>()
+                .HasIndex(s => s.Crew);
+
+            modelBuilder.Entity<Starship>()
+                .HasIndex(s => s.Passengers);
+
+            modelBuilder.Entity<Starship>()
+                .HasIndex(s => s.CargoCapacity);
 
             // ---- Film joins ----
             modelBuilder.Entity<FilmCharacter>()
@@ -77,6 +122,32 @@ namespace StarWarsApi.Server.Data
             // ---- Species ----
             modelBuilder.Entity<SpeciesPerson>()
                 .HasKey(ps => new { ps.PersonId, ps.SpeciesId });
+            
+            // ---- Fleets ----
+            modelBuilder.Entity<Fleet>()
+                .HasIndex(f => f.UserId)
+                .IsUnique(); // one fleet per user
+
+            modelBuilder.Entity<Fleet>()
+                .HasOne(f => f.User)
+                .WithMany()
+                .HasForeignKey(f => f.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<FleetStarship>()
+                .HasOne(fs => fs.Fleet)
+                .WithMany(f => f.FleetStarships)
+                .HasForeignKey(fs => fs.FleetId)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<FleetStarship>()
+                .HasOne(fs => fs.Starship)
+                .WithMany()
+                .HasForeignKey(fs => fs.StarshipId)
+                .OnDelete(DeleteBehavior.Restrict);
+            // Prevent duplicate rows for same ship within the same fleet
+            modelBuilder.Entity<FleetStarship>()
+                .HasIndex(fs => new { fs.FleetId, fs.StarshipId })
+                .IsUnique();
+
         }
     }
 }

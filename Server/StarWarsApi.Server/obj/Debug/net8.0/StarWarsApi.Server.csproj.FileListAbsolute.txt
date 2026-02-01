@@ -137,3 +137,15 @@ C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\obj\Debug\net8.0\Star
 C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\obj\Debug\net8.0\StarWars.B0B9E9CC.Up2Date
 C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Npgsql.dll
 C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\obj\Debug\net8.0\StarWarsApi.Server.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
