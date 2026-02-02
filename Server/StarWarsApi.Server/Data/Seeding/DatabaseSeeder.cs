@@ -16,6 +16,116 @@ public class DatabaseSeeder
         _db = db;
         _swapi = swapi;
     }
+    static string RequireUrl(string? url, string entityName)
+    {
+        if (string.IsNullOrWhiteSpace(url))
+            throw new InvalidOperationException($"SWAPI returned null/empty Url for {entityName}.");
+        return url;
+    }
+
+    /// <summary>
+    /// Production-safe catalog sync: upserts catalog starships by SwapiUrl,
+    /// retires ships no longer in SWAPI, preserves user ships and fleets.
+    /// Invariant: all catalog ships must have SwapiUrl set.
+    /// </summary>
+    public async Task<object> SyncCatalogAsync(CancellationToken ct)
+    {
+        // Fetch all SWAPI starships
+        var swapiStarships = await _swapi.GetAllAsync<SwapiStarshipDto>("starships", ct);
+        var swapiUrls = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        // Load existing catalog ships keyed by SwapiUrl for upsert
+        // Note: catalog rows without SwapiUrl are considered invalid and won't be updated/retired
+        var existingCatalog = await _db.Starships
+            .Where(s => s.IsCatalog && s.SwapiUrl != null)
+            .ToDictionaryAsync(s => s.SwapiUrl!, s => s, StringComparer.OrdinalIgnoreCase, ct);
+
+        int inserted = 0, updated = 0;
+
+        foreach (var s in swapiStarships)
+        {
+            var url = RequireUrl(s.Url, $"starship {s.Name}");
+            swapiUrls.Add(url);
+
+            if (existingCatalog.TryGetValue(url, out var existing))
+            {
+                // UPDATE existing catalog ship in-place
+                // Enforce catalog invariants (prevent corruption if rows were accidentally modified)
+                existing.IsCatalog = true;
+                existing.OwnerUserId = null;
+                existing.BaseStarshipId = null;
+                existing.SwapiUrl = url;
+                existing.IsActive = true; // Re-activate if it was retired
+
+                // Update data fields from SWAPI
+                existing.Name = s.Name ?? "";
+                existing.Model = s.Model;
+                existing.Manufacturer = s.Manufacturer;
+                existing.StarshipClass = s.Starship_Class;
+                existing.CostInCredits = TryDecimal(s.Cost_In_Credits);
+                existing.Length = TryDouble(s.Length);
+                existing.Crew = TryInt(OnlyDigitsOrNull(s.Crew));
+                existing.Passengers = TryInt(OnlyDigitsOrNull(s.Passengers));
+                existing.CargoCapacity = TryLong(OnlyDigitsOrNull(s.Cargo_Capacity));
+                existing.HyperdriveRating = TryDouble(s.Hyperdrive_Rating);
+                existing.MGLT = TryInt(OnlyDigitsOrNull(s.MGLT));
+                existing.MaxAtmospheringSpeed = s.Max_Atmosphering_Speed;
+                existing.Consumables = s.Consumables;
+                updated++;
+            }
+            else
+            {
+                // INSERT new catalog ship (only required fields, skip versioning columns)
+                var entity = new Starship
+                {
+                    IsCatalog = true,
+                    IsActive = true,
+                    SwapiUrl = url,
+                    OwnerUserId = null,
+                    BaseStarshipId = null,
+
+                    Name = s.Name ?? "",
+                    Model = s.Model,
+                    Manufacturer = s.Manufacturer,
+                    StarshipClass = s.Starship_Class,
+                    CostInCredits = TryDecimal(s.Cost_In_Credits),
+                    Length = TryDouble(s.Length),
+                    Crew = TryInt(OnlyDigitsOrNull(s.Crew)),
+                    Passengers = TryInt(OnlyDigitsOrNull(s.Passengers)),
+                    CargoCapacity = TryLong(OnlyDigitsOrNull(s.Cargo_Capacity)),
+                    HyperdriveRating = TryDouble(s.Hyperdrive_Rating),
+                    MGLT = TryInt(OnlyDigitsOrNull(s.MGLT)),
+                    MaxAtmospheringSpeed = s.Max_Atmosphering_Speed,
+                    Consumables = s.Consumables
+                };
+                _db.Starships.Add(entity);
+                inserted++;
+            }
+        }
+
+        // RETIRE catalog ships that are no longer in SWAPI (soft-delete)
+        int retired = 0;
+        foreach (var existing in existingCatalog.Values)
+        {
+            if (!swapiUrls.Contains(existing.SwapiUrl!) && existing.IsActive)
+            {
+                existing.IsActive = false;
+                retired++;
+            }
+        }
+
+        // Single SaveChanges for efficiency (no per-row saves)
+        await _db.SaveChangesAsync(ct);
+
+        return new
+        {
+            ok = true,
+            catalogOnly = true,
+            inserted,
+            updated,
+            retired
+        };
+    }
 
     public async Task<object> SeedAsync(bool force, CancellationToken ct)
     {
@@ -156,29 +266,50 @@ public class DatabaseSeeder
             filmIdByUrl[f.Url] = entity.Id;
         }
 
-        // --- Insert Starships ---
+        // --- Insert Starships (catalog ships) ---
+        var starshipEntities = new List<Starship>(starships.Count);
+
         foreach (var s in starships)
         {
-            var entity = new Starship
-            {
-                Name = s.Name ?? "",
-                Model = s.Model,
-                Manufacturer = s.Manufacturer,
-                StarshipClass = s.Starship_Class,
-                CostInCredits = TryDecimal(s.Cost_In_Credits),
-                Length = TryDouble(s.Length),
-                Crew = TryInt(OnlyDigitsOrNull(s.Crew)),
-                Passengers = TryInt(OnlyDigitsOrNull(s.Passengers)),
-                CargoCapacity = TryLong(OnlyDigitsOrNull(s.Cargo_Capacity)),
-                HyperdriveRating = TryDouble(s.Hyperdrive_Rating),
-                MGLT = TryInt(OnlyDigitsOrNull(s.MGLT)),
-                MaxAtmospheringSpeed = s.Max_Atmosphering_Speed,
-                Consumables = s.Consumables
-            };
+        var url = RequireUrl(s.Url, $"starship {s.Name}");
 
-            _db.Starships.Add(entity);
-            await _db.SaveChangesAsync(ct);
-            starshipIdByUrl[s.Url] = entity.Id;
+        var entity = new Starship
+        {
+            IsCatalog = true,
+            IsActive = true,
+            SwapiUrl = url,
+            OwnerUserId = null,
+            BaseStarshipId = null,
+
+            Name = s.Name ?? "",
+            Model = s.Model,
+            Manufacturer = s.Manufacturer,
+            StarshipClass = s.Starship_Class,
+
+            CostInCredits = TryDecimal(s.Cost_In_Credits),
+            Length = TryDouble(s.Length),
+            Crew = TryInt(OnlyDigitsOrNull(s.Crew)),
+            Passengers = TryInt(OnlyDigitsOrNull(s.Passengers)),
+            CargoCapacity = TryLong(OnlyDigitsOrNull(s.Cargo_Capacity)),
+
+            HyperdriveRating = TryDouble(s.Hyperdrive_Rating),
+            MGLT = TryInt(OnlyDigitsOrNull(s.MGLT)),
+
+            MaxAtmospheringSpeed = s.Max_Atmosphering_Speed,
+            Consumables = s.Consumables
+        };
+
+        starshipEntities.Add(entity);
+        }
+
+        _db.Starships.AddRange(starshipEntities);
+        await _db.SaveChangesAsync(ct);
+
+        // Build URL -> Id map AFTER SaveChanges (Ids are now populated)
+        foreach (var entity in starshipEntities)
+        {
+            // SwapiUrl is guaranteed populated above
+            starshipIdByUrl[entity.SwapiUrl!] = entity.Id;
         }
 
         // --- Insert Vehicles ---

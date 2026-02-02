@@ -44,7 +44,8 @@ public class AuthController : ControllerBase
             });
         }
 
-        var token = CreateJwt(user);
+        var roles = await _userManager.GetRolesAsync(user);
+        var token = CreateJwt(user, roles);
         return Ok(new AuthResponse { Token = token });
     }
 
@@ -59,7 +60,8 @@ public class AuthController : ControllerBase
         var ok = await _userManager.CheckPasswordAsync(user, req.Password);
         if (!ok) return Unauthorized();
 
-        var token = CreateJwt(user);
+        var roles = await _userManager.GetRolesAsync(user);
+        var token = CreateJwt(user, roles);
         return Ok(new AuthResponse { Token = token });
     }
 
@@ -80,7 +82,7 @@ public class AuthController : ControllerBase
         });
     }
 
-    private string CreateJwt(ApplicationUser user)
+    private string CreateJwt(ApplicationUser user, IList<string> roles)
     {
         var jwt = _config.GetSection("Jwt");
         var key = jwt["Key"]!;
@@ -92,6 +94,12 @@ public class AuthController : ControllerBase
             new Claim(ClaimTypes.NameIdentifier, user.Id),
             new Claim(ClaimTypes.Email, user.Email ?? user.UserName ?? "")
         };
+
+        // Add role claims for [Authorize(Roles="Admin")] support
+        foreach (var role in roles)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, role));
+        }
 
         var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
         var creds = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);

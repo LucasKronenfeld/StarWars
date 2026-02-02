@@ -69,6 +69,7 @@ builder.Services
         options.Password.RequireLowercase = false;
         options.Password.RequireDigit = false;
     })
+    .AddRoles<IdentityRole>()  // Enable roles
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager()
     .AddDefaultTokenProviders();
@@ -93,12 +94,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
 
             ValidateLifetime = true,
-            ClockSkew = TimeSpan.FromMinutes(2)
+            ClockSkew = TimeSpan.FromMinutes(2),
+
+            // Map ClaimTypes.Role so [Authorize(Roles="Admin")] works
+            RoleClaimType = System.Security.Claims.ClaimTypes.Role
         };
     });
 
 builder.Services.AddAuthorization();
 var app = builder.Build();
+
+// Bootstrap Admin role and assign to configured emails
+await BootstrapAdminRoleAsync(app);
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -125,3 +133,53 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+// Admin role bootstrap: ensures "Admin" role exists and assigns configured emails to it
+static async Task BootstrapAdminRoleAsync(WebApplication app)
+{
+    using var scope = app.Services.CreateScope();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+
+    const string adminRole = "Admin";
+
+    // Ensure Admin role exists
+    if (!await roleManager.RoleExistsAsync(adminRole))
+    {
+        var result = await roleManager.CreateAsync(new IdentityRole(adminRole));
+        if (result.Succeeded)
+            logger.LogInformation("Created '{Role}' role.", adminRole);
+        else
+            logger.LogWarning("Failed to create '{Role}' role: {Errors}", adminRole, 
+                string.Join(", ", result.Errors.Select(e => e.Description)));
+    }
+
+    // Get admin emails from config (case-insensitive)
+    var adminEmails = config.GetSection("Seed:AdminEmails").Get<string[]>() ?? Array.Empty<string>();
+
+    foreach (var email in adminEmails)
+    {
+        if (string.IsNullOrWhiteSpace(email)) continue;
+
+        var normalizedEmail = email.Trim().ToLowerInvariant();
+        var user = await userManager.FindByEmailAsync(normalizedEmail);
+
+        if (user is null)
+        {
+            logger.LogWarning("Admin email '{Email}' not found in database. User must register first.", normalizedEmail);
+            continue;
+        }
+
+        if (!await userManager.IsInRoleAsync(user, adminRole))
+        {
+            var result = await userManager.AddToRoleAsync(user, adminRole);
+            if (result.Succeeded)
+                logger.LogInformation("Assigned '{Role}' role to user '{Email}'.", adminRole, normalizedEmail);
+            else
+                logger.LogWarning("Failed to assign '{Role}' to '{Email}': {Errors}", adminRole, normalizedEmail,
+                    string.Join(", ", result.Errors.Select(e => e.Description)));
+        }
+    }
+}

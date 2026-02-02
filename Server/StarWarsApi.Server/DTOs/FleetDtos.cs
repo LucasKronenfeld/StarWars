@@ -9,6 +9,11 @@ public sealed class FleetItemDto
 
     public int Quantity { get; set; }
     public string? Nickname { get; set; }
+
+    // UI badge fields
+    public bool IsCatalog { get; set; }    // true = stock ship, false = custom
+    public bool IsActive { get; set; }     // false = retired (for retired catalog ships)
+    public bool IsCustom => !IsCatalog;    // convenience: true if user-owned custom ship
 }
 
 public sealed class FleetDto

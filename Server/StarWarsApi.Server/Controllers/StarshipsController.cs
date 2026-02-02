@@ -34,6 +34,7 @@ public class StarshipsController : ControllerBase
 
         var desc = string.Equals(q.Dir, "desc", StringComparison.OrdinalIgnoreCase);
 
+        // Catalog browsing: IsCatalog && IsActive only (no versioning)
         IQueryable<Starship> query = _db.Starships
             .AsNoTracking()
             .Where(s => s.IsCatalog && s.IsActive);
@@ -42,19 +43,13 @@ public class StarshipsController : ControllerBase
         if (!string.IsNullOrWhiteSpace(q.Search))
         {
             var s = q.Search.Trim();
-
-            // Postgres-friendly case-insensitive contains
             query = query.Where(x =>
-                x.IsCatalog &&
-                x.IsActive &&
-                (
-                    (x.Name != null && EF.Functions.ILike(x.Name, $"%{s}%")) ||
-                    (x.Model != null && EF.Functions.ILike(x.Model, $"%{s}%")) ||
-                    (x.Manufacturer != null && EF.Functions.ILike(x.Manufacturer, $"%{s}%"))
-                )
+                (x.Name != null && EF.Functions.ILike(x.Name, $"%{s}%")) ||
+                (x.Model != null && EF.Functions.ILike(x.Model, $"%{s}%")) ||
+                (x.Manufacturer != null && EF.Functions.ILike(x.Manufacturer, $"%{s}%"))
             );
-
         }
+
 
         if (!string.IsNullOrWhiteSpace(q.Class))
         {
@@ -208,9 +203,10 @@ public class StarshipsController : ControllerBase
         [HttpGet("filters")]
 public async Task<ActionResult<StarshipFiltersDto>> GetFilters(CancellationToken ct)
 {
-    // Dropdowns
+    // Dropdowns - IsCatalog && IsActive only (no versioning)
     var manufacturers = await _db.Starships
         .AsNoTracking()
+        .Where(s => s.IsCatalog && s.IsActive)
         .Where(s => s.Manufacturer != null && s.Manufacturer != "")
         .Select(s => s.Manufacturer!)
         .Distinct()
@@ -219,6 +215,7 @@ public async Task<ActionResult<StarshipFiltersDto>> GetFilters(CancellationToken
 
     var classes = await _db.Starships
         .AsNoTracking()
+        .Where(s => s.IsCatalog && s.IsActive)
         .Where(s => s.StarshipClass != null && s.StarshipClass != "")
         .Select(s => s.StarshipClass!)
         .Distinct()
@@ -227,6 +224,7 @@ public async Task<ActionResult<StarshipFiltersDto>> GetFilters(CancellationToken
 
     // Ranges (compute each from non-null rows to avoid null-only aggregates)
     var costRange = await _db.Starships.AsNoTracking()
+        .Where(s => s.IsCatalog && s.IsActive)
         .Where(s => s.CostInCredits != null)
         .GroupBy(_ => 1)
         .Select(g => new RangeDto<decimal>
@@ -237,6 +235,7 @@ public async Task<ActionResult<StarshipFiltersDto>> GetFilters(CancellationToken
         .FirstOrDefaultAsync(ct) ?? new RangeDto<decimal>();
 
     var lengthRange = await _db.Starships.AsNoTracking()
+        .Where(s => s.IsCatalog && s.IsActive)
         .Where(s => s.Length != null)
         .GroupBy(_ => 1)
         .Select(g => new RangeDto<double>
@@ -247,6 +246,7 @@ public async Task<ActionResult<StarshipFiltersDto>> GetFilters(CancellationToken
         .FirstOrDefaultAsync(ct) ?? new RangeDto<double>();
 
     var crewRange = await _db.Starships.AsNoTracking()
+        .Where(s => s.IsCatalog && s.IsActive)
         .Where(s => s.Crew != null)
         .GroupBy(_ => 1)
         .Select(g => new RangeDto<int>
@@ -257,6 +257,7 @@ public async Task<ActionResult<StarshipFiltersDto>> GetFilters(CancellationToken
         .FirstOrDefaultAsync(ct) ?? new RangeDto<int>();
 
     var passengersRange = await _db.Starships.AsNoTracking()
+        .Where(s => s.IsCatalog && s.IsActive)
         .Where(s => s.Passengers != null)
         .GroupBy(_ => 1)
         .Select(g => new RangeDto<int>
@@ -267,6 +268,7 @@ public async Task<ActionResult<StarshipFiltersDto>> GetFilters(CancellationToken
         .FirstOrDefaultAsync(ct) ?? new RangeDto<int>();
 
     var cargoRange = await _db.Starships.AsNoTracking()
+        .Where(s => s.IsCatalog && s.IsActive)
         .Where(s => s.CargoCapacity != null)
         .GroupBy(_ => 1)
         .Select(g => new RangeDto<long>
@@ -299,7 +301,7 @@ public async Task<ActionResult<ForkStarshipResponse>> ForkCatalogStarship(
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
     if (userId is null) return Unauthorized();
 
-    // Must fork ONLY from active catalog ships
+    // Must fork ONLY from active catalog ships (no versioning check)
     var baseShip = await _db.Starships
         .AsNoTracking()
         .FirstOrDefaultAsync(s => s.Id == id && s.IsCatalog && s.IsActive, ct);
@@ -333,6 +335,9 @@ public async Task<ActionResult<ForkStarshipResponse>> ForkCatalogStarship(
         IsCatalog = false,
         IsActive = true,
         SwapiUrl = null,
+        CatalogKey = null,
+        CatalogVersion = null,
+        //IsLatestCatalogVersion = false,
 
         OwnerUserId = userId,
         BaseStarshipId = baseShip.Id,
@@ -362,7 +367,7 @@ public async Task<ActionResult<ForkStarshipResponse>> ForkCatalogStarship(
     if (req.AddToFleet)
         await AddStarshipToFleet(userId, fork.Id, quantity: 1, ct);
 
-    return CreatedAtAction(nameof(ForkCatalogStarship), new { id = baseShip.Id }, new ForkStarshipResponse
+    return Ok(new ForkStarshipResponse
     {
         Id = fork.Id,
         BaseStarshipId = baseShip.Id

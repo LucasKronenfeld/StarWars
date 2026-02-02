@@ -35,5 +35,8 @@ public sealed class FleetListItemDto
     public string? Nickname { get; set; }
     public DateTime AddedAt { get; set; }
 
-    public bool IsCatalog { get; set; } // useful later in UI
+    // UI badge fields
+    public bool IsCatalog { get; set; }    // true = stock ship, false = custom
+    public bool IsActive { get; set; }     // false = retired (for retired catalog ships)
+    public bool IsCustom => !IsCatalog;    // convenience: true if user-owned custom ship
 }

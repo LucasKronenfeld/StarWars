@@ -49,7 +49,10 @@ public class FleetController : ControllerBase
                         Manufacturer = x.Starship.Manufacturer,
                         StarshipClass = x.Starship.StarshipClass,
                         Quantity = x.Quantity,
-                        Nickname = x.Nickname
+                        Nickname = x.Nickname,
+                        // UI badge fields (fleet includes retired ships)
+                        IsCatalog = x.Starship.IsCatalog,
+                        IsActive = x.Starship.IsActive
                     })
                     .ToList()
             })
@@ -73,9 +76,25 @@ public class FleetController : ControllerBase
 
         var qty = req.Quantity < 1 ? 1 : req.Quantity;
 
-        // Ensure starship exists (allow catalog for now; later allow user-owned too)
-        var exists = await _db.Starships.AnyAsync(s => s.Id == req.StarshipId, ct);
-        if (!exists) return NotFound($"Starship {req.StarshipId} not found.");
+        // Validate starship exists and is allowed to be added
+        var starship = await _db.Starships
+            .AsNoTracking()
+            .Where(s => s.Id == req.StarshipId)
+            .Select(s => new { s.IsCatalog, s.IsActive, s.OwnerUserId })
+            .FirstOrDefaultAsync(ct);
+
+        if (starship is null)
+            return NotFound($"Starship {req.StarshipId} not found.");
+
+        // Block adding any inactive ship
+        if (!starship.IsActive)
+            return BadRequest(starship.IsCatalog
+                ? "Cannot add a retired catalog ship to fleet."
+                : "Cannot add an inactive custom ship to fleet.");
+
+        // Security: custom ships can only be added by their owner
+        if (!starship.IsCatalog && starship.OwnerUserId != userId)
+            return Forbid();
 
         // Ensure fleet exists
         var fleet = await _db.Fleets.FirstOrDefaultAsync(f => f.UserId == userId, ct);
@@ -260,7 +279,9 @@ public async Task<ActionResult<PagedResponse<FleetListItemDto>>> GetFleetItems([
             Nickname = x.Nickname,
             AddedAt = x.AddedAt,
 
-            IsCatalog = x.Starship.IsCatalog
+            // UI badge fields (fleet includes retired ships)
+            IsCatalog = x.Starship.IsCatalog,
+            IsActive = x.Starship.IsActive
         })
         .ToListAsync(ct);
 
