@@ -335,9 +335,6 @@ public async Task<ActionResult<ForkStarshipResponse>> ForkCatalogStarship(
         IsCatalog = false,
         IsActive = true,
         SwapiUrl = null,
-        CatalogKey = null,
-        CatalogVersion = null,
-        //IsLatestCatalogVersion = false,
 
         OwnerUserId = userId,
         BaseStarshipId = baseShip.Id,

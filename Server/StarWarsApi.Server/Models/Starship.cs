@@ -10,9 +10,6 @@ namespace StarWarsApi.Server.Models
 
         // True = seeded SWAPI catalog row (read-only for normal users)
         public bool IsCatalog { get; set; } = true;
-        public string? CatalogKey { get; set; }     // only for catalog rows
-        public int? CatalogVersion { get; set; }    // only for catalog rows
-        public bool IsLatestCatalogVersion { get; set; } 
 
         // Soft-delete / hide from catalog lists (admin can toggle)
         public bool IsActive { get; set; } = true;

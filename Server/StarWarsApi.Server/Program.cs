@@ -54,6 +54,29 @@ builder.Services.AddSwaggerGen(c =>
             Array.Empty<string>()
         }
     });
+            c.AddSecurityDefinition("SeedKey", new OpenApiSecurityScheme
+    {
+        Name = "X-SEED-KEY",
+        Type = SecuritySchemeType.ApiKey,
+        In = ParameterLocation.Header,
+        Description = "Seeder API Key"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "SeedKey"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+
 });
 
 
@@ -78,7 +101,18 @@ var jwtSection = builder.Configuration.GetSection("Jwt");
 var jwtKey = jwtSection["Key"] ?? throw new InvalidOperationException("Jwt:Key missing");
 var jwtIssuer = jwtSection["Issuer"] ?? "StarWarsApi";
 var jwtAudience = jwtSection["Audience"] ?? "StarWarsApi";
+var corsPolicyName = "ClientCors";
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(corsPolicyName, policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173", "http://localhost:5174")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -125,6 +159,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseCors(corsPolicyName);
 
 app.UseAuthentication();
 app.UseAuthorization();
