@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "id": "test-vehicle-1",
+      "name": "Test Speeder Alpha",
+      "model": "TS-20",
+      "manufacturer": "Test Motors",
+      "costInCredits": "25000",
+      "length": "5",
+      "maxAtmospheringSpeed": "250",
+      "crew": "1",
+      "passengers": "1",
+      "cargoCapacity": "50",
+      "consumables": "1 day",
+      "vehicleClass": "speeder",
+      "pilots": ["test-person-1"],
+      "films": ["test-film-1"]
+    }
+  ]
+}

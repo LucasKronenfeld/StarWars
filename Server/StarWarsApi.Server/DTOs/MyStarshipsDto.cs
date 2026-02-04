@@ -22,6 +22,8 @@ public sealed class MyStarshipsQuery
     public long? CargoMin { get; set; }
     public long? CargoMax { get; set; }
 
+    public int? PilotId { get; set; }
+
     public string? SortBy { get; set; } = "name";
     public string? SortDir { get; set; } = "asc";
 }
@@ -45,6 +47,9 @@ public class MyStarshipListItemDto
     public int? MGLT { get; set; }
 
     public int? BaseStarshipId { get; set; }
+
+    public int? PilotId { get; set; }
+    public string? PilotName { get; set; }
 }
 
 public sealed class CreateMyStarshipRequest
@@ -66,6 +71,8 @@ public sealed class CreateMyStarshipRequest
 
     public string? MaxAtmospheringSpeed { get; set; }
     public string? Consumables { get; set; }
+
+    public int? PilotId { get; set; }
 }
 
 public sealed class UpdateMyStarshipRequest
@@ -87,6 +94,8 @@ public sealed class UpdateMyStarshipRequest
 
     public string? MaxAtmospheringSpeed { get; set; }
     public string? Consumables { get; set; }
+
+    public int? PilotId { get; set; }
 }
 
 

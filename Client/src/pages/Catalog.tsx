@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { starshipsApi } from '../api/starshipsApi';
 import type { StarshipsQuery } from '../api/starshipsApi';
-import { Badge } from '../components/Badge';
 import { Pagination } from '../components/Pagination';
 
 export function Catalog() {
@@ -137,7 +136,7 @@ export function Catalog() {
                     <th className="px-6 py-3 text-left text-sm font-semibold">Model</th>
                     <th className="px-6 py-3 text-left text-sm font-semibold">Manufacturer</th>
                     <th className="px-6 py-3 text-left text-sm font-semibold">Class</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Status</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold">Cost</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-700">
@@ -157,8 +156,8 @@ export function Catalog() {
                       <td className="px-6 py-4 text-gray-400">{ship.model || '—'}</td>
                       <td className="px-6 py-4 text-gray-400">{ship.manufacturer || '—'}</td>
                       <td className="px-6 py-4 text-gray-400">{ship.starshipClass || '—'}</td>
-                      <td className="px-6 py-4">
-                        <Badge label="Stock" variant="info" />
+                      <td className="px-6 py-4 text-gray-400">
+                        {ship.costInCredits ? ship.costInCredits.toLocaleString() : '—'}
                       </td>
                     </tr>
                   ))}

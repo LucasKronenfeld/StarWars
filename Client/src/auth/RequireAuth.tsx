@@ -16,17 +16,3 @@ export function RequireAuth({ children }: { children: ReactNode }) {
 
   return children;
 }
-
-export function RequireAdmin({ children }: { children: ReactNode }) {
-  const { isAdmin, loading } = useAuth();
-
-  if (loading) {
-    return <div className="min-h-screen bg-slate-950 flex items-center justify-center"><div className="text-cyan-400">Loading...</div></div>;
-  }
-
-  if (!isAdmin) {
-    return <Navigate to="/" replace />;
-  }
-
-  return children;
-}

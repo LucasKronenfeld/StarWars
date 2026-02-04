@@ -4522,11 +4522,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lucas\\StarWars\\StarWars\\server\\starwarsapi.server\\StarWarsApi.Server.csproj",
+      "projectUniqueName": "C:\\Users\\lucas\\StarWars\\StarWars\\Server\\StarWarsApi.Server\\StarWarsApi.Server.csproj",
       "projectName": "StarWarsApi.Server",
-      "projectPath": "C:\\Users\\lucas\\StarWars\\StarWars\\server\\starwarsapi.server\\StarWarsApi.Server.csproj",
+      "projectPath": "C:\\Users\\lucas\\StarWars\\StarWars\\Server\\StarWarsApi.Server\\StarWarsApi.Server.csproj",
       "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lucas\\StarWars\\StarWars\\server\\starwarsapi.server\\obj\\",
+      "outputPath": "C:\\Users\\lucas\\StarWars\\StarWars\\Server\\StarWarsApi.Server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -4615,13 +4615,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.417/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json."
-    }
-  ]
+  }
 }

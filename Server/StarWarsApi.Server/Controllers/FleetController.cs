@@ -48,6 +48,12 @@ public class FleetController : ControllerBase
                         Name = x.Starship.Name,
                         Manufacturer = x.Starship.Manufacturer,
                         StarshipClass = x.Starship.StarshipClass,
+                        PilotId = x.Starship.CustomPilotId
+                            ?? x.Starship.StarshipPilots.Select(sp => (int?)sp.PersonId).FirstOrDefault(),
+                        PilotName = x.Starship.CustomPilot != null
+                            ? x.Starship.CustomPilot.Name
+                            : x.Starship.StarshipPilots.Select(sp => sp.Person.Name).FirstOrDefault(),
+                        CostInCredits = x.Starship.CostInCredits,
                         Quantity = x.Quantity,
                         Nickname = x.Nickname,
                         // UI badge fields (fleet includes retired ships)

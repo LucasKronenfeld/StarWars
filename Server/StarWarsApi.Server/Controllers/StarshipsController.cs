@@ -364,11 +364,14 @@ public async Task<ActionResult<ForkStarshipResponse>> ForkCatalogStarship(
     if (req.AddToFleet)
         await AddStarshipToFleet(userId, fork.Id, quantity: 1, ct);
 
-    return Ok(new ForkStarshipResponse
-    {
-        Id = fork.Id,
-        BaseStarshipId = baseShip.Id
-    });
+    return CreatedAtAction(
+        nameof(GetById),
+        new { id = fork.Id },
+        new ForkStarshipResponse
+        {
+            Id = fork.Id,
+            BaseStarshipId = baseShip.Id
+        });
 }
 
 private async Task AddStarshipToFleet(string userId, int starshipId, int quantity, CancellationToken ct)

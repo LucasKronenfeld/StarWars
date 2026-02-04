@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { myStarshipsApi } from '../api/myStarshipsApi';
 import type { UpdateMyStarshipRequest } from '../api/myStarshipsApi';
+import { peopleApi } from '../api/peopleApi';
 import { useToast } from '../contexts/ToastContext';
 
 export function EditStarship() {
@@ -21,6 +22,11 @@ export function EditStarship() {
     enabled: !!id,
   });
 
+  const { data: people } = useQuery({
+    queryKey: ['people'],
+    queryFn: peopleApi.getAll,
+  });
+
   useEffect(() => {
     if (ship) {
       setFormData({
@@ -36,6 +42,7 @@ export function EditStarship() {
         hyperdriveRating: ship.hyperdriveRating,
         mglt: ship.mglt,
         consumables: ship.consumables,
+        pilotId: ship.pilotId,
       });
     }
   }, [ship]);
@@ -46,7 +53,7 @@ export function EditStarship() {
       toast.success('Ship updated successfully!');
       queryClient.invalidateQueries({ queryKey: ['my-starships'] });
       queryClient.invalidateQueries({ queryKey: ['my-starship', id] });
-      navigate('/hangar');
+      navigate('/fleet');
     },
     onError: (err: any) => {
       setError(err.response?.data?.message || 'Error updating starship');
@@ -85,10 +92,10 @@ export function EditStarship() {
     <div className="min-h-screen bg-slate-950 text-white p-6">
       <div className="max-w-2xl mx-auto">
         <button
-          onClick={() => navigate('/hangar')}
+          onClick={() => navigate('/fleet')}
           className="text-cyan-400 hover:text-cyan-300 mb-6"
         >
-          ← Back to Hangar
+          ← Back to Fleet
         </button>
 
         <div className="bg-slate-900 border border-slate-700 rounded-lg p-8">
@@ -149,6 +156,24 @@ export function EditStarship() {
                   onChange={(e) => handleChange('starshipClass', e.target.value)}
                   className="w-full px-4 py-2 bg-slate-800 border border-slate-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Pilot
+                </label>
+                <select
+                  value={formData.pilotId ?? ''}
+                  onChange={(e) => handleChange('pilotId', e.target.value ? parseInt(e.target.value) : '')}
+                  className="w-full px-4 py-2 bg-slate-800 border border-slate-600 rounded text-white focus:outline-none focus:border-cyan-500"
+                >
+                  <option value="">No pilot assigned</option>
+                  {people?.map((person) => (
+                    <option key={person.id} value={person.id}>
+                      {person.name}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div>
@@ -248,7 +273,7 @@ export function EditStarship() {
               </button>
               <button
                 type="button"
-                onClick={() => navigate('/hangar')}
+                onClick={() => navigate('/fleet')}
                 className="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-semibold py-2 rounded transition"
               >
                 Cancel

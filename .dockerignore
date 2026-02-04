@@ -1,0 +1,5 @@
+# Add this to .gitignore if not already present
+Server/StarWarsApi.Server/bin/
+Server/StarWarsApi.Server/obj/
+*.user
+appsettings.Development.json

@@ -7,6 +7,10 @@ public sealed class FleetItemDto
     public string? Manufacturer { get; set; }
     public string? StarshipClass { get; set; }
 
+    public int? PilotId { get; set; }
+    public string? PilotName { get; set; }
+    public decimal? CostInCredits { get; set; }
+
     public int Quantity { get; set; }
     public string? Nickname { get; set; }
 

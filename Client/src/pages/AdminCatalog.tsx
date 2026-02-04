@@ -11,6 +11,8 @@ export function AdminCatalog() {
   const [includeInactive, setIncludeInactive] = useState(false);
   const [search, setSearch] = useState('');
   const [message, setMessage] = useState('');
+  const [seedKey, setSeedKey] = useState('');
+  const [showDevControls, setShowDevControls] = useState(false);
 
   const query: AdminCatalogQuery = {
     page,
@@ -22,6 +24,12 @@ export function AdminCatalog() {
   const { data, isLoading, error } = useQuery({
     queryKey: ['admin-catalog', query],
     queryFn: () => adminApi.getCatalogStarships(query),
+  });
+
+  // Get environment info
+  const { data: envData } = useQuery({
+    queryKey: ['admin-environment'],
+    queryFn: () => adminApi.getEnvironment(),
   });
 
   const retireMutation = useMutation({
@@ -49,14 +57,26 @@ export function AdminCatalog() {
   });
 
   const seedMutation = useMutation({
-    mutationFn: () => adminApi.seed(true),
+    mutationFn: () => adminApi.syncCatalog(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-catalog'] });
-      setMessage('Catalog synced!');
+      setMessage('Catalog synced successfully!');
       setTimeout(() => setMessage(''), 3000);
     },
     onError: (err: any) => {
       setMessage(err.response?.data?.message || 'Error syncing catalog');
+    },
+  });
+
+  const devWipeMutation = useMutation({
+    mutationFn: () => adminApi.devWipeReseed(seedKey || undefined),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin-catalog'] });
+      setMessage('Database wiped and reseeded!');
+      setTimeout(() => setMessage(''), 3000);
+    },
+    onError: (err: any) => {
+      setMessage(err.response?.data?.message || err.response?.data?.error || 'Error wiping and reseeding');
     },
   });
 
@@ -73,14 +93,59 @@ export function AdminCatalog() {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold text-cyan-400">Admin Catalog</h1>
-          <button
-            onClick={() => seedMutation.mutate()}
-            disabled={seedMutation.isPending}
-            className="bg-yellow-600 hover:bg-yellow-700 disabled:bg-gray-600 px-6 py-2 rounded text-white font-semibold transition"
-          >
-            {seedMutation.isPending ? 'Syncing...' : '🔄 Sync Catalog'}
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={() => seedMutation.mutate()}
+              disabled={seedMutation.isPending}
+              className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 px-6 py-2 rounded text-white font-semibold transition"
+            >
+              {seedMutation.isPending ? 'Syncing...' : '🔄 Sync Catalog'}
+            </button>
+            {envData?.isDevelopment && (
+              <button
+                onClick={() => setShowDevControls(!showDevControls)}
+                className="bg-yellow-600 hover:bg-yellow-700 px-6 py-2 rounded text-white font-semibold transition"
+              >
+                ⚙️ Dev Tools
+              </button>
+            )}
+          </div>
         </div>
+
+        {/* Dev-only controls */}
+        {envData?.isDevelopment && showDevControls && (
+          <div className="bg-yellow-900 border border-yellow-700 rounded-lg p-6 mb-6">
+            <h2 className="text-xl font-bold text-yellow-200 mb-4">⚠️ Development Tools</h2>
+            <p className="text-yellow-100 mb-4">
+              These actions are only available in Development mode. Use with caution!
+            </p>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-yellow-200 mb-2">
+                  Seed Key (optional)
+                </label>
+                <input
+                  type="text"
+                  value={seedKey}
+                  onChange={(e) => setSeedKey(e.target.value)}
+                  placeholder="Enter seed key if required..."
+                  className="w-full px-4 py-2 bg-slate-800 border border-slate-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500"
+                />
+              </div>
+              <button
+                onClick={() => {
+                  if (confirm('⚠️ This will WIPE ALL DATA and reseed. Are you sure?')) {
+                    devWipeMutation.mutate();
+                  }
+                }}
+                disabled={devWipeMutation.isPending}
+                className="bg-red-600 hover:bg-red-700 disabled:bg-gray-600 px-6 py-2 rounded text-white font-semibold transition"
+              >
+                {devWipeMutation.isPending ? 'Wiping & Reseeding...' : '💥 Wipe & Reseed Database'}
+              </button>
+            </div>
+          </div>
+        )}
 
         {message && (
           <div className={`px-4 py-2 rounded mb-4 ${message.includes('Error') ? 'bg-red-900 text-red-200' : 'bg-green-900 text-green-200'}`}>

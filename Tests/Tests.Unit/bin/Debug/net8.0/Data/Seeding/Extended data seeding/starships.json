@@ -1,0 +1,40 @@
+{
+  "data": [
+    {
+      "id": "test-ship-1",
+      "name": "Test Cruiser Alpha",
+      "model": "TC-100",
+      "manufacturer": "Test Shipyards",
+      "costInCredits": "5000000",
+      "length": "150",
+      "maxAtmospheringSpeed": "1000",
+      "crew": "50",
+      "passengers": "200",
+      "cargoCapacity": "100000",
+      "consumables": "6 months",
+      "hyperdriveRating": "2.0",
+      "mglt": "60",
+      "starshipClass": "Light Cruiser",
+      "pilots": ["test-person-1"],
+      "films": ["test-film-1"]
+    },
+    {
+      "id": "test-ship-2",
+      "name": "Test Fighter Beta",
+      "model": "TF-50",
+      "manufacturer": "Test Defense Systems",
+      "costInCredits": "250000",
+      "length": "12",
+      "maxAtmospheringSpeed": "1200",
+      "crew": "1",
+      "passengers": "0",
+      "cargoCapacity": "100",
+      "consumables": "1 week",
+      "hyperdriveRating": "1.0",
+      "mglt": "100",
+      "starshipClass": "Starfighter",
+      "pilots": ["test-person-2"],
+      "films": ["test-film-2"]
+    }
+  ]
+}

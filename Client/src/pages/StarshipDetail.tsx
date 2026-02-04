@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { starshipsApi } from '../api/starshipsApi';
@@ -12,6 +13,10 @@ export function StarshipDetail() {
   const queryClient = useQueryClient();
   const { isAuthenticated } = useAuth();
   const toast = useToast();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   const { data: ship, isLoading, error } = useQuery({
     queryKey: ['starship', id],

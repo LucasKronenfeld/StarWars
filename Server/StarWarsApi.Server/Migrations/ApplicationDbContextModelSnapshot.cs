@@ -241,11 +241,22 @@ namespace StarWarsApi.Server.Migrations
                     b.Property<DateTime?>("ReleaseDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SourceKey")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Source", "SourceKey")
+                        .IsUnique();
 
                     b.ToTable("Films");
                 });
@@ -417,9 +428,20 @@ namespace StarWarsApi.Server.Migrations
                     b.Property<string>("SkinColor")
                         .HasColumnType("text");
 
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SourceKey")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("HomeworldId");
+
+                    b.HasIndex("Source", "SourceKey")
+                        .IsUnique();
 
                     b.ToTable("People");
                 });
@@ -454,6 +476,14 @@ namespace StarWarsApi.Server.Migrations
                     b.Property<int?>("RotationPeriod")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SourceKey")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int?>("SurfaceWater")
                         .HasColumnType("integer");
 
@@ -461,6 +491,9 @@ namespace StarWarsApi.Server.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Source", "SourceKey")
+                        .IsUnique();
 
                     b.ToTable("Planets");
                 });
@@ -519,9 +552,20 @@ namespace StarWarsApi.Server.Migrations
                     b.Property<string>("SkinColors")
                         .HasColumnType("text");
 
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SourceKey")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("HomeworldId");
+
+                    b.HasIndex("Source", "SourceKey")
+                        .IsUnique();
 
                     b.ToTable("Species");
                 });
@@ -565,6 +609,9 @@ namespace StarWarsApi.Server.Migrations
                     b.Property<int?>("Crew")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("CustomPilotId")
+                        .HasColumnType("integer");
+
                     b.Property<double?>("HyperdriveRating")
                         .HasColumnType("double precision");
 
@@ -599,6 +646,12 @@ namespace StarWarsApi.Server.Migrations
                     b.Property<int?>("Passengers")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Source")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SourceKey")
+                        .HasColumnType("text");
+
                     b.Property<string>("StarshipClass")
                         .HasColumnType("text");
 
@@ -615,6 +668,8 @@ namespace StarWarsApi.Server.Migrations
 
                     b.HasIndex("Crew");
 
+                    b.HasIndex("CustomPilotId");
+
                     b.HasIndex("Length");
 
                     b.HasIndex("Manufacturer");
@@ -628,6 +683,9 @@ namespace StarWarsApi.Server.Migrations
                     b.HasIndex("StarshipClass");
 
                     b.HasIndex("SwapiUrl")
+                        .IsUnique();
+
+                    b.HasIndex("Source", "SourceKey")
                         .IsUnique();
 
                     b.ToTable("Starships");
@@ -687,10 +745,21 @@ namespace StarWarsApi.Server.Migrations
                     b.Property<string>("Passengers")
                         .HasColumnType("text");
 
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SourceKey")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("VehicleClass")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Source", "SourceKey")
+                        .IsUnique();
 
                     b.ToTable("Vehicles");
                 });
@@ -950,12 +1019,19 @@ namespace StarWarsApi.Server.Migrations
                         .HasForeignKey("BaseStarshipId")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.HasOne("StarWarsApi.Server.Models.Person", "CustomPilot")
+                        .WithMany()
+                        .HasForeignKey("CustomPilotId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("StarWarsApi.Server.Models.ApplicationUser", "OwnerUser")
                         .WithMany()
                         .HasForeignKey("OwnerUserId")
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("BaseStarship");
+
+                    b.Navigation("CustomPilot");
 
                     b.Navigation("OwnerUser");
                 });

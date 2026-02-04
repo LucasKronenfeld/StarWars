@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lucas\\StarWars\\StarWars\\server\\starwarsapi.server\\StarWarsApi.Server.csproj": {}
+    "C:\\Users\\lucas\\StarWars\\StarWars\\Server\\StarWarsApi.Server\\StarWarsApi.Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lucas\\StarWars\\StarWars\\server\\starwarsapi.server\\StarWarsApi.Server.csproj": {
+    "C:\\Users\\lucas\\StarWars\\StarWars\\Server\\StarWarsApi.Server\\StarWarsApi.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lucas\\StarWars\\StarWars\\server\\starwarsapi.server\\StarWarsApi.Server.csproj",
+        "projectUniqueName": "C:\\Users\\lucas\\StarWars\\StarWars\\Server\\StarWarsApi.Server\\StarWarsApi.Server.csproj",
         "projectName": "StarWarsApi.Server",
-        "projectPath": "C:\\Users\\lucas\\StarWars\\StarWars\\server\\starwarsapi.server\\StarWarsApi.Server.csproj",
+        "projectPath": "C:\\Users\\lucas\\StarWars\\StarWars\\Server\\StarWarsApi.Server\\StarWarsApi.Server.csproj",
         "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lucas\\StarWars\\StarWars\\server\\starwarsapi.server\\obj\\",
+        "outputPath": "C:\\Users\\lucas\\StarWars\\StarWars\\Server\\StarWarsApi.Server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config"

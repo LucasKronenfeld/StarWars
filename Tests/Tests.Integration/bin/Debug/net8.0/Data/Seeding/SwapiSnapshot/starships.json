@@ -1,0 +1,65 @@
+[
+  {
+    "name": "CR90 corvette",
+    "model": "CR90 corvette",
+    "manufacturer": "Corellian Engineering Corporation",
+    "cost_in_credits": "3500000",
+    "length": "150",
+    "max_atmosphering_speed": "950",
+    "crew": "30-165",
+    "passengers": "600",
+    "cargo_capacity": "3000000",
+    "consumables": "1 year",
+    "hyperdrive_rating": "2.0",
+    "MGLT": "60",
+    "starship_class": "corvette",
+    "pilots": [],
+    "films": [
+      "https://swapi.dev/api/films/1/"
+    ],
+    "url": "https://swapi.dev/api/starships/2/"
+  },
+  {
+    "name": "Star Destroyer",
+    "model": "Imperial I-class Star Destroyer",
+    "manufacturer": "Kuat Drive Yards",
+    "cost_in_credits": "150000000",
+    "length": "1600",
+    "max_atmosphering_speed": "975",
+    "crew": "47060",
+    "passengers": "0",
+    "cargo_capacity": "36000000",
+    "consumables": "2 years",
+    "hyperdrive_rating": "2.0",
+    "MGLT": "60",
+    "starship_class": "Star Destroyer",
+    "pilots": [],
+    "films": [
+      "https://swapi.dev/api/films/1/",
+      "https://swapi.dev/api/films/2/"
+    ],
+    "url": "https://swapi.dev/api/starships/3/"
+  },
+  {
+    "name": "X-wing",
+    "model": "T-65 X-wing",
+    "manufacturer": "Incom Corporation",
+    "cost_in_credits": "149999",
+    "length": "12.5",
+    "max_atmosphering_speed": "1050",
+    "crew": "1",
+    "passengers": "0",
+    "cargo_capacity": "110",
+    "consumables": "1 week",
+    "hyperdrive_rating": "1.0",
+    "MGLT": "100",
+    "starship_class": "Starfighter",
+    "pilots": [
+      "https://swapi.dev/api/people/1/"
+    ],
+    "films": [
+      "https://swapi.dev/api/films/1/"
+    ],
+    "url": "https://swapi.dev/api/starships/12/"
+  }
+]

@@ -1,0 +1,351 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using StarWarsApi.Server.Data;
+using StarWarsApi.Server.Dtos;
+using StarWarsApi.Server.Models;
+
+namespace StarWarsApi.Server.Controllers;
+
+[ApiController]
+[Route("api/My-Starships")]
+[Authorize]
+public class MyStarshipsController : ControllerBase
+{
+    private readonly ApplicationDbContext _db;
+    public MyStarshipsController(ApplicationDbContext db)
+    {
+        _db = db;
+    }
+
+    private string GetUserId()
+        => User.FindFirstValue(ClaimTypes.NameIdentifier)
+           ?? throw new InvalidOperationException("User id claim missing.");
+
+    // GET /api/My-Starships
+    [HttpGet]
+    public async Task<ActionResult<PagedResponse<MyStarshipListItemDto>>> GetMine(
+        [FromQuery] MyStarshipsQuery query,
+        CancellationToken ct)
+    {
+        var userId = GetUserId();
+
+        IQueryable<Starship> baseQuery = _db.Starships.AsNoTracking()
+            .Where(s => !s.IsCatalog && s.IsActive && s.OwnerUserId == userId);
+
+        // Filtering
+        baseQuery = ApplyFilters(baseQuery, query);
+
+        // Total count BEFORE paging
+        var totalCount = await baseQuery.CountAsync(ct);
+
+        // Sorting (allowlist)
+        baseQuery = ApplySorting(baseQuery, query);
+
+        // Paging
+        var page = Math.Max(query.Page, 1);
+        var pageSize = ClampPageSize(query.PageSize);
+
+        var items = await baseQuery
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Select(s => new MyStarshipListItemDto
+            {
+                Id = s.Id,
+                Name = s.Name,
+                Model = s.Model,
+                Manufacturer = s.Manufacturer,
+                StarshipClass = s.StarshipClass,
+                CostInCredits = s.CostInCredits,
+                Length = s.Length,
+                Crew = s.Crew,
+                Passengers = s.Passengers,
+                CargoCapacity = s.CargoCapacity,
+                Consumables = s.Consumables,
+                HyperdriveRating = s.HyperdriveRating,
+                MGLT = s.MGLT,
+                BaseStarshipId = s.BaseStarshipId,
+                PilotId = s.CustomPilotId,
+                PilotName = s.CustomPilot != null ? s.CustomPilot.Name : null
+            })
+            .ToListAsync(ct);
+
+        return Ok(new PagedResponse<MyStarshipListItemDto>
+        {
+            Items = items,
+            TotalCount = totalCount
+        });
+
+    }
+
+    // GET /api/My-Starships/{id}
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<MyStarshipDetailDto>> GetMineById(int id, CancellationToken ct)
+    {
+        var userId = GetUserId();
+
+        // Allow viewing inactive ships (for "deleted" badge display)
+        var dto = await _db.Starships.AsNoTracking()
+            .Where(s => s.Id == id && !s.IsCatalog && s.OwnerUserId == userId)
+            .Select(s => new MyStarshipDetailDto
+            {
+                Id = s.Id,
+                Name = s.Name,
+                Model = s.Model,
+                Manufacturer = s.Manufacturer,
+                StarshipClass = s.StarshipClass,
+                CostInCredits = s.CostInCredits,
+                Length = s.Length,
+                Crew = s.Crew,
+                Passengers = s.Passengers,
+                CargoCapacity = s.CargoCapacity,
+                Consumables = s.Consumables,
+                HyperdriveRating = s.HyperdriveRating,
+                MGLT = s.MGLT,
+                BaseStarshipId = s.BaseStarshipId,
+                IsActive = s.IsActive,
+                PilotId = s.CustomPilotId,
+                PilotName = s.CustomPilot != null ? s.CustomPilot.Name : null
+            })
+            .FirstOrDefaultAsync(ct);
+
+        if (dto is null) return NotFound();
+
+        return Ok(dto);
+    }
+
+    private static int ClampPageSize(int pageSize)
+        => pageSize switch
+        {
+            <= 0 => 25,
+            > 100 => 100,
+            _ => pageSize
+        };
+
+    private static IQueryable<Starship> ApplyFilters(IQueryable<Starship> q, MyStarshipsQuery query)
+    {
+        if (!string.IsNullOrWhiteSpace(query.Search))
+        {
+            var term = query.Search.Trim();
+            q = q.Where(s =>
+            (s.Name != null && EF.Functions.ILike(s.Name, $"%{term}%")) ||
+            (s.Model != null && EF.Functions.ILike(s.Model, $"%{term}%")) ||
+            (s.Manufacturer != null && EF.Functions.ILike(s.Manufacturer, $"%{term}%")) ||
+            (s.StarshipClass != null && EF.Functions.ILike(s.StarshipClass, $"%{term}%"))
+        );
+
+        }
+
+        if (!string.IsNullOrWhiteSpace(query.Manufacturer))
+            q = q.Where(s => s.Manufacturer == query.Manufacturer);
+
+        if (!string.IsNullOrWhiteSpace(query.Class))
+            q = q.Where(s => s.StarshipClass == query.Class);
+
+        // Numeric ranges
+        if (query.CostMin.HasValue) q = q.Where(s => s.CostInCredits != null && s.CostInCredits >= query.CostMin);
+        if (query.CostMax.HasValue) q = q.Where(s => s.CostInCredits != null && s.CostInCredits <= query.CostMax);
+
+        if (query.LengthMin.HasValue) q = q.Where(s => s.Length != null && s.Length >= query.LengthMin);
+        if (query.LengthMax.HasValue) q = q.Where(s => s.Length != null && s.Length <= query.LengthMax);
+
+        if (query.CrewMin.HasValue) q = q.Where(s => s.Crew != null && s.Crew >= query.CrewMin);
+        if (query.CrewMax.HasValue) q = q.Where(s => s.Crew != null && s.Crew <= query.CrewMax);
+
+        if (query.PassengersMin.HasValue) q = q.Where(s => s.Passengers != null && s.Passengers >= query.PassengersMin);
+        if (query.PassengersMax.HasValue) q = q.Where(s => s.Passengers != null && s.Passengers <= query.PassengersMax);
+
+        if (query.CargoMin.HasValue) q = q.Where(s => s.CargoCapacity != null && s.CargoCapacity >= query.CargoMin);
+        if (query.CargoMax.HasValue) q = q.Where(s => s.CargoCapacity != null && s.CargoCapacity <= query.CargoMax);
+
+        if (query.PilotId.HasValue)
+            q = q.Where(s => s.CustomPilotId == query.PilotId);
+
+        return q;
+    }
+
+    private static readonly Dictionary<string, Func<IQueryable<Starship>, bool, IQueryable<Starship>>> SortMap =
+        new(StringComparer.OrdinalIgnoreCase)
+        {
+            ["name"] = (q, desc) => desc ? q.OrderByDescending(s => s.Name) : q.OrderBy(s => s.Name).ThenBy(x => x.Id),
+            ["model"] = (q, desc) => desc ? q.OrderByDescending(s => s.Model) : q.OrderBy(s => s.Model).ThenBy(x => x.Id),
+            ["manufacturer"] = (q, desc) => desc ? q.OrderByDescending(s => s.Manufacturer) : q.OrderBy(s => s.Manufacturer).ThenBy(x => x.Id),
+            ["class"] = (q, desc) => desc ? q.OrderByDescending(s => s.StarshipClass) : q.OrderBy(s => s.StarshipClass).ThenBy(x => x.Id),
+            ["cost"] = (q, desc) => desc ? q.OrderByDescending(s => s.CostInCredits) : q.OrderBy(s => s.CostInCredits).ThenBy(x => x.Id),
+            ["length"] = (q, desc) => desc ? q.OrderByDescending(s => s.Length) : q.OrderBy(s => s.Length).ThenBy(x => x.Id),
+            ["crew"] = (q, desc) => desc ? q.OrderByDescending(s => s.Crew) : q.OrderBy(s => s.Crew).ThenBy(x => x.Id),
+            ["passengers"] = (q, desc) => desc ? q.OrderByDescending(s => s.Passengers) : q.OrderBy(s => s.Passengers).ThenBy(x => x.Id),
+            ["cargo"] = (q, desc) => desc ? q.OrderByDescending(s => s.CargoCapacity) : q.OrderBy(s => s.CargoCapacity).ThenBy(x => x.Id),
+        };
+
+    private static IQueryable<Starship> ApplySorting(IQueryable<Starship> q, MyStarshipsQuery query)
+    {
+        var sortKey = string.IsNullOrWhiteSpace(query.SortBy) ? "name" : query.SortBy.Trim();
+        var desc = query.SortDir?.Equals("desc", StringComparison.OrdinalIgnoreCase) == true;
+
+        if (SortMap.TryGetValue(sortKey, out var apply))
+            return apply(q, desc);
+
+        // fallback if invalid key
+        return q.OrderBy(s => s.Name);
+    }
+
+    // POST /api/My-Starships
+    [HttpPost]
+    public async Task<ActionResult<MyStarshipDetailDto>> CreateMine(
+        [FromBody] CreateMyStarshipRequest req,
+        CancellationToken ct)
+    {
+        var userId = GetUserId();
+
+        if (string.IsNullOrWhiteSpace(req.Name))
+            return BadRequest("Name is required.");
+
+        if (req.PilotId.HasValue)
+        {
+            var pilotExists = await _db.People.AnyAsync(p => p.Id == req.PilotId, ct);
+            if (!pilotExists) return BadRequest("Pilot not found.");
+        }
+
+        var entity = new Starship
+        {
+            // Ownership
+            IsCatalog = false,
+            IsActive = true,
+            OwnerUserId = userId,
+
+            // No catalog linkage
+            SwapiUrl = null,
+            BaseStarshipId = null,
+
+            // Fields
+            Name = req.Name.Trim(),
+            Model = req.Model,
+            Manufacturer = req.Manufacturer,
+            StarshipClass = req.StarshipClass,
+
+            CostInCredits = req.CostInCredits,
+            Length = req.Length,
+            Crew = req.Crew,
+            Passengers = req.Passengers,
+            CargoCapacity = req.CargoCapacity,
+
+            HyperdriveRating = req.HyperdriveRating,
+            MGLT = req.MGLT,
+
+            MaxAtmospheringSpeed = req.MaxAtmospheringSpeed,
+            Consumables = req.Consumables,
+
+            CustomPilotId = req.PilotId
+        };
+
+        _db.Starships.Add(entity);
+        await _db.SaveChangesAsync(ct);
+
+        var dto = new MyStarshipDetailDto
+        {
+            Id = entity.Id,
+            Name = entity.Name,
+            Model = entity.Model,
+            Manufacturer = entity.Manufacturer,
+            StarshipClass = entity.StarshipClass,
+            CostInCredits = entity.CostInCredits,
+            Length = entity.Length,
+            Crew = entity.Crew,
+            Passengers = entity.Passengers,
+            CargoCapacity = entity.CargoCapacity,
+            Consumables = entity.Consumables,
+            HyperdriveRating = entity.HyperdriveRating,
+            MGLT = entity.MGLT,
+            BaseStarshipId = null,
+            IsActive = true,
+            PilotId = entity.CustomPilotId,
+            PilotName = null
+        };
+
+        return CreatedAtAction(nameof(GetMineById), new { id = entity.Id }, dto);
+    }
+
+    // PUT /api/My-Starships/{id}
+    [HttpPut("{id:int}")]
+    public async Task<ActionResult> UpdateMine(
+        int id,
+        [FromBody] UpdateMyStarshipRequest req,
+        CancellationToken ct)
+    {
+        var userId = GetUserId();
+
+        var ship = await _db.Starships
+            .FirstOrDefaultAsync(s =>
+                s.Id == id &&
+                !s.IsCatalog &&
+                s.IsActive &&
+                s.OwnerUserId == userId,
+                ct);
+
+        if (ship is null)
+            return NotFound("Custom starship not found or access denied.");
+
+        if (string.IsNullOrWhiteSpace(req.Name))
+            return BadRequest("Name is required.");
+
+        if (req.PilotId.HasValue)
+        {
+            var pilotExists = await _db.People.AnyAsync(p => p.Id == req.PilotId, ct);
+            if (!pilotExists) return BadRequest("Pilot not found.");
+        }
+
+        // Update allowed fields
+        ship.Name = req.Name.Trim();
+        ship.Model = req.Model;
+        ship.Manufacturer = req.Manufacturer;
+        ship.StarshipClass = req.StarshipClass;
+
+        ship.CostInCredits = req.CostInCredits;
+        ship.Length = req.Length;
+        ship.Crew = req.Crew;
+        ship.Passengers = req.Passengers;
+        ship.CargoCapacity = req.CargoCapacity;
+
+        ship.HyperdriveRating = req.HyperdriveRating;
+        ship.MGLT = req.MGLT;
+
+        ship.MaxAtmospheringSpeed = req.MaxAtmospheringSpeed;
+        ship.Consumables = req.Consumables;
+
+        ship.CustomPilotId = req.PilotId;
+
+        await _db.SaveChangesAsync(ct);
+
+        return NoContent();
+    }
+
+    // DELETE /api/My-Starships/{id}
+    // Soft delete (mark inactive)
+    [HttpDelete("{id:int}")]
+    public async Task<ActionResult> DeleteMine(int id, CancellationToken ct)
+    {
+        var userId = GetUserId();
+
+        var ship = await _db.Starships
+            .FirstOrDefaultAsync(s =>
+                s.Id == id &&
+                !s.IsCatalog &&
+                s.OwnerUserId == userId,
+                ct);
+
+        if (ship is null)
+            return NotFound("Custom starship not found or access denied.");
+
+        // Already deleted? Treat as success (idempotent)
+        if (!ship.IsActive)
+            return NoContent();
+
+        ship.IsActive = false;
+
+        await _db.SaveChangesAsync(ct);
+
+        return NoContent();
+    }
+}

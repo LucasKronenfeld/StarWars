@@ -9,17 +9,25 @@ interface ToastProps {
   duration?: number;
 }
 
-export function Toast({ message, type, onClose, duration = 4000 }: ToastProps) {
+export function Toast({ message, type, onClose, duration }: ToastProps) {
   const [isVisible, setIsVisible] = useState(true);
 
+  // Use longer duration for errors (15 seconds), shorter for others (4 seconds)
+  const actualDuration = duration ?? (type === 'error' ? 15000 : 4000);
+
   useEffect(() => {
+    // If duration is Infinity, don't auto-dismiss
+    if (actualDuration === Infinity) {
+      return;
+    }
+
     const timer = setTimeout(() => {
       setIsVisible(false);
       setTimeout(onClose, 300); // Allow fade-out animation
-    }, duration);
+    }, actualDuration);
 
     return () => clearTimeout(timer);
-  }, [duration, onClose]);
+  }, [actualDuration, onClose]);
 
   const bgColor = {
     success: 'bg-green-600',
@@ -61,6 +69,7 @@ export interface ToastItem {
   id: string;
   message: string;
   type: ToastType;
+  duration?: number;
 }
 
 export function useToast() {

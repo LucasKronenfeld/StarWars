@@ -3,7 +3,11 @@ using StarWarsApi.Server.Swapi.Dto;
 
 namespace StarWarsApi.Server.Swapi;
 
-public class SwapiClient
+/// <summary>
+/// HTTP-based SWAPI client for production and development.
+/// Fetches data from the live swapi.dev API.
+/// </summary>
+public class SwapiClient : ISwapiSource
 {
     private readonly HttpClient _http;
 

@@ -18,7 +18,20 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddHttpClient<SwapiClient>();
+// Register SWAPI source based on environment
+if (builder.Environment.EnvironmentName == "Testing" && 
+    builder.Configuration.GetValue<bool>("Seed:UseLocalSnapshot", false))
+{
+    // Use snapshot source for deterministic testing
+    builder.Services.AddScoped<ISwapiSource, SnapshotSwapiSource>();
+}
+else
+{
+    // Use HTTP client for production/development
+    builder.Services.AddHttpClient<SwapiClient>();
+    builder.Services.AddScoped<ISwapiSource, SwapiClient>();
+}
+
 builder.Services.AddScoped<DatabaseSeeder>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -103,12 +116,18 @@ var jwtIssuer = jwtSection["Issuer"] ?? "StarWarsApi";
 var jwtAudience = jwtSection["Audience"] ?? "StarWarsApi";
 var corsPolicyName = "ClientCors";
 
+// CORS: support both config-based and default localhost origins
+var configuredOrigins = builder.Configuration.GetSection("CORS:Origins").Get<string[]>() 
+    ?? Array.Empty<string>();
+var defaultOrigins = new[] { "http://localhost:5173", "http://localhost:5174", "http://localhost:3000" };
+var allowedOrigins = configuredOrigins.Length > 0 ? configuredOrigins : defaultOrigins;
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(corsPolicyName, policy =>
     {
         policy
-            .WithOrigins("http://localhost:5173", "http://localhost:5174")
+            .WithOrigins(allowedOrigins)
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
@@ -138,8 +157,36 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 var app = builder.Build();
 
+// Apply migrations automatically (configurable for production)
+if (builder.Configuration.GetValue<bool>("Database:AutoMigrate", true))
+{
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    
+    logger.LogInformation("Applying pending database migrations...");
+    await db.Database.MigrateAsync();
+    logger.LogInformation("Database migrations applied successfully");
+}
+
 // Bootstrap Admin role and assign to configured emails
-await BootstrapAdminRoleAsync(app);
+// One-time seeding if database is empty
+if (builder.Configuration.GetValue<bool>("Seed:AutoBootstrap", true))
+{
+    using var scope = app.Services.CreateScope();
+    var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    
+    try
+    {
+        var result = await seeder.BootstrapAsync(CancellationToken.None);
+        logger.LogInformation("Bootstrap seeding result: {@Result}", result);
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "Bootstrap seeding failed - application will continue but catalog may be empty");
+    }
+}
 
 if (app.Environment.IsDevelopment())
 {
@@ -164,58 +211,16 @@ app.UseCors(corsPolicyName);
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Health check endpoint for Docker and Azure
+app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }))
+    .AllowAnonymous();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
 
-// Admin role bootstrap: ensures "Admin" role exists and assigns configured emails to it
-static async Task BootstrapAdminRoleAsync(WebApplication app)
-{
-    using var scope = app.Services.CreateScope();
-    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-    var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
-
-    const string adminRole = "Admin";
-
-    // Ensure Admin role exists
-    if (!await roleManager.RoleExistsAsync(adminRole))
-    {
-        var result = await roleManager.CreateAsync(new IdentityRole(adminRole));
-        if (result.Succeeded)
-            logger.LogInformation("Created '{Role}' role.", adminRole);
-        else
-            logger.LogWarning("Failed to create '{Role}' role: {Errors}", adminRole, 
-                string.Join(", ", result.Errors.Select(e => e.Description)));
-    }
-
-    // Get admin emails from config (case-insensitive)
-    var adminEmails = config.GetSection("Seed:AdminEmails").Get<string[]>() ?? Array.Empty<string>();
-
-    foreach (var email in adminEmails)
-    {
-        if (string.IsNullOrWhiteSpace(email)) continue;
-
-        var normalizedEmail = email.Trim().ToLowerInvariant();
-        var user = await userManager.FindByEmailAsync(normalizedEmail);
-
-        if (user is null)
-        {
-            logger.LogWarning("Admin email '{Email}' not found in database. User must register first.", normalizedEmail);
-            continue;
-        }
-
-        if (!await userManager.IsInRoleAsync(user, adminRole))
-        {
-            var result = await userManager.AddToRoleAsync(user, adminRole);
-            if (result.Succeeded)
-                logger.LogInformation("Assigned '{Role}' role to user '{Email}'.", adminRole, normalizedEmail);
-            else
-                logger.LogWarning("Failed to assign '{Role}' to '{Email}': {Errors}", adminRole, normalizedEmail,
-                    string.Join(", ", result.Errors.Select(e => e.Description)));
-        }
-    }
-}
+// Make Program class accessible to WebApplicationFactory in test projects
+public partial class Program { }

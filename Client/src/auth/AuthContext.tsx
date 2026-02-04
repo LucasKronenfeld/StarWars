@@ -16,7 +16,6 @@ interface AuthContextType {
   register: (email: string, password: string) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
-  isAdmin: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -31,13 +30,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (token) {
       try {
         const decoded = jwtDecode<any>(token);
-        const roles = Array.isArray(decoded.role) ? decoded.role : (decoded.role ? [decoded.role] : []);
+        console.log('JWT decoded:', decoded);
+        // Try multiple claim name variations
+        let roles: string[] = [];
+        if (Array.isArray(decoded.role)) {
+          roles = decoded.role;
+        } else if (decoded.role) {
+          roles = [decoded.role];
+        } else if (Array.isArray(decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'])) {
+          roles = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+        } else if (decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']) {
+          roles = [decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']];
+        }
+        console.log('Parsed roles:', roles);
         setUser({
           userId: decoded.sub,
           email: decoded.email,
           roles,
         });
       } catch (error) {
+        console.error('JWT decode error:', error);
         localStorage.removeItem('token');
       }
     }
@@ -49,7 +61,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('token', response.token);
 
     const decoded = jwtDecode<any>(response.token);
-    const roles = Array.isArray(decoded.role) ? decoded.role : (decoded.role ? [decoded.role] : []);
+    console.log('Login JWT decoded:', decoded);
+    // Try multiple claim name variations
+    let roles: string[] = [];
+    if (Array.isArray(decoded.role)) {
+      roles = decoded.role;
+    } else if (decoded.role) {
+      roles = [decoded.role];
+    } else if (Array.isArray(decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'])) {
+      roles = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+    } else if (decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']) {
+      roles = [decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']];
+    }
+    console.log('Login parsed roles:', roles);
     setUser({
       userId: decoded.sub,
       email: decoded.email,
@@ -62,7 +86,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('token', response.token);
 
     const decoded = jwtDecode<any>(response.token);
-    const roles = Array.isArray(decoded.role) ? decoded.role : (decoded.role ? [decoded.role] : []);
+    console.log('Register JWT decoded:', decoded);
+    // Try multiple claim name variations
+    let roles: string[] = [];
+    if (Array.isArray(decoded.role)) {
+      roles = decoded.role;
+    } else if (decoded.role) {
+      roles = [decoded.role];
+    } else if (Array.isArray(decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'])) {
+      roles = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+    } else if (decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']) {
+      roles = [decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']];
+    }
+    console.log('Register parsed roles:', roles);
     setUser({
       userId: decoded.sub,
       email: decoded.email,
@@ -84,7 +120,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         register,
         logout,
         isAuthenticated: !!user,
-        isAdmin: user?.roles.includes('Admin') ?? false,
       }}
     >
       {children}

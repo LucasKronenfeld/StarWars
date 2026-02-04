@@ -5,6 +5,9 @@ export interface FleetItemDto {
   name: string;
   manufacturer?: string;
   starshipClass?: string;
+  pilotId?: number;
+  pilotName?: string;
+  costInCredits?: number;
   quantity: number;
   nickname?: string;
   isCatalog: boolean;

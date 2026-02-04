@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import { useToast } from '../contexts/ToastContext';
 
+const LOGIN_ERROR_KEY = 'login_error';
+
 export function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  // Initialize error from sessionStorage
+  const [error, setError] = useState(() => sessionStorage.getItem(LOGIN_ERROR_KEY) || '');
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -16,18 +19,48 @@ export function Login() {
   // Get the page user was trying to access, or default to /fleet
   const from = (location.state as { from?: string })?.from || '/fleet';
 
+  // Clear error from sessionStorage when navigating away
+  useEffect(() => {
+    return () => {
+      sessionStorage.removeItem(LOGIN_ERROR_KEY);
+    };
+  }, []);
+
+  // Keep checking and restoring error from sessionStorage
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const storedError = sessionStorage.getItem(LOGIN_ERROR_KEY);
+      if (storedError && storedError !== error) {
+        setError(storedError);
+      }
+    }, 100);
+    return () => clearInterval(interval);
+  }, [error]);
+
+  // Helper to set error and persist it
+  const setPersistedError = (msg: string) => {
+    if (msg) {
+      sessionStorage.setItem(LOGIN_ERROR_KEY, msg);
+    } else {
+      sessionStorage.removeItem(LOGIN_ERROR_KEY);
+    }
+    setError(msg);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    
+    // Clear any existing toasts from previous attempts
+    toast.clearAll();
 
     // Client-side validation to prevent bad requests
     if (!email || !email.includes('@')) {
-      setError('Please enter a valid email address.');
+      setPersistedError('Please enter a valid email address.');
       return;
     }
 
     if (!password) {
-      setError('Please enter your password.');
+      setPersistedError('Please enter your password.');
       return;
     }
 
@@ -35,19 +68,24 @@ export function Login() {
 
     try {
       await login(email, password);
+      setPersistedError(''); // Clear error only on successful login
       toast.success('Welcome back!');
       navigate(from, { replace: true });
     } catch (err: any) {
       // Backend returns 401 (Unauthorized) for invalid credentials
+      let errorMsg = 'Login failed. Please try again.';
+      
       if (err.response?.status === 401) {
-        setError('Invalid email or password.');
+        // Check if backend provided a specific message
+        errorMsg = err.response?.data?.message || 'Invalid email or password.';
       } else if (err.response?.status === 400) {
-        setError('Invalid request. Please check your information.');
+        errorMsg = 'Invalid request. Please check your information.';
       } else if (!err.response) {
-        setError('Cannot connect to server. Please check your connection.');
-      } else {
-        setError('Login failed. Please try again.');
+        errorMsg = 'Cannot connect to server. Please check your connection.';
       }
+      
+      setPersistedError(errorMsg);
+      toast.error(errorMsg);
     } finally {
       setLoading(false);
     }
@@ -64,13 +102,15 @@ export function Login() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-2">
               Email
             </label>
             <input
               type="email"
+              name="email"
+              autoComplete="off"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -85,6 +125,8 @@ export function Login() {
             </label>
             <input
               type="password"
+              name="password"
+              autoComplete="off"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

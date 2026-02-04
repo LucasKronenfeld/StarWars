@@ -1,0 +1,36 @@
+{
+  "data": [
+    {
+      "id": "test-person-1",
+      "name": "Test Hero Alpha",
+      "height": "180",
+      "mass": "75",
+      "hairColor": "brown",
+      "skinColor": "fair",
+      "eyeColor": "blue",
+      "birthYear": "25BBY",
+      "gender": "male",
+      "homeworld": "test-planet-1",
+      "films": ["test-film-1"],
+      "species": ["test-species-1"],
+      "starships": ["test-ship-1"],
+      "vehicles": ["test-vehicle-1"]
+    },
+    {
+      "id": "test-person-2",
+      "name": "Test Hero Beta",
+      "height": "165",
+      "mass": "60",
+      "hairColor": "black",
+      "skinColor": "tan",
+      "eyeColor": "green",
+      "birthYear": "30BBY",
+      "gender": "female",
+      "homeworld": "test-planet-2",
+      "films": ["test-film-1", "test-film-2"],
+      "species": [],
+      "starships": ["test-ship-2"],
+      "vehicles": []
+    }
+  ]
+}

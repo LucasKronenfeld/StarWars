@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "id": "test-planet-1",
+      "name": "Test World Prime",
+      "rotationPeriod": "24",
+      "orbitalPeriod": "365",
+      "diameter": "12000",
+      "climate": "temperate",
+      "gravity": "1 standard",
+      "terrain": "forests, mountains",
+      "surfaceWater": "70",
+      "population": "5000000",
+      "residents": ["test-person-1"],
+      "films": ["test-film-1"]
+    },
+    {
+      "id": "test-planet-2",
+      "name": "Test World Secondary",
+      "rotationPeriod": "28",
+      "orbitalPeriod": "400",
+      "diameter": "10000",
+      "climate": "arid",
+      "gravity": "0.9 standard",
+      "terrain": "desert, canyons",
+      "surfaceWater": "15",
+      "population": "1000000",
+      "residents": ["test-person-2"],
+      "films": ["test-film-2"]
+    }
+  ]
+}

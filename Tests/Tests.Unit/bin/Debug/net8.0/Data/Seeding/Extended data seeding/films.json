@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "id": "test-film-1",
+      "title": "Test Movie: The Beginning",
+      "episodeId": 10,
+      "openingCrawl": "It is a period of testing. Engineers have created sample data to verify the seeding system works correctly...",
+      "director": "Test Director",
+      "producer": "Test Producer",
+      "releaseDate": "2026-01-01",
+      "characters": ["test-person-1", "test-person-2"],
+      "planets": ["test-planet-1"],
+      "starships": ["test-ship-1"],
+      "vehicles": ["test-vehicle-1"],
+      "species": ["test-species-1"]
+    },
+    {
+      "id": "test-film-2",
+      "title": "Test Movie: The Sequel",
+      "episodeId": 11,
+      "openingCrawl": "The testing continues! Our heroes must validate that relationships work correctly...",
+      "director": "Another Director",
+      "producer": "Another Producer",
+      "releaseDate": "2026-06-01",
+      "characters": ["test-person-2"],
+      "planets": ["test-planet-2"],
+      "starships": ["test-ship-2"],
+      "vehicles": [],
+      "species": []
+    }
+  ]
+}

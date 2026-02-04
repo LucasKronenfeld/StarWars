@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "id": "test-species-1",
+      "name": "Test Species Alpha",
+      "classification": "mammal",
+      "designation": "sentient",
+      "averageHeight": "180",
+      "skinColors": "fair, tan, brown",
+      "hairColors": "black, brown, blonde",
+      "eyeColors": "blue, green, brown",
+      "averageLifespan": "80",
+      "language": "Test Basic",
+      "homeworld": "test-planet-1",
+      "people": ["test-person-1"],
+      "films": ["test-film-1"]
+    }
+  ]
+}

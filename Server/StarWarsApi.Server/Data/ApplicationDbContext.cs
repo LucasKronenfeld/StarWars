@@ -60,10 +60,43 @@ namespace StarWarsApi.Server.Data
                 .WithMany()
                 .HasForeignKey(s => s.BaseStarshipId)
                 .OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<Starship>()
+                .HasOne(s => s.CustomPilot)
+                .WithMany()
+                .HasForeignKey(s => s.CustomPilotId)
+                .OnDelete(DeleteBehavior.SetNull);
 
-            // SwapiUrl should be unique when present (catalog rows)
+            // SwapiUrl should be unique when present (catalog rows) - legacy
             modelBuilder.Entity<Starship>()
                 .HasIndex(s => s.SwapiUrl)
+                .IsUnique();
+
+            // ---- Unified Data Source Identity (catalog entities) ----
+            // Composite unique index (Source, SourceKey) for catalog entities
+            // Prevents duplicates from SWAPI and extended JSON sources
+
+            modelBuilder.Entity<Film>()
+                .HasIndex(f => new { f.Source, f.SourceKey })
+                .IsUnique();
+
+            modelBuilder.Entity<Person>()
+                .HasIndex(p => new { p.Source, p.SourceKey })
+                .IsUnique();
+
+            modelBuilder.Entity<Planet>()
+                .HasIndex(p => new { p.Source, p.SourceKey })
+                .IsUnique();
+
+            modelBuilder.Entity<Species>()
+                .HasIndex(s => new { s.Source, s.SourceKey })
+                .IsUnique();
+
+            modelBuilder.Entity<Starship>()
+                .HasIndex(s => new { s.Source, s.SourceKey })
+                .IsUnique();
+
+            modelBuilder.Entity<Vehicle>()
+                .HasIndex(v => new { v.Source, v.SourceKey })
                 .IsUnique();
 
              // ---- Starship indexes for catalog queries ----

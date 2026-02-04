@@ -15,6 +15,8 @@ export interface MyStarshipListItemDto {
   hyperdriveRating?: number;
   mglt?: number;
   baseStarshipId?: number;
+  pilotId?: number;
+  pilotName?: string;
 }
 
 export interface MyStarshipDetailDto extends MyStarshipListItemDto {
@@ -42,6 +44,7 @@ export interface MyStarshipsQuery {
   passengerMax?: number;
   cargoMin?: number;
   cargoMax?: number;
+  pilotId?: number;
   sortBy?: string;
   sortDir?: string;
 }
@@ -60,6 +63,7 @@ export interface CreateMyStarshipRequest {
   mglt?: number;
   maxAtmospheringSpeed?: string;
   consumables?: string;
+  pilotId?: number;
 }
 
 export interface UpdateMyStarshipRequest extends CreateMyStarshipRequest {}

@@ -1,9 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { useAuth } from '../auth/AuthContext';
 
 export function Navbar() {
-  const { isAuthenticated, isAdmin, user, logout } = useAuth();
+  const { isAuthenticated, user, logout } = useAuth();
   const navigate = useNavigate();
+  const [exploreOpen, setExploreOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -25,20 +27,42 @@ export function Navbar() {
           <Link to="/films" className="text-gray-300 hover:text-yellow-400 transition">
             Films
           </Link>
+          
+          {/* Explore dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setExploreOpen(!exploreOpen)}
+              onBlur={() => setTimeout(() => setExploreOpen(false), 200)}
+              className="text-gray-300 hover:text-emerald-400 transition flex items-center gap-1"
+            >
+              Explore
+              <svg className={`w-4 h-4 transition ${exploreOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {exploreOpen && (
+              <div className="absolute top-full left-0 mt-2 bg-slate-800 border border-slate-600 rounded-lg shadow-lg py-2 min-w-[140px] z-50">
+                <Link to="/people" className="block px-4 py-2 text-gray-300 hover:bg-slate-700 hover:text-yellow-400 transition">
+                  👤 Characters
+                </Link>
+                <Link to="/planets" className="block px-4 py-2 text-gray-300 hover:bg-slate-700 hover:text-emerald-400 transition">
+                  🌍 Planets
+                </Link>
+                <Link to="/species" className="block px-4 py-2 text-gray-300 hover:bg-slate-700 hover:text-purple-400 transition">
+                  🧬 Species
+                </Link>
+                <Link to="/vehicles" className="block px-4 py-2 text-gray-300 hover:bg-slate-700 hover:text-orange-400 transition">
+                  🚗 Vehicles
+                </Link>
+              </div>
+            )}
+          </div>
 
           {isAuthenticated ? (
             <>
               <Link to="/fleet" className="text-gray-300 hover:text-cyan-400 transition">
                 Fleet
               </Link>
-              <Link to="/hangar" className="text-gray-300 hover:text-cyan-400 transition">
-                Hangar
-              </Link>
-              {isAdmin && (
-                <Link to="/admin" className="text-yellow-500 hover:text-yellow-400 transition font-semibold">
-                  🔑 Admin
-                </Link>
-              )}
               <div className="text-sm text-gray-400">
                 {user?.email}
               </div>

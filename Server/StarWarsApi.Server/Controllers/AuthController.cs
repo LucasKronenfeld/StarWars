@@ -55,10 +55,16 @@ public class AuthController : ControllerBase
         var email = req.Email.Trim().ToLowerInvariant();
         var user = await _userManager.FindByEmailAsync(email);
 
-        if (user is null) return Unauthorized();
+        if (user is null)
+        {
+            return Unauthorized(new { message = "No account found with this email. Please sign up first." });
+        }
 
         var ok = await _userManager.CheckPasswordAsync(user, req.Password);
-        if (!ok) return Unauthorized();
+        if (!ok)
+        {
+            return Unauthorized(new { message = "Incorrect password. Please try again." });
+        }
 
         var roles = await _userManager.GetRolesAsync(user);
         var token = CreateJwt(user, roles);
