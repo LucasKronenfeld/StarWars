@@ -77,41 +77,38 @@ export function Fleet() {
     setEditQuantity(quantity);
   };
 
-  const formatCredits = (value?: number) => {
-    if (value === null || value === undefined) return '—';
-    return value.toLocaleString();
-  };
-
   const isLoading = activeTab === 'fleet' ? fleetLoading : hangarLoading;
   const error = activeTab === 'fleet' ? fleetError : hangarError;
 
   if (error) {
     return (
-      <div className="min-h-screen bg-slate-950 text-red-400 flex items-center justify-center">
-        Error loading {activeTab}
+      <div className="min-h-[80vh] flex items-center justify-center">
+        <div className="bg-black/40 backdrop-blur-md border border-red-500/30 rounded-xl p-8 text-center">
+          <p className="text-red-400 text-lg">Error loading {activeTab}</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white p-6">
+    <div className="min-h-screen text-white p-6 page-transition">
       <div className="max-w-7xl mx-auto">
         {/* Header with tabs */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div>
-            <h1 className="text-4xl font-bold text-cyan-400">Command Center</h1>
+            <h1 className="text-4xl font-bold text-yellow-400 text-shadow">Command Center</h1>
             <p className="text-gray-400 mt-1">Manage your fleet and custom ships</p>
           </div>
           <div className="flex gap-3">
             <button
               onClick={() => setIsAddModalOpen(true)}
-              className="bg-green-600 hover:bg-green-500 px-6 py-3 rounded-lg text-white font-semibold transition flex items-center gap-2"
+              className="bg-yellow-500 hover:bg-yellow-400 px-6 py-3 rounded-lg text-black font-semibold transition flex items-center gap-2"
             >
               ➕ Add Ships
             </button>
             <button
               onClick={() => navigate('/ship-builder')}
-              className="bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 px-6 py-3 rounded-lg text-white font-semibold transition flex items-center gap-2"
+              className="bg-black/40 hover:bg-black/60 border border-yellow-500/50 hover:border-yellow-400 px-6 py-3 rounded-lg text-yellow-400 hover:text-yellow-300 font-semibold transition flex items-center gap-2"
             >
               🔧 Ship Builder
             </button>
@@ -119,13 +116,13 @@ export function Fleet() {
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex gap-1 bg-slate-900 p-1 rounded-lg w-fit mb-6">
+        <div className="flex gap-1 bg-black/40 backdrop-blur-md p-1 rounded-lg w-fit mb-6 border border-white/10">
           <button
             onClick={() => setActiveTab('fleet')}
             className={`px-6 py-2 rounded-md font-medium transition ${
               activeTab === 'fleet'
-                ? 'bg-cyan-600 text-white'
-                : 'text-gray-400 hover:text-white hover:bg-slate-800'
+                ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
+                : 'text-gray-400 hover:text-white hover:bg-white/10'
             }`}
           >
             🚀 My Fleet ({fleet?.items.length || 0})
@@ -134,8 +131,8 @@ export function Fleet() {
             onClick={() => setActiveTab('hangar')}
             className={`px-6 py-2 rounded-md font-medium transition ${
               activeTab === 'hangar'
-                ? 'bg-purple-600 text-white'
-                : 'text-gray-400 hover:text-white hover:bg-slate-800'
+                ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
+                : 'text-gray-400 hover:text-white hover:bg-white/10'
             }`}
           >
             🔧 Custom Hangar ({hangarData?.totalCount || 0})
@@ -143,48 +140,53 @@ export function Fleet() {
         </div>
 
         {isLoading ? (
-          <div className="text-center text-cyan-400 py-12">Loading...</div>
+          <div className="min-h-[40vh] flex items-center justify-center">
+            <div className="text-center">
+              <div className="text-4xl mb-4 animate-pulse">🚀</div>
+              <p className="text-yellow-400">Loading...</p>
+            </div>
+          </div>
         ) : activeTab === 'fleet' ? (
           /* Fleet Tab Content */
           fleet?.items.length === 0 ? (
-            <div className="bg-slate-900 border border-slate-700 rounded-lg p-12 text-center">
+            <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-12 text-center">
               <div className="text-6xl mb-4">🚀</div>
               <p className="text-gray-400 text-lg mb-6">Your fleet is empty.</p>
               <div className="flex justify-center gap-4">
                 <Link
                   to="/catalog"
-                  className="bg-cyan-600 hover:bg-cyan-500 px-6 py-3 rounded-lg text-white font-semibold transition"
+                  className="bg-yellow-500 hover:bg-yellow-400 px-6 py-3 rounded-lg text-black font-semibold transition"
                 >
                   📦 Browse Catalog
                 </Link>
                 <button
                   onClick={() => navigate('/ship-builder')}
-                  className="border border-purple-500 hover:border-purple-400 px-6 py-3 rounded-lg text-purple-400 hover:text-purple-300 font-semibold transition"
+                  className="border border-yellow-500/50 hover:border-yellow-400 px-6 py-3 rounded-lg text-yellow-400 hover:text-yellow-300 font-semibold transition"
                 >
                   🔧 Build Custom Ship
                 </button>
               </div>
             </div>
           ) : (
-            <div className="bg-slate-900 border border-slate-700 rounded-lg overflow-hidden">
+            <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden">
               <table className="w-full">
-                <thead className="bg-slate-800 border-b border-slate-700">
+                <thead className="bg-black/30 border-b border-white/10">
                   <tr>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Name</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Type</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Pilot / Class</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Manufacturer</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Quantity</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Actions</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-300">Name</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-300">Type</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-300">Pilot / Class</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-300">Manufacturer</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-300">Quantity</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-300">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-700">
+                <tbody className="divide-y divide-white/5">
                   {fleet?.items.map((item) => (
-                    <tr key={item.starshipId} className="hover:bg-slate-800 transition">
+                    <tr key={item.starshipId} className="hover:bg-white/5 transition">
                       <td className="px-6 py-4 font-medium">
                         <Link
                           to={item.isCatalog ? `/catalog/${item.starshipId}` : `/hangar/${item.starshipId}`}
-                          className="text-white hover:text-cyan-400 transition"
+                          className="text-white hover:text-yellow-400 transition"
                         >
                           {item.name}
                         </Link>
@@ -212,7 +214,7 @@ export function Fleet() {
                             min="1"
                             value={editQuantity}
                             onChange={(e) => setEditQuantity(parseInt(e.target.value) || 1)}
-                            className="w-16 px-2 py-1 bg-slate-800 border border-slate-600 rounded text-white"
+                            className="w-16 px-2 py-1 bg-black/40 border border-white/20 rounded text-white focus:border-yellow-500/50"
                           />
                         ) : (
                           <span>{item.quantity}</span>
@@ -224,13 +226,13 @@ export function Fleet() {
                             <button
                               onClick={() => updateFleetMutation.mutate(item.starshipId)}
                               disabled={updateFleetMutation.isPending}
-                              className="bg-green-600 hover:bg-green-700 disabled:bg-gray-600 px-3 py-1 rounded text-sm text-white transition"
+                              className="bg-yellow-500 hover:bg-yellow-400 disabled:bg-gray-600 px-3 py-1 rounded text-sm text-black font-medium transition"
                             >
                               Save
                             </button>
                             <button
                               onClick={() => setEditingId(null)}
-                              className="bg-slate-600 hover:bg-slate-700 px-3 py-1 rounded text-sm text-white transition"
+                              className="bg-black/40 hover:bg-black/60 border border-white/20 px-3 py-1 rounded text-sm text-white transition"
                             >
                               Cancel
                             </button>
@@ -239,7 +241,7 @@ export function Fleet() {
                           <>
                             <button
                               onClick={() => handleEdit(item.starshipId, item.quantity)}
-                              className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm text-white transition"
+                              className="bg-black/40 hover:bg-black/60 border border-yellow-500/50 hover:border-yellow-400 px-3 py-1 rounded text-sm text-yellow-400 transition"
                             >
                               Edit
                             </button>
@@ -250,7 +252,7 @@ export function Fleet() {
                                 }
                               }}
                               disabled={removeFromFleetMutation.isPending}
-                              className="bg-red-600 hover:bg-red-700 disabled:bg-gray-600 px-3 py-1 rounded text-sm text-white transition"
+                              className="bg-red-600/20 hover:bg-red-600/30 border border-red-500/50 hover:border-red-400 disabled:bg-gray-600 px-3 py-1 rounded text-sm text-red-400 transition"
                             >
                               Remove
                             </button>
@@ -266,19 +268,19 @@ export function Fleet() {
         ) : (
           /* Hangar Tab Content */
           hangarData?.items.length === 0 ? (
-            <div className="bg-slate-900 border border-slate-700 rounded-lg p-12 text-center">
+            <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-12 text-center">
               <div className="text-6xl mb-4">🔧</div>
               <p className="text-gray-400 text-lg mb-6">Your hangar is empty. Build or fork some ships!</p>
               <div className="flex justify-center gap-4">
                 <button
                   onClick={() => navigate('/ship-builder')}
-                  className="bg-purple-600 hover:bg-purple-500 px-6 py-3 rounded-lg text-white font-semibold transition"
+                  className="bg-yellow-500 hover:bg-yellow-400 px-6 py-3 rounded-lg text-black font-semibold transition"
                 >
                   🔧 Build from Scratch
                 </button>
                 <Link
                   to="/catalog"
-                  className="border border-cyan-500 hover:border-cyan-400 px-6 py-3 rounded-lg text-cyan-400 hover:text-cyan-300 font-semibold transition"
+                  className="border border-yellow-500/50 hover:border-yellow-400 px-6 py-3 rounded-lg text-yellow-400 hover:text-yellow-300 font-semibold transition"
                 >
                   📦 Fork from Catalog
                 </Link>
@@ -286,25 +288,25 @@ export function Fleet() {
             </div>
           ) : (
             <>
-              <div className="bg-slate-900 border border-slate-700 rounded-lg overflow-hidden">
+              <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden">
                 <table className="w-full">
-                  <thead className="bg-slate-800 border-b border-slate-700">
+                  <thead className="bg-black/30 border-b border-white/10">
                     <tr>
-                      <th className="px-6 py-3 text-left text-sm font-semibold">Name</th>
-                      <th className="px-6 py-3 text-left text-sm font-semibold">Manufacturer</th>
-                      <th className="px-6 py-3 text-left text-sm font-semibold">Class</th>
-                      <th className="px-6 py-3 text-left text-sm font-semibold">Pilot</th>
-                      <th className="px-6 py-3 text-left text-sm font-semibold">Status</th>
-                      <th className="px-6 py-3 text-left text-sm font-semibold">Actions</th>
+                      <th className="px-6 py-3 text-left text-sm font-semibold text-gray-300">Name</th>
+                      <th className="px-6 py-3 text-left text-sm font-semibold text-gray-300">Manufacturer</th>
+                      <th className="px-6 py-3 text-left text-sm font-semibold text-gray-300">Class</th>
+                      <th className="px-6 py-3 text-left text-sm font-semibold text-gray-300">Pilot</th>
+                      <th className="px-6 py-3 text-left text-sm font-semibold text-gray-300">Status</th>
+                      <th className="px-6 py-3 text-left text-sm font-semibold text-gray-300">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-700">
+                  <tbody className="divide-y divide-white/5">
                     {hangarData?.items.map((ship) => (
-                      <tr key={ship.id} className="hover:bg-slate-800/50 transition">
+                      <tr key={ship.id} className="hover:bg-white/5 transition">
                         <td className="px-6 py-4">
                           <Link
                             to={`/hangar/${ship.id}`}
-                            className="font-medium text-white hover:text-cyan-400 transition"
+                            className="font-medium text-white hover:text-yellow-400 transition"
                           >
                             {ship.name}
                           </Link>
@@ -329,7 +331,7 @@ export function Fleet() {
                         <td className="px-6 py-4 flex gap-2">
                           <button
                             onClick={() => navigate(`/hangar/${ship.id}/edit`)}
-                            className="bg-blue-600 hover:bg-blue-500 px-4 py-1.5 rounded text-sm text-white font-medium transition"
+                            className="bg-black/40 hover:bg-black/60 border border-yellow-500/50 hover:border-yellow-400 px-4 py-1.5 rounded text-sm text-yellow-400 font-medium transition"
                           >
                             Edit
                           </button>
@@ -340,7 +342,7 @@ export function Fleet() {
                               }
                             }}
                             disabled={deleteShipMutation.isPending}
-                            className="bg-red-600 hover:bg-red-500 disabled:bg-gray-600 disabled:cursor-not-allowed px-4 py-1.5 rounded text-sm text-white font-medium transition"
+                            className="bg-red-600/20 hover:bg-red-600/30 border border-red-500/50 hover:border-red-400 disabled:bg-gray-600 disabled:border-gray-600 disabled:cursor-not-allowed px-4 py-1.5 rounded text-sm text-red-400 font-medium transition"
                           >
                             {deleteShipMutation.isPending ? '...' : 'Delete'}
                           </button>

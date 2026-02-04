@@ -64,19 +64,24 @@ export function StarshipDetail() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <div className="text-cyan-400 text-xl">Loading starship...</div>
+      <div className="min-h-[80vh] flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-4xl mb-4 animate-pulse">🚀</div>
+          <p className="text-cyan-400">Loading starship...</p>
+        </div>
       </div>
     );
   }
 
   if (error || !ship) {
     return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center gap-4">
-        <div className="text-red-400 text-xl">Starship not found</div>
-        <Link to="/catalog" className="text-cyan-400 hover:text-cyan-300">
-          ← Back to Catalog
-        </Link>
+      <div className="min-h-[80vh] flex items-center justify-center">
+        <div className="bg-black/40 backdrop-blur-md border border-red-500/30 rounded-xl p-8 text-center">
+          <p className="text-red-400 text-lg mb-4">Starship not found</p>
+          <Link to="/catalog" className="text-cyan-400 hover:text-cyan-300">
+            ← Back to Catalog
+          </Link>
+        </div>
       </div>
     );
   }
@@ -84,20 +89,23 @@ export function StarshipDetail() {
   const isRetired = false; // Catalog only shows active ships, but keeping for future
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white p-6">
+    <div className="min-h-screen text-white p-6 page-transition">
       <div className="max-w-4xl mx-auto">
         <Link
           to="/catalog"
-          className="text-cyan-400 hover:text-cyan-300 mb-6 inline-block"
+          className="text-cyan-400 hover:text-cyan-300 mb-6 inline-flex items-center gap-2 transition"
         >
-          ← Back to Catalog
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to Catalog
         </Link>
 
-        <div className="bg-slate-900 border border-slate-700 rounded-lg p-8">
+        <div className="bg-black/40 backdrop-blur-md border border-cyan-500/20 hover:border-cyan-500/40 rounded-xl p-8 transition-all duration-300">
           {/* Header */}
           <div className="flex justify-between items-start mb-6">
             <div>
-              <h1 className="text-4xl font-bold text-cyan-400 mb-2">{ship.name}</h1>
+              <h1 className="text-4xl font-bold text-cyan-400 mb-2 text-shadow">{ship.name}</h1>
               {ship.model && (
                 <p className="text-gray-400">{ship.model}</p>
               )}
@@ -133,14 +141,17 @@ export function StarshipDetail() {
 
           {/* Films Section */}
           {ship.films && ship.films.length > 0 && (
-            <div className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-300 mb-3">Appears in Films</h3>
+            <div className="bg-black/20 rounded-lg p-5 border border-white/5 mb-6">
+              <h3 className="text-yellow-400 font-semibold mb-4 flex items-center gap-2">
+                <span>🎬</span> Appears in Films ({ship.films.length})
+              </h3>
               <div className="flex flex-wrap gap-2">
                 {ship.films.map((film) => (
                   <Link
                     key={film.id}
                     to={`/films/${film.id}`}
-                    className="bg-yellow-900/30 hover:bg-yellow-900/50 border border-yellow-700 px-3 py-1 rounded text-yellow-300 text-sm transition"
+                    className="bg-yellow-500/10 hover:bg-yellow-500/20 border border-yellow-500/30 
+                             px-3 py-1.5 rounded-lg text-sm text-yellow-400 hover:text-yellow-300 transition"
                   >
                     {film.name}
                   </Link>
@@ -151,16 +162,20 @@ export function StarshipDetail() {
 
           {/* Pilots Section */}
           {ship.pilots && ship.pilots.length > 0 && (
-            <div className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-300 mb-3">Known Pilots</h3>
+            <div className="bg-black/20 rounded-lg p-5 border border-white/5 mb-6">
+              <h3 className="text-yellow-400 font-semibold mb-4 flex items-center gap-2">
+                <span>👤</span> Known Pilots ({ship.pilots.length})
+              </h3>
               <div className="flex flex-wrap gap-2">
                 {ship.pilots.map((pilot) => (
-                  <span
+                  <Link
                     key={pilot.id}
-                    className="bg-slate-800 px-3 py-1 rounded text-gray-300 text-sm"
+                    to={`/people/${pilot.id}`}
+                    className="bg-yellow-500/10 hover:bg-yellow-500/20 border border-yellow-500/30 
+                             px-3 py-1.5 rounded-lg text-sm text-yellow-400 hover:text-yellow-300 transition"
                   >
                     {pilot.name}
-                  </span>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -197,7 +212,7 @@ export function StarshipDetail() {
               </button>
             </div>
           ) : (
-            <div className="bg-slate-800/50 border border-slate-600 rounded-lg p-6 mt-4">
+            <div className="bg-black/30 backdrop-blur-sm border border-yellow-500/20 rounded-lg p-6 mt-4">
               <p className="text-gray-300 mb-4">
                 <span className="text-yellow-400">Login required</span> to fork ships or add them to your fleet.
               </p>
@@ -233,9 +248,9 @@ function StatItem({
   className?: string;
 }) {
   return (
-    <div className={className}>
-      <p className="text-gray-500 text-sm">{label}</p>
-      <p className="text-lg font-medium">{value || '—'}</p>
+    <div className={`bg-black/30 backdrop-blur-sm rounded-lg p-4 border border-white/5 ${className}`}>
+      <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">{label}</p>
+      <p className="text-lg font-medium text-white">{value || '—'}</p>
     </div>
   );
 }

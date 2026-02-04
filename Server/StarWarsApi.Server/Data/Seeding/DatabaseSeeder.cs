@@ -36,6 +36,12 @@ public class DatabaseSeeder
 
     #region Public Entry Points
 
+    public async Task<object> SyncCatalogAsync(CancellationToken ct)
+    {
+        _logger.LogInformation("Production-safe catalog sync initiated");
+        return await SeedOrSyncAllAsync(ct);
+    }
+
     public async Task<object> SeedAsync(bool force, CancellationToken ct)
     {
         if (!force && await _db.People.AnyAsync(ct))

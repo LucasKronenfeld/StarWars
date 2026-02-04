@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { peopleApi } from '../api/peopleApi';
+import { GlassCard } from '../components/GlassCard';
 
 export function PersonDetail() {
   const { id } = useParams<{ id: string }>();
@@ -19,10 +20,10 @@ export function PersonDetail() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-950 text-yellow-400 flex items-center justify-center">
+      <div className="min-h-[80vh] flex items-center justify-center">
         <div className="text-center">
-          <div className="text-4xl mb-4">✨</div>
-          <div>Loading...</div>
+          <div className="text-4xl mb-4 animate-pulse">👤</div>
+          <p className="text-yellow-400">Loading character...</p>
         </div>
       </div>
     );
@@ -30,49 +31,61 @@ export function PersonDetail() {
 
   if (error || !person) {
     return (
-      <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center">
-        <div className="text-red-400 text-xl mb-4">Person not found</div>
-        <button onClick={() => navigate(-1)} className="text-cyan-400 hover:text-cyan-300">
-          ← Back
-        </button>
+      <div className="min-h-[80vh] flex items-center justify-center">
+        <GlassCard variant="red" className="p-8 text-center">
+          <p className="text-red-400 text-lg mb-4">Character not found</p>
+          <button onClick={() => navigate(-1)} className="text-yellow-400 hover:text-yellow-300">
+            ← Go Back
+          </button>
+        </GlassCard>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white p-6">
+    <div className="min-h-screen text-white p-6 page-transition">
       <div className="max-w-4xl mx-auto">
-        <button onClick={() => navigate(-1)} className="text-cyan-400 hover:text-cyan-300 mb-6 inline-block">
-          ← Back
+        <button 
+          onClick={() => navigate(-1)} 
+          className="text-yellow-400 hover:text-yellow-300 mb-6 inline-flex items-center gap-2 transition"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Back
         </button>
 
-        <div className="bg-slate-900 border border-slate-700 rounded-lg p-8">
-          <h1 className="text-4xl font-bold text-yellow-400 mb-6">{person.name}</h1>
+        <GlassCard variant="yellow" className="p-8">
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold text-yellow-400 mb-2 text-shadow">{person.name}</h1>
+            <p className="text-gray-400">Character Profile</p>
+          </div>
 
           {/* Physical Characteristics */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             {person.height && (
-              <div className="bg-slate-800 rounded-lg p-4 text-center">
-                <div className="text-gray-400 text-sm">Height</div>
-                <div className="text-xl font-semibold">{person.height} cm</div>
+              <div className="bg-black/30 backdrop-blur-sm rounded-lg p-4 text-center border border-white/5">
+                <div className="text-gray-400 text-xs uppercase tracking-wider mb-1">Height</div>
+                <div className="text-xl font-semibold text-white">{person.height} cm</div>
               </div>
             )}
             {person.mass && (
-              <div className="bg-slate-800 rounded-lg p-4 text-center">
-                <div className="text-gray-400 text-sm">Mass</div>
-                <div className="text-xl font-semibold">{person.mass} kg</div>
+              <div className="bg-black/30 backdrop-blur-sm rounded-lg p-4 text-center border border-white/5">
+                <div className="text-gray-400 text-xs uppercase tracking-wider mb-1">Mass</div>
+                <div className="text-xl font-semibold text-white">{person.mass} kg</div>
               </div>
             )}
             {person.gender && (
-              <div className="bg-slate-800 rounded-lg p-4 text-center">
-                <div className="text-gray-400 text-sm">Gender</div>
-                <div className="text-xl font-semibold capitalize">{person.gender}</div>
+              <div className="bg-black/30 backdrop-blur-sm rounded-lg p-4 text-center border border-white/5">
+                <div className="text-gray-400 text-xs uppercase tracking-wider mb-1">Gender</div>
+                <div className="text-xl font-semibold text-white capitalize">{person.gender}</div>
               </div>
             )}
             {person.birthYear && (
-              <div className="bg-slate-800 rounded-lg p-4 text-center">
-                <div className="text-gray-400 text-sm">Birth Year</div>
-                <div className="text-xl font-semibold">{person.birthYear}</div>
+              <div className="bg-black/30 backdrop-blur-sm rounded-lg p-4 text-center border border-white/5">
+                <div className="text-gray-400 text-xs uppercase tracking-wider mb-1">Birth Year</div>
+                <div className="text-xl font-semibold text-white">{person.birthYear}</div>
               </div>
             )}
           </div>
@@ -80,21 +93,21 @@ export function PersonDetail() {
           {/* Appearance */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             {person.hairColor && (
-              <div className="bg-slate-800 rounded-lg p-4">
-                <div className="text-gray-400 text-sm">Hair Color</div>
-                <div className="text-lg capitalize">{person.hairColor}</div>
+              <div className="bg-black/30 backdrop-blur-sm rounded-lg p-4 border border-white/5">
+                <div className="text-gray-400 text-xs uppercase tracking-wider mb-1">Hair Color</div>
+                <div className="text-lg text-white capitalize">{person.hairColor}</div>
               </div>
             )}
             {person.skinColor && (
-              <div className="bg-slate-800 rounded-lg p-4">
-                <div className="text-gray-400 text-sm">Skin Color</div>
-                <div className="text-lg capitalize">{person.skinColor}</div>
+              <div className="bg-black/30 backdrop-blur-sm rounded-lg p-4 border border-white/5">
+                <div className="text-gray-400 text-xs uppercase tracking-wider mb-1">Skin Color</div>
+                <div className="text-lg text-white capitalize">{person.skinColor}</div>
               </div>
             )}
             {person.eyeColor && (
-              <div className="bg-slate-800 rounded-lg p-4">
-                <div className="text-gray-400 text-sm">Eye Color</div>
-                <div className="text-lg capitalize">{person.eyeColor}</div>
+              <div className="bg-black/30 backdrop-blur-sm rounded-lg p-4 border border-white/5">
+                <div className="text-gray-400 text-xs uppercase tracking-wider mb-1">Eye Color</div>
+                <div className="text-lg text-white capitalize">{person.eyeColor}</div>
               </div>
             )}
           </div>
@@ -102,12 +115,14 @@ export function PersonDetail() {
           {/* Homeworld */}
           {person.homeworld && (
             <div className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-300 mb-3">Homeworld</h3>
+              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Homeworld</h3>
               <Link
                 to={`/planets/${person.homeworld.id}`}
-                className="inline-block bg-slate-800 hover:bg-emerald-900 px-4 py-2 rounded text-emerald-400 hover:text-emerald-300 transition"
+                className="inline-flex items-center gap-2 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 
+                         px-4 py-2 rounded-lg text-emerald-400 hover:text-emerald-300 transition"
               >
-                🌍 {person.homeworld.name}
+                <span>🌍</span>
+                {person.homeworld.name}
               </Link>
             </div>
           )}
@@ -115,14 +130,17 @@ export function PersonDetail() {
           {/* Related Entities */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {person.films.length > 0 && (
-              <div className="bg-slate-800 rounded-lg p-4">
-                <h3 className="text-yellow-400 font-semibold mb-3">Films ({person.films.length})</h3>
+              <div className="bg-black/20 rounded-lg p-5 border border-white/5">
+                <h3 className="text-yellow-400 font-semibold mb-4 flex items-center gap-2">
+                  <span>🎬</span> Films ({person.films.length})
+                </h3>
                 <div className="flex flex-wrap gap-2">
                   {person.films.map((film) => (
                     <Link
                       key={film.id}
                       to={`/films/${film.id}`}
-                      className="bg-slate-700 hover:bg-yellow-900 px-3 py-1 rounded text-sm text-yellow-400 hover:text-yellow-300 transition"
+                      className="bg-yellow-500/10 hover:bg-yellow-500/20 border border-yellow-500/30 
+                               px-3 py-1.5 rounded-lg text-sm text-yellow-400 hover:text-yellow-300 transition"
                     >
                       {film.name}
                     </Link>
@@ -132,14 +150,17 @@ export function PersonDetail() {
             )}
 
             {person.starships.length > 0 && (
-              <div className="bg-slate-800 rounded-lg p-4">
-                <h3 className="text-cyan-400 font-semibold mb-3">Starships ({person.starships.length})</h3>
+              <div className="bg-black/20 rounded-lg p-5 border border-white/5">
+                <h3 className="text-cyan-400 font-semibold mb-4 flex items-center gap-2">
+                  <span>🚀</span> Starships ({person.starships.length})
+                </h3>
                 <div className="flex flex-wrap gap-2">
                   {person.starships.map((ship) => (
                     <Link
                       key={ship.id}
                       to={`/catalog/${ship.id}`}
-                      className="bg-slate-700 hover:bg-cyan-900 px-3 py-1 rounded text-sm text-cyan-400 hover:text-cyan-300 transition"
+                      className="bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 
+                               px-3 py-1.5 rounded-lg text-sm text-cyan-400 hover:text-cyan-300 transition"
                     >
                       {ship.name}
                     </Link>
@@ -149,14 +170,17 @@ export function PersonDetail() {
             )}
 
             {person.vehicles.length > 0 && (
-              <div className="bg-slate-800 rounded-lg p-4">
-                <h3 className="text-orange-400 font-semibold mb-3">Vehicles ({person.vehicles.length})</h3>
+              <div className="bg-black/20 rounded-lg p-5 border border-white/5">
+                <h3 className="text-orange-400 font-semibold mb-4 flex items-center gap-2">
+                  <span>🚗</span> Vehicles ({person.vehicles.length})
+                </h3>
                 <div className="flex flex-wrap gap-2">
                   {person.vehicles.map((vehicle) => (
                     <Link
                       key={vehicle.id}
                       to={`/vehicles/${vehicle.id}`}
-                      className="bg-slate-700 hover:bg-orange-900 px-3 py-1 rounded text-sm text-orange-400 hover:text-orange-300 transition"
+                      className="bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/30 
+                               px-3 py-1.5 rounded-lg text-sm text-orange-400 hover:text-orange-300 transition"
                     >
                       {vehicle.name}
                     </Link>
@@ -166,14 +190,17 @@ export function PersonDetail() {
             )}
 
             {person.species.length > 0 && (
-              <div className="bg-slate-800 rounded-lg p-4">
-                <h3 className="text-purple-400 font-semibold mb-3">Species ({person.species.length})</h3>
+              <div className="bg-black/20 rounded-lg p-5 border border-white/5">
+                <h3 className="text-purple-400 font-semibold mb-4 flex items-center gap-2">
+                  <span>🧬</span> Species ({person.species.length})
+                </h3>
                 <div className="flex flex-wrap gap-2">
                   {person.species.map((species) => (
                     <Link
                       key={species.id}
                       to={`/species/${species.id}`}
-                      className="bg-slate-700 hover:bg-purple-900 px-3 py-1 rounded text-sm text-purple-400 hover:text-purple-300 transition"
+                      className="bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 
+                               px-3 py-1.5 rounded-lg text-sm text-purple-400 hover:text-purple-300 transition"
                     >
                       {species.name}
                     </Link>
@@ -182,7 +209,7 @@ export function PersonDetail() {
               </div>
             )}
           </div>
-        </div>
+        </GlassCard>
       </div>
     </div>
   );

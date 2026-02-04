@@ -156,8 +156,8 @@ function StatRadar({ stats }: { stats: ReturnType<typeof calculateStats> }) {
       {/* Stat polygon */}
       <polygon
         points={polygonPoints}
-        fill="rgba(6, 182, 212, 0.3)"
-        stroke="rgb(6, 182, 212)"
+        fill="rgba(234, 179, 8, 0.3)"
+        stroke="rgb(234, 179, 8)"
         strokeWidth="2"
       />
       
@@ -168,7 +168,7 @@ function StatRadar({ stats }: { stats: ReturnType<typeof calculateStats> }) {
           cx={p.x}
           cy={p.y}
           r="4"
-          fill="rgb(6, 182, 212)"
+          fill="rgb(234, 179, 8)"
         />
       ))}
       
@@ -331,11 +331,23 @@ export function ShipBuilder() {
   const steps = ['Identity', 'Performance', 'Capacity', 'Review'];
   
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white p-6">
+    <div className="min-h-screen text-white p-6 page-transition">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
+        {/* Header with LEGO Logo */}
         <div className="text-center mb-8">
-          <h1 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 mb-2">
+          <a 
+            href="https://www.lego.com/en-us/themes/star-wars"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block mb-4 transition-transform hover:scale-105"
+          >
+            <img 
+              src="/legoLogo.png" 
+              alt="LEGO Star Wars" 
+              className="h-16 mx-auto opacity-90 hover:opacity-100 transition-opacity"
+            />
+          </a>
+          <h1 className="text-4xl font-bold text-yellow-400 mb-2 text-shadow">
             SHIP BUILDER
           </h1>
           <p className="text-gray-400">Design your perfect starship</p>
@@ -347,12 +359,12 @@ export function ShipBuilder() {
             <button
               key={step}
               onClick={() => setCurrentStep(i)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+              className={`px-4 py-2 rounded-full text-sm font-medium transition border ${
                 i === currentStep
-                  ? 'bg-cyan-600 text-white'
+                  ? 'bg-yellow-500/20 border-yellow-500/50 text-yellow-400'
                   : i < currentStep
-                  ? 'bg-cyan-900 text-cyan-400'
-                  : 'bg-slate-800 text-gray-500'
+                  ? 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400/70'
+                  : 'bg-black/30 border-white/10 text-gray-500'
               }`}
             >
               {i + 1}. {step}
@@ -363,11 +375,11 @@ export function ShipBuilder() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Form Area */}
           <div className="lg:col-span-2">
-            <div className="bg-slate-900/80 border border-slate-700 rounded-2xl p-6 backdrop-blur">
+            <div className="bg-black/50 backdrop-blur-md border border-white/10 rounded-2xl p-6">
               {/* Step 0: Identity */}
               {currentStep === 0 && (
                 <div className="space-y-6">
-                  <h2 className="text-2xl font-bold text-cyan-400 mb-4">Ship Identity</h2>
+                  <h2 className="text-2xl font-bold text-yellow-400 mb-4">Ship Identity</h2>
                   
                   {/* Quick Start Templates */}
                   <div className="mb-6">
@@ -377,7 +389,7 @@ export function ShipBuilder() {
                         <button
                           key={key}
                           onClick={() => applyTemplate(key as keyof typeof STARSHIP_TEMPLATES)}
-                          className="bg-slate-800 hover:bg-slate-700 border border-slate-600 hover:border-cyan-500 rounded-lg p-3 text-left transition group"
+                          className="bg-black/40 hover:bg-black/60 border border-white/10 hover:border-yellow-500/50 rounded-lg p-3 text-left transition group"
                         >
                           <div className="text-2xl mb-1">
                             {key === 'fighter' && '🚀'}
@@ -385,7 +397,7 @@ export function ShipBuilder() {
                             {key === 'cruiser' && '🚢'}
                             {key === 'capital' && '⚔️'}
                           </div>
-                          <div className="text-sm font-semibold text-gray-200 group-hover:text-cyan-400">
+                          <div className="text-sm font-semibold text-gray-200 group-hover:text-yellow-400">
                             {template.name}
                           </div>
                         </button>
@@ -400,7 +412,7 @@ export function ShipBuilder() {
                         type="text"
                         value={formData.name}
                         onChange={(e) => handleChange('name', e.target.value)}
-                        className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white text-lg font-semibold placeholder-gray-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
+                        className="w-full px-4 py-3 bg-black/40 border border-white/20 rounded-lg text-white text-lg font-semibold placeholder-gray-500 focus:outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/50"
                         placeholder="Enter ship name..."
                       />
                     </div>
@@ -410,7 +422,7 @@ export function ShipBuilder() {
                         type="text"
                         value={formData.model || ''}
                         onChange={(e) => handleChange('model', e.target.value)}
-                        className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                        className="w-full px-4 py-3 bg-black/40 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500/50"
                         placeholder="YT-1300, TIE/IN, etc."
                       />
                     </div>
@@ -420,7 +432,7 @@ export function ShipBuilder() {
                         type="text"
                         value={formData.manufacturer || ''}
                         onChange={(e) => handleChange('manufacturer', e.target.value)}
-                        className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                        className="w-full px-4 py-3 bg-black/40 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500/50"
                         placeholder="Corellian Engineering, Sienar Fleet Systems..."
                       />
                     </div>
@@ -430,7 +442,7 @@ export function ShipBuilder() {
                         type="text"
                         value={formData.starshipClass || ''}
                         onChange={(e) => handleChange('starshipClass', e.target.value)}
-                        className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                        className="w-full px-4 py-3 bg-black/40 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500/50"
                         placeholder="Starfighter, Freighter, Cruiser..."
                       />
                     </div>
@@ -447,7 +459,7 @@ export function ShipBuilder() {
                             e.target.value === '' ? undefined : parseFloat(e.target.value)
                           )
                         }
-                        className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                        className="w-full px-4 py-3 bg-black/40 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500/50"
                         placeholder="100000"
                       />
                     </div>
@@ -458,7 +470,7 @@ export function ShipBuilder() {
                         onChange={(e) =>
                           handleChange('pilotId', e.target.value ? parseInt(e.target.value) : undefined)
                         }
-                        className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-cyan-500"
+                        className="w-full px-4 py-3 bg-black/40 border border-white/20 rounded-lg text-white focus:outline-none focus:border-yellow-500/50"
                       >
                         <option value="">No pilot assigned</option>
                         {people?.map((person) => (
@@ -475,7 +487,7 @@ export function ShipBuilder() {
               {/* Step 1: Performance */}
               {currentStep === 1 && (
                 <div className="space-y-8">
-                  <h2 className="text-2xl font-bold text-purple-400 mb-4">Performance Stats</h2>
+                  <h2 className="text-2xl font-bold text-yellow-400 mb-4">Performance Stats</h2>
                   
                   <AttributeSlider
                     label="Sublight Speed (MGLT)"
@@ -515,7 +527,7 @@ export function ShipBuilder() {
               {/* Step 2: Capacity */}
               {currentStep === 2 && (
                 <div className="space-y-8">
-                  <h2 className="text-2xl font-bold text-green-400 mb-4">Crew & Cargo</h2>
+                  <h2 className="text-2xl font-bold text-yellow-400 mb-4">Crew & Cargo</h2>
                   
                   <AttributeSlider
                     label="Crew Required"
@@ -553,7 +565,7 @@ export function ShipBuilder() {
                     <select
                       value={formData.consumables || ''}
                       onChange={(e) => handleChange('consumables', e.target.value)}
-                      className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-cyan-500"
+                      className="w-full px-4 py-3 bg-black/40 border border-white/20 rounded-lg text-white focus:outline-none focus:border-yellow-500/50"
                     >
                       <option value="">Select...</option>
                       <option value="1 day">1 day</option>
@@ -575,7 +587,7 @@ export function ShipBuilder() {
                 <div className="space-y-6">
                   <h2 className="text-2xl font-bold text-yellow-400 mb-4">Review Your Ship</h2>
                   
-                  <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
+                  <div className="bg-black/40 rounded-xl p-6 border border-white/20">
                     <h3 className="text-3xl font-black text-white mb-1">
                       {formData.name || 'Unnamed Ship'}
                     </h3>
@@ -583,11 +595,11 @@ export function ShipBuilder() {
                     {formData.manufacturer && <p className="text-gray-500">{formData.manufacturer}</p>}
                     
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6">
-                      <div className="bg-slate-900 rounded-lg p-3">
+                      <div className="bg-black/50 rounded-lg p-3 border border-white/10">
                         <div className="text-xs text-gray-500 uppercase">Class</div>
                         <div className="text-lg font-semibold">{formData.starshipClass || '—'}</div>
                       </div>
-                      <div className="bg-slate-900 rounded-lg p-3">
+                      <div className="bg-black/50 rounded-lg p-3 border border-white/10">
                         <div className="text-xs text-gray-500 uppercase">Cost</div>
                         <div className="text-lg font-semibold">
                           {formData.costInCredits !== undefined && formData.costInCredits !== null
@@ -595,31 +607,31 @@ export function ShipBuilder() {
                             : '—'}
                         </div>
                       </div>
-                      <div className="bg-slate-900 rounded-lg p-3">
+                      <div className="bg-black/50 rounded-lg p-3 border border-white/10">
                         <div className="text-xs text-gray-500 uppercase">Length</div>
                         <div className="text-lg font-semibold">{formData.length?.toLocaleString() || '—'} m</div>
                       </div>
-                      <div className="bg-slate-900 rounded-lg p-3">
+                      <div className="bg-black/50 rounded-lg p-3 border border-white/10">
                         <div className="text-xs text-gray-500 uppercase">Crew</div>
                         <div className="text-lg font-semibold">{formData.crew?.toLocaleString() || '—'}</div>
                       </div>
-                      <div className="bg-slate-900 rounded-lg p-3">
+                      <div className="bg-black/50 rounded-lg p-3 border border-white/10">
                         <div className="text-xs text-gray-500 uppercase">Passengers</div>
                         <div className="text-lg font-semibold">{formData.passengers?.toLocaleString() || '—'}</div>
                       </div>
-                      <div className="bg-slate-900 rounded-lg p-3">
+                      <div className="bg-black/50 rounded-lg p-3 border border-white/10">
                         <div className="text-xs text-gray-500 uppercase">Hyperdrive</div>
                         <div className="text-lg font-semibold">Class {formData.hyperdriveRating || '—'}</div>
                       </div>
-                      <div className="bg-slate-900 rounded-lg p-3">
+                      <div className="bg-black/50 rounded-lg p-3 border border-white/10">
                         <div className="text-xs text-gray-500 uppercase">Speed</div>
                         <div className="text-lg font-semibold">{formData.mglt || '—'} MGLT</div>
                       </div>
-                      <div className="bg-slate-900 rounded-lg p-3 md:col-span-2">
+                      <div className="bg-black/50 rounded-lg p-3 md:col-span-2 border border-white/10">
                         <div className="text-xs text-gray-500 uppercase">Cargo</div>
                         <div className="text-lg font-semibold">{formData.cargoCapacity?.toLocaleString() || '—'} kg</div>
                       </div>
-                      <div className="bg-slate-900 rounded-lg p-3">
+                      <div className="bg-black/50 rounded-lg p-3 border border-white/10">
                         <div className="text-xs text-gray-500 uppercase">Consumables</div>
                         <div className="text-lg font-semibold">{formData.consumables || '—'}</div>
                       </div>
@@ -629,10 +641,10 @@ export function ShipBuilder() {
               )}
               
               {/* Navigation Buttons */}
-              <div className="flex justify-between mt-8 pt-6 border-t border-slate-700">
+              <div className="flex justify-between mt-8 pt-6 border-t border-white/10">
                 <button
                   onClick={() => currentStep === 0 ? navigate('/fleet') : setCurrentStep(currentStep - 1)}
-                  className="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg font-semibold transition"
+                  className="px-6 py-3 bg-black/40 hover:bg-black/60 border border-white/20 hover:border-white/30 rounded-lg font-semibold transition"
                 >
                   {currentStep === 0 ? '← Back to Fleet' : '← Previous'}
                 </button>
@@ -640,7 +652,7 @@ export function ShipBuilder() {
                 {currentStep < 3 ? (
                   <button
                     onClick={() => setCurrentStep(currentStep + 1)}
-                    className="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 rounded-lg font-semibold transition"
+                    className="px-6 py-3 bg-yellow-500 hover:bg-yellow-400 text-black rounded-lg font-semibold transition"
                   >
                     Next →
                   </button>
@@ -648,7 +660,7 @@ export function ShipBuilder() {
                   <button
                     onClick={handleSubmit}
                     disabled={mutation.isPending || !formData.name.trim()}
-                    className="px-8 py-3 bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 disabled:from-gray-600 disabled:to-gray-600 rounded-lg font-bold text-lg transition"
+                    className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 disabled:bg-gray-600 text-black disabled:text-gray-400 rounded-lg font-bold text-lg transition"
                   >
                     {mutation.isPending ? 'Creating...' : '🚀 Build Ship'}
                   </button>
@@ -659,7 +671,7 @@ export function ShipBuilder() {
           
           {/* Stats Preview Panel */}
           <div className="lg:col-span-1">
-            <div className="bg-slate-900/80 border border-slate-700 rounded-2xl p-6 backdrop-blur sticky top-6">
+            <div className="bg-black/50 backdrop-blur-md border border-white/10 rounded-2xl p-6 sticky top-6">
               <h3 className="text-lg font-bold text-gray-300 mb-4 text-center">Ship Profile</h3>
               
               <StatRadar stats={stats} />
@@ -669,9 +681,9 @@ export function ShipBuilder() {
                   <div key={key} className="flex justify-between items-center">
                     <span className="text-sm text-gray-400 capitalize">{key}</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-24 h-2 bg-slate-700 rounded-full overflow-hidden">
+                      <div className="w-24 h-2 bg-black/50 rounded-full overflow-hidden border border-white/10">
                         <div
-                          className="h-full bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full"
+                          className="h-full bg-gradient-to-r from-yellow-500 to-yellow-400 rounded-full"
                           style={{ width: `${value}%` }}
                         />
                       </div>
@@ -682,8 +694,8 @@ export function ShipBuilder() {
               </div>
               
               {formData.name && (
-                <div className="mt-6 pt-6 border-t border-slate-700 text-center">
-                  <div className="text-xl font-bold text-cyan-400">{formData.name}</div>
+                <div className="mt-6 pt-6 border-t border-white/10 text-center">
+                  <div className="text-xl font-bold text-yellow-400">{formData.name}</div>
                   {formData.starshipClass && (
                     <div className="text-sm text-gray-500">{formData.starshipClass}</div>
                   )}
@@ -699,7 +711,7 @@ export function ShipBuilder() {
           appearance: none;
           width: 16px;
           height: 16px;
-          background: #06b6d4;
+          background: #eab308;
           border-radius: 50%;
           cursor: pointer;
           margin-top: -7px;
@@ -707,7 +719,7 @@ export function ShipBuilder() {
         .slider-thumb::-moz-range-thumb {
           width: 16px;
           height: 16px;
-          background: #06b6d4;
+          background: #eab308;
           border-radius: 50%;
           cursor: pointer;
           border: none;

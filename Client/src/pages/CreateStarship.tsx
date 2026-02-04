@@ -43,17 +43,17 @@ export function CreateStarship() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white p-6">
+    <div className="min-h-screen text-white p-6 page-transition">
       <div className="max-w-2xl mx-auto">
         <button
           onClick={() => navigate('/hangar')}
-          className="text-cyan-400 hover:text-cyan-300 mb-6"
+          className="text-yellow-400 hover:text-yellow-300 mb-6 transition"
         >
           ← Back to Hangar
         </button>
 
-        <div className="bg-slate-900 border border-slate-700 rounded-lg p-8">
-          <h1 className="text-3xl font-bold text-cyan-400 mb-6">Create Custom Starship</h1>
+        <div className="bg-black/50 backdrop-blur-md border border-white/10 rounded-xl p-8">
+          <h1 className="text-3xl font-bold text-yellow-400 mb-6">Create Custom Starship</h1>
 
           {error && (
             <div className="bg-red-900 border border-red-600 text-red-200 px-4 py-2 rounded mb-6">
@@ -72,7 +72,7 @@ export function CreateStarship() {
                   value={formData.name}
                   onChange={(e) => handleChange('name', e.target.value)}
                   required
-                  className="w-full px-4 py-2 bg-slate-800 border border-slate-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2 bg-black/40 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500/50"
                   placeholder="Millennium Falcon"
                 />
               </div>
@@ -85,7 +85,7 @@ export function CreateStarship() {
                   type="text"
                   value={formData.model || ''}
                   onChange={(e) => handleChange('model', e.target.value)}
-                  className="w-full px-4 py-2 bg-slate-800 border border-slate-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2 bg-black/40 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500/50"
                   placeholder="YT-1300"
                 />
               </div>
@@ -98,7 +98,7 @@ export function CreateStarship() {
                   type="text"
                   value={formData.manufacturer || ''}
                   onChange={(e) => handleChange('manufacturer', e.target.value)}
-                  className="w-full px-4 py-2 bg-slate-800 border border-slate-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2 bg-black/40 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500/50"
                   placeholder="Corellian Engineering"
                 />
               </div>
@@ -111,7 +111,7 @@ export function CreateStarship() {
                   type="text"
                   value={formData.starshipClass || ''}
                   onChange={(e) => handleChange('starshipClass', e.target.value)}
-                  className="w-full px-4 py-2 bg-slate-800 border border-slate-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2 bg-black/40 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500/50"
                   placeholder="Light Freighter"
                 />
               </div>
@@ -125,7 +125,7 @@ export function CreateStarship() {
                   step="0.1"
                   value={formData.length || ''}
                   onChange={(e) => handleChange('length', e.target.value ? parseFloat(e.target.value) : '')}
-                  className="w-full px-4 py-2 bg-slate-800 border border-slate-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2 bg-black/40 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500/50"
                   placeholder="34.37"
                 />
               </div>
@@ -138,7 +138,7 @@ export function CreateStarship() {
                   type="number"
                   value={formData.crew || ''}
                   onChange={(e) => handleChange('crew', e.target.value ? parseInt(e.target.value) : '')}
-                  className="w-full px-4 py-2 bg-slate-800 border border-slate-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2 bg-black/40 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500/50"
                   placeholder="4"
                 />
               </div>
@@ -151,7 +151,7 @@ export function CreateStarship() {
                   type="number"
                   value={formData.passengers || ''}
                   onChange={(e) => handleChange('passengers', e.target.value ? parseInt(e.target.value) : '')}
-                  className="w-full px-4 py-2 bg-slate-800 border border-slate-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2 bg-black/40 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500/50"
                   placeholder="6"
                 />
               </div>
@@ -164,7 +164,7 @@ export function CreateStarship() {
                   type="number"
                   value={formData.cargoCapacity || ''}
                   onChange={(e) => handleChange('cargoCapacity', e.target.value ? parseInt(e.target.value) : '')}
-                  className="w-full px-4 py-2 bg-slate-800 border border-slate-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2 bg-black/40 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500/50"
                   placeholder="100000"
                 />
               </div>
@@ -178,7 +178,7 @@ export function CreateStarship() {
                   step="0.1"
                   value={formData.hyperdriveRating || ''}
                   onChange={(e) => handleChange('hyperdriveRating', e.target.value ? parseFloat(e.target.value) : '')}
-                  className="w-full px-4 py-2 bg-slate-800 border border-slate-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2 bg-black/40 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500/50"
                   placeholder="0.5"
                 />
               </div>
@@ -191,7 +191,7 @@ export function CreateStarship() {
                   type="number"
                   value={formData.mglt || ''}
                   onChange={(e) => handleChange('mglt', e.target.value ? parseInt(e.target.value) : '')}
-                  className="w-full px-4 py-2 bg-slate-800 border border-slate-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2 bg-black/40 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500/50"
                   placeholder="75"
                 />
               </div>
@@ -204,7 +204,7 @@ export function CreateStarship() {
                   type="text"
                   value={formData.consumables || ''}
                   onChange={(e) => handleChange('consumables', e.target.value)}
-                  className="w-full px-4 py-2 bg-slate-800 border border-slate-600 rounded text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2 bg-black/40 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500/50"
                   placeholder="2 months"
                 />
               </div>
@@ -214,14 +214,14 @@ export function CreateStarship() {
               <button
                 type="submit"
                 disabled={mutation.isPending}
-                className="flex-1 bg-cyan-600 hover:bg-cyan-700 disabled:bg-gray-600 text-white font-semibold py-2 rounded transition"
+                className="flex-1 bg-yellow-500 hover:bg-yellow-400 disabled:bg-gray-600 text-black font-semibold py-2 rounded-lg transition"
               >
                 {mutation.isPending ? 'Creating...' : 'Create Ship'}
               </button>
               <button
                 type="button"
                 onClick={() => navigate('/hangar')}
-                className="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-semibold py-2 rounded transition"
+                className="flex-1 bg-black/40 hover:bg-black/60 border border-white/20 text-white font-semibold py-2 rounded-lg transition"
               >
                 Cancel
               </button>

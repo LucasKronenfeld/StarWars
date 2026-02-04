@@ -4,6 +4,7 @@ import { AuthProvider } from './auth/AuthContext';
 import { ToastProvider } from './contexts/ToastContext';
 import { RequireAuth } from './auth/RequireAuth';
 import { Navbar } from './components/Navbar';
+import { PageShell } from './components/PageShell';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
@@ -41,9 +42,9 @@ export default function App() {
       <BrowserRouter>
         <AuthProvider>
           <ToastProvider>
-            <div className="min-h-screen bg-slate-950 text-white">
+            <PageShell>
               <Navbar />
-              <main className="pb-8">
+              <main>
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/login" element={<Login />} />
@@ -68,7 +69,7 @@ export default function App() {
                   <Route path="/hangar/:id/edit" element={<RequireAuth><EditStarship /></RequireAuth>} />
                 </Routes>
               </main>
-            </div>
+            </PageShell>
           </ToastProvider>
         </AuthProvider>
       </BrowserRouter>

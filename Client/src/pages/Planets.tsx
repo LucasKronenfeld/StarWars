@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { planetsApi } from '../api/planetsApi';
+import { GlassCard } from '../components/GlassCard';
 
 export function Planets() {
   const { data: planets, isLoading, error } = useQuery({
@@ -10,10 +11,10 @@ export function Planets() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-950 text-emerald-400 flex items-center justify-center">
+      <div className="min-h-[80vh] flex items-center justify-center">
         <div className="text-center">
-          <div className="text-4xl mb-4">🌍</div>
-          <div>Loading...</div>
+          <div className="text-4xl mb-4 animate-pulse">🌍</div>
+          <p className="text-emerald-400">Loading planets...</p>
         </div>
       </div>
     );
@@ -21,8 +22,13 @@ export function Planets() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-slate-950 text-red-400 flex items-center justify-center">
-        Error loading planets
+      <div className="min-h-[80vh] flex items-center justify-center">
+        <GlassCard variant="red" className="p-8 text-center">
+          <p className="text-red-400 text-lg">Error loading planets</p>
+          <Link to="/" className="text-yellow-400 hover:text-yellow-300 mt-4 inline-block">
+            ← Back to Home
+          </Link>
+        </GlassCard>
       </div>
     );
   }
@@ -36,26 +42,33 @@ export function Planets() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white p-6">
+    <div className="min-h-screen text-white p-6 page-transition">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold text-emerald-400 mb-2 text-center">Planets</h1>
-        <p className="text-gray-400 text-center mb-8">Worlds across the galaxy</p>
+        {/* Header */}
+        <div className="text-center mb-10">
+          <h1 className="text-4xl font-bold text-emerald-400 mb-2 text-shadow">Planets</h1>
+          <p className="text-gray-400">Worlds across the galaxy</p>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {planets?.map((planet) => (
             <Link
               key={planet.id}
               to={`/planets/${planet.id}`}
-              className="bg-slate-900 border border-slate-700 hover:border-emerald-500 rounded-lg p-4 transition group"
             >
-              <h3 className="text-lg font-semibold text-white group-hover:text-emerald-400 transition">
-                {planet.name}
-              </h3>
-              <div className="mt-2 text-sm text-gray-400 space-y-1">
-                {planet.climate && <p className="capitalize">Climate: {planet.climate}</p>}
-                {planet.terrain && <p className="capitalize">Terrain: {planet.terrain}</p>}
-                {planet.population && <p>Population: {formatPopulation(planet.population)}</p>}
-              </div>
+              <GlassCard 
+                variant="green" 
+                className="p-4 h-full group"
+              >
+                <h3 className="text-lg font-semibold text-white group-hover:text-emerald-400 transition">
+                  {planet.name}
+                </h3>
+                <div className="mt-2 text-sm text-gray-400 space-y-1">
+                  {planet.climate && <p className="capitalize">Climate: {planet.climate}</p>}
+                  {planet.terrain && <p className="capitalize">Terrain: {planet.terrain}</p>}
+                  {planet.population && <p>Population: {formatPopulation(planet.population)}</p>}
+                </div>
+              </GlassCard>
             </Link>
           ))}
         </div>

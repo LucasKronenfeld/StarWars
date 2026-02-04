@@ -19,31 +19,31 @@ export function MyStarshipDetail() {
   });
 
   if (isLoading) {
-    return <div className="min-h-screen bg-slate-950 text-cyan-400 flex items-center justify-center">Loading...</div>;
+    return <div className="min-h-screen text-yellow-400 flex items-center justify-center page-transition">Loading...</div>;
   }
 
   if (error || !ship) {
     return (
-      <div className="min-h-screen bg-slate-950 text-red-400 flex items-center justify-center">
+      <div className="min-h-screen text-red-400 flex items-center justify-center page-transition">
         Starship not found
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white p-6">
+    <div className="min-h-screen text-white p-6 page-transition">
       <div className="max-w-5xl mx-auto">
         <button
           onClick={() => navigate('/fleet')}
-          className="text-cyan-400 hover:text-cyan-300 mb-6"
+          className="text-yellow-400 hover:text-yellow-300 mb-6 transition"
         >
           ← Back to Fleet
         </button>
 
-        <div className="bg-slate-900 border border-slate-700 rounded-xl p-8">
+        <div className="bg-black/50 backdrop-blur-md border border-white/10 rounded-xl p-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-4xl font-bold text-cyan-400">{ship.name}</h1>
+              <h1 className="text-4xl font-bold text-yellow-400">{ship.name}</h1>
               {ship.model && <p className="text-gray-400 mt-1">{ship.model}</p>}
               {ship.manufacturer && <p className="text-gray-500">{ship.manufacturer}</p>}
             </div>
@@ -54,11 +54,11 @@ export function MyStarshipDetail() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-slate-800/70 rounded-lg p-4">
+            <div className="bg-black/40 rounded-lg p-4 border border-white/10">
               <div className="text-xs text-gray-500 uppercase">Class</div>
               <div className="text-lg font-semibold">{ship.starshipClass || '—'}</div>
             </div>
-            <div className="bg-slate-800/70 rounded-lg p-4">
+            <div className="bg-black/40 rounded-lg p-4 border border-white/10">
               <div className="text-xs text-gray-500 uppercase">Cost</div>
               <div className="text-lg font-semibold">
                 {ship.costInCredits !== undefined && ship.costInCredits !== null
@@ -66,7 +66,7 @@ export function MyStarshipDetail() {
                   : '—'}
               </div>
             </div>
-            <div className="bg-slate-800/70 rounded-lg p-4">
+            <div className="bg-black/40 rounded-lg p-4 border border-white/10">
               <div className="text-xs text-gray-500 uppercase">Pilot</div>
               <div className="text-lg font-semibold">
                 {ship.pilotName && ship.pilotId ? (
@@ -81,31 +81,31 @@ export function MyStarshipDetail() {
                 )}
               </div>
             </div>
-            <div className="bg-slate-800/70 rounded-lg p-4">
+            <div className="bg-black/40 rounded-lg p-4 border border-white/10">
               <div className="text-xs text-gray-500 uppercase">Length</div>
               <div className="text-lg font-semibold">{ship.length?.toLocaleString() || '—'} m</div>
             </div>
-            <div className="bg-slate-800/70 rounded-lg p-4">
+            <div className="bg-black/40 rounded-lg p-4 border border-white/10">
               <div className="text-xs text-gray-500 uppercase">Crew</div>
               <div className="text-lg font-semibold">{ship.crew?.toLocaleString() || '—'}</div>
             </div>
-            <div className="bg-slate-800/70 rounded-lg p-4">
+            <div className="bg-black/40 rounded-lg p-4 border border-white/10">
               <div className="text-xs text-gray-500 uppercase">Passengers</div>
               <div className="text-lg font-semibold">{ship.passengers?.toLocaleString() || '—'}</div>
             </div>
-            <div className="bg-slate-800/70 rounded-lg p-4">
+            <div className="bg-black/40 rounded-lg p-4 border border-white/10">
               <div className="text-xs text-gray-500 uppercase">Cargo</div>
               <div className="text-lg font-semibold">{ship.cargoCapacity?.toLocaleString() || '—'} kg</div>
             </div>
-            <div className="bg-slate-800/70 rounded-lg p-4">
+            <div className="bg-black/40 rounded-lg p-4 border border-white/10">
               <div className="text-xs text-gray-500 uppercase">Hyperdrive</div>
               <div className="text-lg font-semibold">{ship.hyperdriveRating ?? '—'}</div>
             </div>
-            <div className="bg-slate-800/70 rounded-lg p-4">
+            <div className="bg-black/40 rounded-lg p-4 border border-white/10">
               <div className="text-xs text-gray-500 uppercase">MGLT</div>
               <div className="text-lg font-semibold">{ship.mglt ?? '—'}</div>
             </div>
-            <div className="bg-slate-800/70 rounded-lg p-4 md:col-span-3">
+            <div className="bg-black/40 rounded-lg p-4 md:col-span-3 border border-white/10">
               <div className="text-xs text-gray-500 uppercase">Consumables</div>
               <div className="text-lg font-semibold">{ship.consumables || '—'}</div>
             </div>
@@ -114,14 +114,14 @@ export function MyStarshipDetail() {
           <div className="flex gap-4 mt-8">
             <button
               onClick={() => navigate(`/hangar/${ship.id}/edit`)}
-              className="bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-lg text-white font-semibold transition"
+              className="bg-yellow-500 hover:bg-yellow-400 px-6 py-2 rounded-lg text-black font-semibold transition"
             >
               Edit Ship
             </button>
             {ship.baseStarshipId && (
               <Link
                 to={`/catalog/${ship.baseStarshipId}`}
-                className="border border-cyan-500 hover:border-cyan-400 px-6 py-2 rounded-lg text-cyan-400 hover:text-cyan-300 font-semibold transition"
+                className="border border-yellow-500/50 hover:border-yellow-400 px-6 py-2 rounded-lg text-yellow-400 hover:text-yellow-300 font-semibold transition"
               >
                 View Base Catalog Ship
               </Link>

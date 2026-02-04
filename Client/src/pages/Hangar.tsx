@@ -31,40 +31,47 @@ export function Hangar() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-slate-950 text-red-400 flex items-center justify-center">
-        Error loading hangar
+      <div className="min-h-[80vh] flex items-center justify-center">
+        <div className="bg-black/40 backdrop-blur-md border border-red-500/30 rounded-xl p-8 text-center">
+          <p className="text-red-400 text-lg">Error loading hangar</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white p-6">
+    <div className="min-h-screen text-white p-6 page-transition">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold text-cyan-400">My Hangar</h1>
+          <h1 className="text-4xl font-bold text-yellow-400 text-shadow">My Hangar</h1>
           <button
             onClick={() => navigate('/hangar/new')}
-            className="bg-cyan-600 hover:bg-cyan-500 px-6 py-3 rounded-lg text-white font-semibold transition flex items-center gap-2"
+            className="bg-yellow-500 hover:bg-yellow-400 px-6 py-3 rounded-lg text-black font-semibold transition flex items-center gap-2"
           >
             ➕ Create New Ship
           </button>
         </div>
 
         {isLoading ? (
-          <div className="text-center text-cyan-400 py-12">Loading hangar...</div>
+          <div className="min-h-[40vh] flex items-center justify-center">
+            <div className="text-center">
+              <div className="text-4xl mb-4 animate-pulse">🔧</div>
+              <p className="text-yellow-400">Loading hangar...</p>
+            </div>
+          </div>
         ) : data?.items.length === 0 ? (
-          <div className="bg-slate-900 border border-slate-700 rounded-lg p-12 text-center">
+          <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-12 text-center">
             <p className="text-gray-400 text-lg mb-6">Your hangar is empty.</p>
             <div className="flex justify-center gap-4">
               <button
                 onClick={() => navigate('/hangar/new')}
-                className="bg-purple-600 hover:bg-purple-500 px-6 py-3 rounded-lg text-white font-semibold transition"
+                className="bg-yellow-500 hover:bg-yellow-400 px-6 py-3 rounded-lg text-black font-semibold transition"
               >
                 🚀 Create from scratch
               </button>
               <Link
                 to="/catalog"
-                className="border border-cyan-500 hover:border-cyan-400 px-6 py-3 rounded-lg text-cyan-400 hover:text-cyan-300 font-semibold transition"
+                className="border border-yellow-500/50 hover:border-yellow-400 px-6 py-3 rounded-lg text-yellow-400 hover:text-yellow-300 font-semibold transition"
               >
                 📦 Fork from Catalog
               </Link>
@@ -72,24 +79,24 @@ export function Hangar() {
           </div>
         ) : (
           <>
-            <div className="bg-slate-900 border border-slate-700 rounded-lg overflow-hidden">
+            <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden">
               <table className="w-full">
-                <thead className="bg-slate-800 border-b border-slate-700">
+                <thead className="bg-black/30 border-b border-white/10">
                   <tr>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Name</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Manufacturer</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Class</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Status</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold">Actions</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-300">Name</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-300">Manufacturer</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-300">Class</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-300">Status</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-300">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-700">
+                <tbody className="divide-y divide-white/5">
                   {data?.items.map((ship) => (
-                    <tr key={ship.id} className="hover:bg-slate-800/50 transition">
+                    <tr key={ship.id} className="hover:bg-white/5 transition">
                       <td className="px-6 py-4">
                         <Link 
                           to={`/hangar/${ship.id}/edit`}
-                          className="font-medium text-white hover:text-cyan-400 transition"
+                          className="font-medium text-white hover:text-yellow-400 transition"
                         >
                           {ship.name}
                         </Link>
@@ -102,7 +109,7 @@ export function Hangar() {
                       <td className="px-6 py-4 flex gap-2">
                         <button
                           onClick={() => navigate(`/hangar/${ship.id}/edit`)}
-                          className="bg-blue-600 hover:bg-blue-500 px-4 py-1.5 rounded text-sm text-white font-medium transition"
+                          className="bg-black/40 hover:bg-black/60 border border-yellow-500/50 hover:border-yellow-400 px-4 py-1.5 rounded text-sm text-yellow-400 font-medium transition"
                         >
                           Edit
                         </button>
@@ -113,7 +120,7 @@ export function Hangar() {
                             }
                           }}
                           disabled={deleteMutation.isPending}
-                          className="bg-red-600 hover:bg-red-500 disabled:bg-gray-600 disabled:cursor-not-allowed px-4 py-1.5 rounded text-sm text-white font-medium transition"
+                          className="bg-red-600/20 hover:bg-red-600/30 border border-red-500/50 hover:border-red-400 disabled:bg-gray-600 disabled:border-gray-600 disabled:cursor-not-allowed px-4 py-1.5 rounded text-sm text-red-400 font-medium transition"
                         >
                           {deleteMutation.isPending ? '...' : 'Delete'}
                         </button>
