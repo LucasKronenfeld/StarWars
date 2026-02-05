@@ -40,7 +40,7 @@ The `docker-compose.yml` supports these environment variables:
 #### Seeding
 - `Seed__AutoBootstrap` - Auto-seed empty database (default: true)
 - `Seed__UseExtendedJson` - Load extended JSON files (default: true)
-- `Seed__ExtendedJsonPath` - Path to extended data (default: "Data/Extended")
+- `Seed__ExtendedJsonPath` - Path to extended data (default: "Data/Seeding/Extended data seeding")
 - `Seed__ApiKey` - Optional API key for dev wipe endpoint
 
 #### CORS
@@ -74,13 +74,14 @@ StarWars/
 │   └── StarWarsApi.Server/
 │       ├── Dockerfile           # Multi-stage .NET build
 │       └── Data/
-│           └── Extended/        # Extended JSON files
-│               ├── films.json
-│               ├── planets.json
-│               ├── people.json
-│               ├── species.json
-│               ├── starships.json
-│               └── vehicles.json
+│           └── Seeding/
+│               └── Extended data seeding/   # Extended JSON files
+│                   ├── films.json
+│                   ├── planets.json
+│                   ├── people.json
+│                   ├── species.json
+│                   ├── starships.json
+│                   └── vehicles.json
 └── Client/                      # React frontend (separate)
 ```
 
@@ -197,7 +198,7 @@ docker-compose up
 
 ### Adding Custom Films
 
-1. Edit `Server/StarWarsApi.Server/Data/Extended/films.json`:
+1. Edit `Server/StarWarsApi.Server/Data/Seeding/Extended data seeding/films.json`:
 
 ```json
 {
@@ -285,6 +286,16 @@ Look for `healthy` status in STATE column.
 ---
 
 ## Troubleshooting
+
+### Docker Pulls Fail With EOF (Docker Hub / Cloudflare R2)
+
+If you see errors like `failed to copy ... EOF` while pulling `postgres:16-alpine`, your network/proxy may be interrupting large layer downloads from Docker Hub's backing storage.
+
+This project is configured to use the AWS Public ECR mirror for Postgres by default:
+
+- `public.ecr.aws/docker/library/postgres:16-alpine`
+
+If you change the image back to `postgres:16-alpine` and pulls start failing again, switch it back in `docker-compose.yml` / `docker-compose.dev.yml`.
 
 ### Container Exits Immediately
 

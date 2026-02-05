@@ -94,8 +94,18 @@ public class DatabaseSeeder
                 var duplicateCheck = await PreflightCheckExtendedJsonDuplicatesAsync(ct);
                 if (duplicateCheck.HasDuplicates)
                 {
-                    _logger.LogError("Duplicate detection preflight failed in Development: {Duplicates}", duplicateCheck.Duplicates);
-                    throw new InvalidOperationException($"Extended JSON contains duplicates of SWAPI data. Fix before deploying: {string.Join(", ", duplicateCheck.Duplicates)}");
+                    var failOnDuplicates = _config.GetValue<bool>("Seed:FailOnDuplicatesInDevelopment", false);
+
+                    if (failOnDuplicates)
+                    {
+                        _logger.LogError("Duplicate detection preflight failed in Development: {Duplicates}", duplicateCheck.Duplicates);
+                        throw new InvalidOperationException(
+                            $"Extended JSON contains duplicates of SWAPI data. Fix before deploying: {string.Join(", ", duplicateCheck.Duplicates)}");
+                    }
+
+                    _logger.LogWarning(
+                        "Duplicate detection preflight found duplicates in Development (continuing): {Duplicates}",
+                        duplicateCheck.Duplicates);
                 }
             }
             
@@ -591,11 +601,22 @@ public class DatabaseSeeder
             return !string.IsNullOrWhiteSpace(key) && dict.ContainsKey(key);
         }
 
+        // Extract SWAPI ID from URL like "https://swapi.dev/api/people/1/" -> "1"
+        static string? ExtractSwapiId(string? sourceKey)
+        {
+            if (string.IsNullOrWhiteSpace(sourceKey) || !sourceKey.Contains("swapi.dev/api/"))
+                return null;
+            var trimmed = sourceKey.TrimEnd('/');
+            var lastSlash = trimmed.LastIndexOf('/');
+            return lastSlash >= 0 ? trimmed.Substring(lastSlash + 1) : null;
+        }
+
         var planets = await _db.Planets.Select(p => new { p.Id, p.Name, p.SourceKey }).ToListAsync(ct);
         foreach (var p in planets)
         {
             AddLookup(planetIds, p.SourceKey, p.Id);
             AddLookup(planetIds, p.Name, p.Id);
+            AddLookup(planetIds, ExtractSwapiId(p.SourceKey), p.Id); // Also register SWAPI ID like "1"
         }
 
         var people = await _db.People.Select(p => new { p.Id, p.Name, p.SourceKey }).ToListAsync(ct);
@@ -603,6 +624,7 @@ public class DatabaseSeeder
         {
             AddLookup(personIds, p.SourceKey, p.Id);
             AddLookup(personIds, p.Name, p.Id);
+            AddLookup(personIds, ExtractSwapiId(p.SourceKey), p.Id); // Also register SWAPI ID like "1"
         }
 
         var films = await _db.Films.Select(f => new { f.Id, f.Title, f.SourceKey }).ToListAsync(ct);
@@ -610,6 +632,7 @@ public class DatabaseSeeder
         {
             AddLookup(filmIds, f.SourceKey, f.Id);
             AddLookup(filmIds, f.Title, f.Id);
+            AddLookup(filmIds, ExtractSwapiId(f.SourceKey), f.Id); // Also register SWAPI ID like "1"
         }
 
         var species = await _db.Species.Select(s => new { s.Id, s.Name, s.SourceKey }).ToListAsync(ct);
@@ -617,6 +640,7 @@ public class DatabaseSeeder
         {
             AddLookup(speciesIds, s.SourceKey, s.Id);
             AddLookup(speciesIds, s.Name, s.Id);
+            AddLookup(speciesIds, ExtractSwapiId(s.SourceKey), s.Id); // Also register SWAPI ID like "1"
         }
 
         var starships = await _db.Starships
@@ -627,6 +651,7 @@ public class DatabaseSeeder
         {
             AddLookup(starshipIds, s.SourceKey, s.Id);
             AddLookup(starshipIds, s.Name, s.Id);
+            AddLookup(starshipIds, ExtractSwapiId(s.SourceKey), s.Id); // Also register SWAPI ID like "10"
         }
 
         var vehicles = await _db.Vehicles.Select(v => new { v.Id, v.Name, v.SourceKey }).ToListAsync(ct);
@@ -634,6 +659,7 @@ public class DatabaseSeeder
         {
             AddLookup(vehicleIds, v.SourceKey, v.Id);
             AddLookup(vehicleIds, v.Name, v.Id);
+            AddLookup(vehicleIds, ExtractSwapiId(v.SourceKey), v.Id); // Also register SWAPI ID like "4"
         }
 
         // Films

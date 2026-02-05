@@ -1,32 +1,264 @@
 {
   "data": [
     {
-      "id": "test-film-1",
-      "title": "Test Movie: The Beginning",
-      "episodeId": 10,
-      "openingCrawl": "It is a period of testing. Engineers have created sample data to verify the seeding system works correctly...",
-      "director": "Test Director",
-      "producer": "Test Producer",
-      "releaseDate": "2026-01-01",
-      "characters": ["test-person-1", "test-person-2"],
-      "planets": ["test-planet-1"],
-      "starships": ["test-ship-1"],
-      "vehicles": ["test-vehicle-1"],
-      "species": ["test-species-1"]
+      "id": "the-force-awakens",
+      "title": "The Force Awakens",
+      "episodeId": 7,
+      "openingCrawl": "Luke Skywalker has vanished. The sinister First Order has risen from the ashes of the Empire and will not rest until the last Jedi has been destroyed. With the support of the Republic, General Leia Organa leads a brave Resistance. She has sent her most daring pilot to the Jakku desert, where an old ally has discovered a clue to Luke's whereabouts.",
+      "director": "J. J. Abrams",
+      "producer": "Kathleen Kennedy, J. J. Abrams, Bryan Burk",
+      "releaseDate": "2015-12-18",
+      "characters": [
+        "1",
+        "5",
+        "14",
+        "13",
+        "2",
+        "3",
+        "rey",
+        "finn",
+        "poe-dameron",
+        "kylo-ren",
+        "supreme-leader-snoke",
+        "general-hux",
+        "captain-phasma",
+        "maz-kanata",
+        "bb-8",
+        "lor-san-tekka",
+        "unkar-plutt",
+        "temmin-wexley",
+        "jessika-pava",
+        "ello-asty",
+        "sidon-ithano",
+        "bazine-netal",
+        "teedo"
+      ],
+      "planets": [
+        "jakku",
+        "takodana",
+        "dqar",
+        "hosnian-prime",
+        "starkiller-base",
+        "ahch-to"
+      ],
+      "starships": [
+        "resurgent-class-star-destroyer",
+        "upsilon-class-command-shuttle",
+        "atmospheric-assault-lander",
+        "t-70-x-wing",
+        "first-order-tie-fighter",
+        "quadjumper"
+      ],
+      "vehicles": [
+        "reys-speeder",
+        "luggabeast",
+        "first-order-snowspeeder"
+      ],
+      "species": [
+        "crolute",
+        "abednedo",
+        "delphidian",
+        "teedo-species"
+      ]
     },
     {
-      "id": "test-film-2",
-      "title": "Test Movie: The Sequel",
-      "episodeId": 11,
-      "openingCrawl": "The testing continues! Our heroes must validate that relationships work correctly...",
-      "director": "Another Director",
-      "producer": "Another Producer",
-      "releaseDate": "2026-06-01",
-      "characters": ["test-person-2"],
-      "planets": ["test-planet-2"],
-      "starships": ["test-ship-2"],
-      "vehicles": [],
+      "id": "the-last-jedi",
+      "title": "The Last Jedi",
+      "episodeId": 8,
+      "openingCrawl": "The First Order reigns. Having decimated the peaceful Republic, Supreme Leader Snoke now deploys his merciless legions to seize military control of the galaxy. Only General Leia Organa's band of Resistance fighters stands against the rising tyranny. Outnumbered and outgunned, the Resistance has been forced to flee their hidden base. As the First Order speeds in pursuit, the brave heroes mount a desperate escape.",
+      "director": "Rian Johnson",
+      "producer": "Kathleen Kennedy, Ram Bergman",
+      "releaseDate": "2017-12-15",
+      "characters": [
+        "1",
+        "5",
+        "13",
+        "2",
+        "3",
+        "rey",
+        "finn",
+        "poe-dameron",
+        "kylo-ren",
+        "supreme-leader-snoke",
+        "general-hux",
+        "captain-phasma",
+        "maz-kanata",
+        "bb-8",
+        "rose-tico",
+        "paige-tico",
+        "amilyn-holdo",
+        "dj",
+        "bb-9e"
+      ],
+      "planets": [
+        "dqar",
+        "cantonica",
+        "crait",
+        "ahch-to"
+      ],
+      "starships": [
+        "t-70-x-wing",
+        "first-order-tie-fighter",
+        "upsilon-class-command-shuttle",
+        "atmospheric-assault-lander",
+        "raddus",
+        "supremacy",
+        "mg-100-starfortress",
+        "tie-silencer",
+        "resistance-transport-pod"
+      ],
+      "vehicles": [
+        "first-order-snowspeeder",
+        "ski-speeder"
+      ],
+      "species": [
+        "lanai",
+        "porg",
+        "fathier",
+        "vulptex"
+      ]
+    },
+    {
+      "id": "the-rise-of-skywalker",
+      "title": "The Rise of Skywalker",
+      "episodeId": 9,
+      "openingCrawl": "The dead speak! The galaxy has heard a mysterious broadcast, a threat of revenge in the sinister voice of the late Emperor Palpatine. General Leia Organa dispatches secret agents to gather intelligence, while Rey, the last hope of the Jedi, trains for battle against the diabolical First Order. Meanwhile, Supreme Leader Kylo Ren rages in search of the phantom Emperor.",
+      "director": "J. J. Abrams",
+      "producer": "Kathleen Kennedy, J. J. Abrams, Michelle Rejwan",
+      "releaseDate": "2019-12-20",
+      "characters": [
+        "1",
+        "5",
+        "13",
+        "2",
+        "3",
+        "25",
+        "21",
+        "rey",
+        "finn",
+        "poe-dameron",
+        "kylo-ren",
+        "general-hux",
+        "bb-8",
+        "rose-tico",
+        "temmin-wexley",
+        "jannah",
+        "zorii-bliss",
+        "babu-frik",
+        "d-o",
+        "allegiant-general-pryde",
+        "maz-kanata"
+      ],
+      "planets": [
+        "jakku",
+        "ahch-to",
+        "pasaana",
+        "kijimi",
+        "exegol",
+        "kef-bir",
+        "ajan-kloss"
+      ],
+      "starships": [
+        "t-70-x-wing",
+        "first-order-tie-fighter",
+        "tie-silencer",
+        "xyston-class-star-destroyer",
+        "steadfast",
+        "10"
+      ],
+      "vehicles": [
+        "treadspeeder",
+        "orbak-mount"
+      ],
+      "species": [
+        "aki-aki",
+        "anzellan",
+        "orbak"
+      ]
+    },
+    {
+      "id": "rogue-one",
+      "title": "Rogue One",
+      "episodeId": 10,
+      "openingCrawl": "The Rebellion makes a desperate mission to steal the plans to the Empire's ultimate weapon, the Death Star. Led by Jyn Erso and Cassian Andor, a ragtag group of rebels undertakes a daring heist that sets in motion the events of the original Star Wars.",
+      "director": "Gareth Edwards",
+      "producer": "Kathleen Kennedy, Allison Shearmur, Simon Emanuel",
+      "releaseDate": "2016-12-16",
+      "characters": [
+        "2",
+        "3",
+        "4",
+        "11",
+        "12",
+        "28",
+        "jyn-erso",
+        "cassian-andor",
+        "k-2so",
+        "bodhi-rook",
+        "saw-gerrera",
+        "chirrut-imwe",
+        "baze-malbus",
+        "director-krennic",
+        "galen-erso"
+      ],
+      "planets": [
+        "lahmu",
+        "jedha",
+        "eadu",
+        "scarif"
+      ],
+      "starships": [
+        "u-wing",
+        "tie-striker",
+        "hammerhead-corvette",
+        "zeta-class-cargo-shuttle"
+      ],
+      "vehicles": [
+        "occupier-assault-tank",
+        "at-act-walker"
+      ],
       "species": []
+    },
+    {
+      "id": "solo",
+      "title": "Solo",
+      "episodeId": 11,
+      "openingCrawl": "Young Han Solo finds adventure when he joins a gang of galactic smugglers led by Tobias Beckett. Along the way he meets his future co-pilot Chewbacca, encounters the gambler Lando Calrissian, and comes face-to-face with the notorious crime lord Dryden Vos while navigating the dangerous criminal underworld.",
+      "director": "Ron Howard",
+      "producer": "Kathleen Kennedy, Allison Shearmur, Simon Emanuel",
+      "releaseDate": "2018-05-25",
+      "characters": [
+        "14",
+        "13",
+        "25",
+        "qi-ra",
+        "tobias-beckett",
+        "dryden-vos",
+        "l3-37",
+        "rio-durant",
+        "val",
+        "enfys-nest"
+      ],
+      "planets": [
+        "corellia",
+        "mimban",
+        "vandor",
+        "kessel",
+        "savareen"
+      ],
+      "starships": [
+        "at-hauler",
+        "first-light",
+        "10"
+      ],
+      "vehicles": [
+        "conveyex-transport",
+        "cloud-rider-swoop-bike",
+        "m-68-landspeeder"
+      ],
+      "species": [
+        "ardennian"
+      ]
     }
   ]
 }

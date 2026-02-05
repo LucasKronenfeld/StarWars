@@ -1,19 +1,220 @@
 {
   "data": [
     {
-      "id": "test-species-1",
-      "name": "Test Species Alpha",
+      "id": "crolute",
+      "name": "Crolute",
+      "classification": "amphibian",
+      "designation": "sentient",
+      "averageHeight": "180",
+      "skinColors": "grey, green",
+      "hairColors": "none",
+      "eyeColors": "yellow, brown",
+      "averageLifespan": "unknown",
+      "language": "Crolutese",
+      "homeworld": "unknown",
+      "people": [
+        "unkar-plutt"
+      ],
+      "films": [
+        "the-force-awakens"
+      ]
+    },
+    {
+      "id": "abednedo",
+      "name": "Abednedo",
       "classification": "mammal",
       "designation": "sentient",
       "averageHeight": "180",
-      "skinColors": "fair, tan, brown",
-      "hairColors": "black, brown, blonde",
-      "eyeColors": "blue, green, brown",
-      "averageLifespan": "80",
-      "language": "Test Basic",
-      "homeworld": "test-planet-1",
-      "people": ["test-person-1"],
-      "films": ["test-film-1"]
+      "skinColors": "brown, cream, tan",
+      "hairColors": "none",
+      "eyeColors": "black",
+      "averageLifespan": "unknown",
+      "language": "Abednedese, Galactic Basic",
+      "homeworld": "unknown",
+      "people": [
+        "ello-asty"
+      ],
+      "films": [
+        "the-force-awakens"
+      ]
+    },
+    {
+      "id": "delphidian",
+      "name": "Delphidian",
+      "classification": "humanoid",
+      "designation": "sentient",
+      "averageHeight": "190",
+      "skinColors": "red",
+      "hairColors": "none",
+      "eyeColors": "black",
+      "averageLifespan": "unknown",
+      "language": "Delphidese",
+      "homeworld": "unknown",
+      "people": [
+        "sidon-ithano"
+      ],
+      "films": [
+        "the-force-awakens"
+      ]
+    },
+    {
+      "id": "teedo-species",
+      "name": "Teedo species",
+      "classification": "reptilian",
+      "designation": "sentient",
+      "averageHeight": "100",
+      "skinColors": "tan, brown",
+      "hairColors": "none",
+      "eyeColors": "yellow",
+      "averageLifespan": "unknown",
+      "language": "Teedospeak",
+      "homeworld": "jakku",
+      "people": [
+        "teedo"
+      ],
+      "films": [
+        "the-force-awakens"
+      ]
+    },
+    {
+      "id": "lanai",
+      "name": "Lanai",
+      "classification": "humanoid",
+      "designation": "sentient",
+      "averageHeight": "155",
+      "skinColors": "grey",
+      "hairColors": "white",
+      "eyeColors": "yellow",
+      "averageLifespan": "unknown",
+      "language": "unknown",
+      "homeworld": "ahch-to",
+      "people": [],
+      "films": [
+        "the-last-jedi"
+      ]
+    },
+    {
+      "id": "porg",
+      "name": "Porg",
+      "classification": "avian",
+      "designation": "non-sentient",
+      "averageHeight": "40",
+      "skinColors": "white, brown",
+      "hairColors": "brown",
+      "eyeColors": "black",
+      "averageLifespan": "unknown",
+      "language": "chirps",
+      "homeworld": "ahch-to",
+      "people": [],
+      "films": [
+        "the-last-jedi"
+      ]
+    },
+    {
+      "id": "fathier",
+      "name": "Fathier",
+      "classification": "mammal",
+      "designation": "non-sentient",
+      "averageHeight": "300",
+      "skinColors": "brown",
+      "hairColors": "brown",
+      "eyeColors": "brown",
+      "averageLifespan": "unknown",
+      "language": "unknown",
+      "homeworld": "cantonica",
+      "people": [],
+      "films": [
+        "the-last-jedi"
+      ]
+    },
+    {
+      "id": "vulptex",
+      "name": "Vulptex",
+      "classification": "mammal",
+      "designation": "non-sentient",
+      "averageHeight": "60",
+      "skinColors": "white",
+      "hairColors": "crystalline",
+      "eyeColors": "blue",
+      "averageLifespan": "unknown",
+      "language": "unknown",
+      "homeworld": "crait",
+      "people": [],
+      "films": [
+        "the-last-jedi"
+      ]
+    },
+    {
+      "id": "aki-aki",
+      "name": "Aki-Aki",
+      "classification": "humanoid",
+      "designation": "sentient",
+      "averageHeight": "200",
+      "skinColors": "tan, orange",
+      "hairColors": "none",
+      "eyeColors": "brown",
+      "averageLifespan": "unknown",
+      "language": "Akiaki",
+      "homeworld": "pasaana",
+      "people": [],
+      "films": [
+        "the-rise-of-skywalker"
+      ]
+    },
+    {
+      "id": "anzellan",
+      "name": "Anzellan",
+      "classification": "amphibian",
+      "designation": "sentient",
+      "averageHeight": "22",
+      "skinColors": "brown",
+      "hairColors": "none",
+      "eyeColors": "green",
+      "averageLifespan": "unknown",
+      "language": "Anzellan",
+      "homeworld": "unknown",
+      "people": [
+        "babu-frik"
+      ],
+      "films": [
+        "the-rise-of-skywalker"
+      ]
+    },
+    {
+      "id": "orbak",
+      "name": "Orbak",
+      "classification": "mammal",
+      "designation": "non-sentient",
+      "averageHeight": "250",
+      "skinColors": "brown",
+      "hairColors": "brown",
+      "eyeColors": "brown",
+      "averageLifespan": "unknown",
+      "language": "unknown",
+      "homeworld": "kef-bir",
+      "people": [],
+      "films": [
+        "the-rise-of-skywalker"
+      ]
+    },
+    {
+      "id": "ardennian",
+      "name": "Ardennian",
+      "classification": "mammal",
+      "designation": "sentient",
+      "averageHeight": "120",
+      "skinColors": "blue",
+      "hairColors": "brown",
+      "eyeColors": "yellow",
+      "averageLifespan": "unknown",
+      "language": "Ardennian",
+      "homeworld": "ardennia",
+      "people": [
+        "rio-durant"
+      ],
+      "films": [
+        "solo"
+      ]
     }
   ]
 }

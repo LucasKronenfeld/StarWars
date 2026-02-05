@@ -1,20 +1,215 @@
 {
   "data": [
     {
-      "id": "test-vehicle-1",
-      "name": "Test Speeder Alpha",
-      "model": "TS-20",
-      "manufacturer": "Test Motors",
-      "costInCredits": "25000",
-      "length": "5",
-      "maxAtmospheringSpeed": "250",
+      "id": "reys-speeder",
+      "name": "Rey's speeder",
+      "model": "Custom speeder",
+      "manufacturer": "Unkar's salvage",
+      "costInCredits": "unknown",
+      "length": "3.73",
+      "maxAtmospheringSpeed": "420",
       "crew": "1",
       "passengers": "1",
       "cargoCapacity": "50",
       "consumables": "1 day",
       "vehicleClass": "speeder",
-      "pilots": ["test-person-1"],
-      "films": ["test-film-1"]
+      "pilots": [
+        "rey"
+      ],
+      "films": [
+        "the-force-awakens"
+      ]
+    },
+    {
+      "id": "luggabeast",
+      "name": "Luggabeast",
+      "model": "Luggabeast",
+      "manufacturer": "Teedo salvage",
+      "costInCredits": "unknown",
+      "length": "3",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "1",
+      "passengers": "1",
+      "cargoCapacity": "100",
+      "consumables": "unknown",
+      "vehicleClass": "beast",
+      "pilots": [
+        "teedo"
+      ],
+      "films": [
+        "the-force-awakens"
+      ]
+    },
+    {
+      "id": "first-order-snowspeeder",
+      "name": "First Order snowspeeder",
+      "model": "First Order snowspeeder",
+      "manufacturer": "First Order",
+      "costInCredits": "unknown",
+      "length": "5.5",
+      "maxAtmospheringSpeed": "650",
+      "crew": "2",
+      "passengers": "0",
+      "cargoCapacity": "40",
+      "consumables": "1 day",
+      "vehicleClass": "speeder",
+      "pilots": [],
+      "films": [
+        "the-force-awakens"
+      ]
+    },
+    {
+      "id": "ski-speeder",
+      "name": "Ski Speeder",
+      "model": "V-4X-D ski speeder",
+      "manufacturer": "Rendili Vehicle Corporation",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "1",
+      "passengers": "0",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "vehicleClass": "speeder",
+      "pilots": [
+        "finn",
+        "rose-tico"
+      ],
+      "films": [
+        "the-last-jedi"
+      ]
+    },
+    {
+      "id": "treadspeeder",
+      "name": "Treadspeeder",
+      "model": "First Order treadable heavy speeder",
+      "manufacturer": "First Order",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "1",
+      "passengers": "1",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "vehicleClass": "speeder",
+      "pilots": [],
+      "films": [
+        "the-rise-of-skywalker"
+      ]
+    },
+    {
+      "id": "orbak-mount",
+      "name": "Orbak mount",
+      "model": "Orbak mount",
+      "manufacturer": "nature",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "1",
+      "passengers": "0",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "vehicleClass": "mount",
+      "pilots": [
+        "jannah"
+      ],
+      "films": [
+        "the-rise-of-skywalker"
+      ]
+    },
+    {
+      "id": "occupier-assault-tank",
+      "name": "Occupier Assault Tank",
+      "model": "TX-225 GAVw Occupier combat assault tank",
+      "manufacturer": "Rothana Heavy Engineering",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "3",
+      "passengers": "9",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "vehicleClass": "tank",
+      "pilots": [],
+      "films": [
+        "rogue-one"
+      ]
+    },
+    {
+      "id": "at-act-walker",
+      "name": "AT-ACT walker",
+      "model": "All Terrain Armored Cargo Transport",
+      "manufacturer": "Kuat Drive Yards",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "5",
+      "passengers": "30",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "vehicleClass": "walker",
+      "pilots": [],
+      "films": [
+        "rogue-one"
+      ]
+    },
+    {
+      "id": "conveyex-transport",
+      "name": "Conveyex Transport",
+      "model": "Imperial conveyex transport",
+      "manufacturer": "Imperial Department of Military Research",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "unknown",
+      "passengers": "unknown",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "vehicleClass": "train",
+      "pilots": [],
+      "films": [
+        "solo"
+      ]
+    },
+    {
+      "id": "cloud-rider-swoop-bike",
+      "name": "Cloud-Rider swoop bike",
+      "model": "Aratech 74-Z speeder bike (modified)",
+      "manufacturer": "Aratech Repulsor Company",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "1",
+      "passengers": "0",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "vehicleClass": "speeder bike",
+      "pilots": [
+        "enfys-nest"
+      ],
+      "films": [
+        "solo"
+      ]
+    },
+    {
+      "id": "m-68-landspeeder",
+      "name": "M-68 landspeeder",
+      "model": "M-68 landspeeder",
+      "manufacturer": "Corellian Engineering Corporation",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "1",
+      "passengers": "1",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "vehicleClass": "speeder",
+      "pilots": [
+        "14"
+      ],
+      "films": [
+        "solo"
+      ]
     }
   ]
 }

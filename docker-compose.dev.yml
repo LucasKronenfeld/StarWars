@@ -3,7 +3,7 @@
 
 services:
   postgres:
-    image: postgres:16-alpine
+    image: public.ecr.aws/docker/library/postgres:16-alpine
     container_name: starwars-postgres-dev
     environment:
       POSTGRES_USER: starwars
@@ -39,7 +39,7 @@ services:
       # Seeding
       Seed__AutoBootstrap: "true"
       Seed__UseExtendedJson: "true"
-      Seed__ExtendedJsonPath: "Data/Extended"
+      Seed__ExtendedJsonPath: "Data/Seeding/Extended data seeding"
       Seed__AdminEmails__0: "admin@starwars.local"
       Seed__ApiKey: "dev-seed-key-12345"
       
