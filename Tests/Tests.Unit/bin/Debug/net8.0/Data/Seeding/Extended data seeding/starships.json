@@ -1,40 +1,420 @@
 {
   "data": [
     {
-      "id": "test-ship-1",
-      "name": "Test Cruiser Alpha",
-      "model": "TC-100",
-      "manufacturer": "Test Shipyards",
-      "costInCredits": "5000000",
-      "length": "150",
-      "maxAtmospheringSpeed": "1000",
-      "crew": "50",
-      "passengers": "200",
-      "cargoCapacity": "100000",
-      "consumables": "6 months",
-      "hyperdriveRating": "2.0",
-      "mglt": "60",
-      "starshipClass": "Light Cruiser",
-      "pilots": ["test-person-1"],
-      "films": ["test-film-1"]
+      "id": "resurgent-class-star-destroyer",
+      "name": "Resurgent-class Star Destroyer",
+      "model": "Resurgent-class Star Destroyer",
+      "manufacturer": "Kuat-Entralla Engineering",
+      "costInCredits": "unknown",
+      "length": "2915",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "unknown",
+      "passengers": "unknown",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "hyperdriveRating": "unknown",
+      "mglt": "unknown",
+      "starshipClass": "battlecruiser",
+      "pilots": [],
+      "films": [
+        "the-force-awakens"
+      ]
     },
     {
-      "id": "test-ship-2",
-      "name": "Test Fighter Beta",
-      "model": "TF-50",
-      "manufacturer": "Test Defense Systems",
-      "costInCredits": "250000",
-      "length": "12",
-      "maxAtmospheringSpeed": "1200",
+      "id": "upsilon-class-command-shuttle",
+      "name": "Upsilon-class command shuttle",
+      "model": "Upsilon-class command shuttle",
+      "manufacturer": "Sienar-Jaemus Fleet Systems",
+      "costInCredits": "unknown",
+      "length": "37",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "4",
+      "passengers": "10",
+      "cargoCapacity": "200",
+      "consumables": "1 month",
+      "hyperdriveRating": "unknown",
+      "mglt": "unknown",
+      "starshipClass": "shuttle",
+      "pilots": [
+        "kylo-ren"
+      ],
+      "films": [
+        "the-force-awakens",
+        "the-last-jedi"
+      ]
+    },
+    {
+      "id": "atmospheric-assault-lander",
+      "name": "Atmospheric Assault Lander",
+      "model": "Atmospheric Assault Lander",
+      "manufacturer": "Sienar-Jaemus Army Systems",
+      "costInCredits": "unknown",
+      "length": "18",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "4",
+      "passengers": "20",
+      "cargoCapacity": "2000",
+      "consumables": "unknown",
+      "hyperdriveRating": "unknown",
+      "mglt": "unknown",
+      "starshipClass": "landing craft",
+      "pilots": [],
+      "films": [
+        "the-force-awakens",
+        "the-last-jedi"
+      ]
+    },
+    {
+      "id": "t-70-x-wing",
+      "name": "T-70 X-wing",
+      "model": "T-70 X-wing starfighter",
+      "manufacturer": "Incom-FreiTek",
+      "costInCredits": "unknown",
+      "length": "12.5",
+      "maxAtmospheringSpeed": "1050",
       "crew": "1",
       "passengers": "0",
-      "cargoCapacity": "100",
+      "cargoCapacity": "unknown",
       "consumables": "1 week",
       "hyperdriveRating": "1.0",
-      "mglt": "100",
-      "starshipClass": "Starfighter",
-      "pilots": ["test-person-2"],
-      "films": ["test-film-2"]
+      "mglt": "unknown",
+      "starshipClass": "starfighter",
+      "pilots": [
+        "poe-dameron",
+        "temmin-wexley",
+        "jessika-pava",
+        "ello-asty"
+      ],
+      "films": [
+        "the-force-awakens",
+        "the-last-jedi",
+        "the-rise-of-skywalker"
+      ]
+    },
+    {
+      "id": "first-order-tie-fighter",
+      "name": "TIE/fo fighter",
+      "model": "First Order TIE/fo space superiority fighter",
+      "manufacturer": "Sienar-Jaemus Fleet Systems",
+      "costInCredits": "unknown",
+      "length": "6.69",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "1",
+      "passengers": "0",
+      "cargoCapacity": "25",
+      "consumables": "2 days",
+      "hyperdriveRating": "none",
+      "mglt": "unknown",
+      "starshipClass": "starfighter",
+      "pilots": [
+        "finn",
+        "poe-dameron"
+      ],
+      "films": [
+        "the-force-awakens",
+        "the-last-jedi",
+        "the-rise-of-skywalker"
+      ]
+    },
+    {
+      "id": "quadjumper",
+      "name": "Quadjumper",
+      "model": "Quadrijet transfer spacetug",
+      "manufacturer": "Subpro Corporation",
+      "costInCredits": "unknown",
+      "length": "16.7",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "1",
+      "passengers": "3",
+      "cargoCapacity": "50000",
+      "consumables": "2 months",
+      "hyperdriveRating": "unknown",
+      "mglt": "unknown",
+      "starshipClass": "transport",
+      "pilots": [],
+      "films": [
+        "the-force-awakens"
+      ]
+    },
+    {
+      "id": "raddus",
+      "name": "Raddus",
+      "model": "MC85 Star Cruiser",
+      "manufacturer": "Mon Cala Shipyards",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "unknown",
+      "passengers": "unknown",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "hyperdriveRating": "unknown",
+      "mglt": "unknown",
+      "starshipClass": "MC85 star cruiser",
+      "pilots": [
+        "amilyn-holdo"
+      ],
+      "films": [
+        "the-last-jedi"
+      ]
+    },
+    {
+      "id": "supremacy",
+      "name": "Supremacy",
+      "model": "Mega-class Star Dreadnought",
+      "manufacturer": "First Order",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "unknown",
+      "passengers": "unknown",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "hyperdriveRating": "unknown",
+      "mglt": "unknown",
+      "starshipClass": "mega-class star dreadnought",
+      "pilots": [],
+      "films": [
+        "the-last-jedi"
+      ]
+    },
+    {
+      "id": "mg-100-starfortress",
+      "name": "MG-100 StarFortress",
+      "model": "MG-100 StarFortress SF-17",
+      "manufacturer": "Resistance",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "5",
+      "passengers": "unknown",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "hyperdriveRating": "unknown",
+      "mglt": "unknown",
+      "starshipClass": "bomber",
+      "pilots": [
+        "paige-tico"
+      ],
+      "films": [
+        "the-last-jedi"
+      ]
+    },
+    {
+      "id": "tie-silencer",
+      "name": "TIE Silencer",
+      "model": "Sienar Jaemus TIE/VN starfighter",
+      "manufacturer": "Sienar-Jaemus Fleet Systems",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "1",
+      "passengers": "0",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "hyperdriveRating": "unknown",
+      "mglt": "unknown",
+      "starshipClass": "starfighter",
+      "pilots": [
+        "kylo-ren"
+      ],
+      "films": [
+        "the-last-jedi"
+      ]
+    },
+    {
+      "id": "resistance-transport-pod",
+      "name": "Resistance Transport Pod",
+      "model": "Resistance transport pod",
+      "manufacturer": "Resistance",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "2",
+      "passengers": "0",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "hyperdriveRating": "unknown",
+      "mglt": "unknown",
+      "starshipClass": "escape pod",
+      "pilots": [
+        "finn",
+        "rose-tico",
+        "dj"
+      ],
+      "films": [
+        "the-last-jedi"
+      ]
+    },
+    {
+      "id": "xyston-class-star-destroyer",
+      "name": "Xyston-class Star Destroyer",
+      "model": "Xyston-class Star Destroyer",
+      "manufacturer": "Sith Eternal",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "unknown",
+      "passengers": "unknown",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "hyperdriveRating": "unknown",
+      "mglt": "unknown",
+      "starshipClass": "star destroyer",
+      "pilots": [],
+      "films": [
+        "the-rise-of-skywalker"
+      ]
+    },
+    {
+      "id": "steadfast",
+      "name": "Steadfast",
+      "model": "Resurgent-class Star Destroyer",
+      "manufacturer": "Kuat-Entralla Engineering",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "unknown",
+      "passengers": "unknown",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "hyperdriveRating": "unknown",
+      "mglt": "unknown",
+      "starshipClass": "star destroyer",
+      "pilots": [
+        "allegiant-general-pryde"
+      ],
+      "films": [
+        "the-rise-of-skywalker"
+      ]
+    },
+    {
+      "id": "u-wing",
+      "name": "UT-60D U-wing",
+      "model": "UT-60D U-wing starfighter/support craft",
+      "manufacturer": "Incom Corporation",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "2",
+      "passengers": "8",
+      "cargoCapacity": "unknown",
+      "consumables": "1 week",
+      "hyperdriveRating": "unknown",
+      "mglt": "unknown",
+      "starshipClass": "gunship",
+      "pilots": [
+        "cassian-andor"
+      ],
+      "films": [
+        "rogue-one"
+      ]
+    },
+    {
+      "id": "tie-striker",
+      "name": "TIE Striker",
+      "model": "TIE/sk x1 experimental air superiority fighter",
+      "manufacturer": "Sienar Fleet Systems",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "1",
+      "passengers": "0",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "hyperdriveRating": "unknown",
+      "mglt": "unknown",
+      "starshipClass": "starfighter",
+      "pilots": [],
+      "films": [
+        "rogue-one"
+      ]
+    },
+    {
+      "id": "hammerhead-corvette",
+      "name": "Hammerhead Corvette",
+      "model": "Sphyrna-class Hammerhead corvette",
+      "manufacturer": "Corellian Engineering Corporation",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "unknown",
+      "passengers": "unknown",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "hyperdriveRating": "unknown",
+      "mglt": "unknown",
+      "starshipClass": "corvette",
+      "pilots": [],
+      "films": [
+        "rogue-one"
+      ]
+    },
+    {
+      "id": "zeta-class-cargo-shuttle",
+      "name": "Zeta-class Cargo Shuttle",
+      "model": "Zeta-class cargo shuttle",
+      "manufacturer": "Kuat Drive Yards",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "2",
+      "passengers": "10",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "hyperdriveRating": "unknown",
+      "mglt": "unknown",
+      "starshipClass": "cargo shuttle",
+      "pilots": [],
+      "films": [
+        "rogue-one"
+      ]
+    },
+    {
+      "id": "at-hauler",
+      "name": "AT-Hauler",
+      "model": "Y-45 armored transport hauler",
+      "manufacturer": "Kuat Drive Yards",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "2",
+      "passengers": "4",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "hyperdriveRating": "unknown",
+      "mglt": "unknown",
+      "starshipClass": "transport",
+      "pilots": [
+        "tobias-beckett",
+        "rio-durant",
+        "val"
+      ],
+      "films": [
+        "solo"
+      ]
+    },
+    {
+      "id": "first-light",
+      "name": "First Light",
+      "model": "Luxury yacht",
+      "manufacturer": "Unknown",
+      "costInCredits": "unknown",
+      "length": "unknown",
+      "maxAtmospheringSpeed": "unknown",
+      "crew": "unknown",
+      "passengers": "unknown",
+      "cargoCapacity": "unknown",
+      "consumables": "unknown",
+      "hyperdriveRating": "unknown",
+      "mglt": "unknown",
+      "starshipClass": "luxury yacht",
+      "pilots": [
+        "dryden-vos"
+      ],
+      "films": [
+        "solo"
+      ]
     }
   ]
 }

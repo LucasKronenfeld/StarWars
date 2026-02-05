@@ -1,32 +1,370 @@
 {
   "data": [
     {
-      "id": "test-planet-1",
-      "name": "Test World Prime",
+      "id": "jakku",
+      "name": "Jakku",
+      "rotationPeriod": "26.8",
+      "orbitalPeriod": "352",
+      "diameter": "6400",
+      "climate": "hot, arid",
+      "gravity": "1 standard",
+      "terrain": "deserts",
+      "surfaceWater": "1",
+      "population": "25000",
+      "residents": [
+        "rey",
+        "unkar-plutt",
+        "teedo"
+      ],
+      "films": [
+        "the-force-awakens",
+        "the-rise-of-skywalker"
+      ]
+    },
+    {
+      "id": "takodana",
+      "name": "Takodana",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "215",
+      "diameter": "12100",
+      "climate": "temperate",
+      "gravity": "1 standard",
+      "terrain": "forests, lakes",
+      "surfaceWater": "unknown",
+      "population": "1000000",
+      "residents": [
+        "maz-kanata"
+      ],
+      "films": [
+        "the-force-awakens"
+      ]
+    },
+    {
+      "id": "dqar",
+      "name": "D'Qar",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "415",
+      "diameter": "10400",
+      "climate": "tropical",
+      "gravity": "1 standard",
+      "terrain": "jungles, forests",
+      "surfaceWater": "unknown",
+      "population": "0",
+      "residents": [],
+      "films": [
+        "the-force-awakens",
+        "the-last-jedi"
+      ]
+    },
+    {
+      "id": "hosnian-prime",
+      "name": "Hosnian Prime",
       "rotationPeriod": "24",
-      "orbitalPeriod": "365",
-      "diameter": "12000",
+      "orbitalPeriod": "360",
+      "diameter": "unknown",
+      "climate": "temperate",
+      "gravity": "1 standard",
+      "terrain": "urban",
+      "surfaceWater": "unknown",
+      "population": "unknown",
+      "residents": [],
+      "films": [
+        "the-force-awakens"
+      ]
+    },
+    {
+      "id": "starkiller-base",
+      "name": "Starkiller Base",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "unknown",
+      "diameter": "unknown",
+      "climate": "frigid",
+      "gravity": "1 standard",
+      "terrain": "ice, mountains, trench",
+      "surfaceWater": "unknown",
+      "population": "unknown",
+      "residents": [],
+      "films": [
+        "the-force-awakens"
+      ]
+    },
+    {
+      "id": "ahch-to",
+      "name": "Ahch-To",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "unknown",
+      "diameter": "unknown",
+      "climate": "temperate",
+      "gravity": "1 standard",
+      "terrain": "islands, oceans",
+      "surfaceWater": "90",
+      "population": "unknown",
+      "residents": [
+        "1"
+      ],
+      "films": [
+        "the-force-awakens",
+        "the-last-jedi",
+        "the-rise-of-skywalker"
+      ]
+    },
+    {
+      "id": "crait",
+      "name": "Crait",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "unknown",
+      "diameter": "unknown",
+      "climate": "cold",
+      "gravity": "1 standard",
+      "terrain": "salt plains, caverns",
+      "surfaceWater": "0",
+      "population": "0",
+      "residents": [],
+      "films": [
+        "the-last-jedi"
+      ]
+    },
+    {
+      "id": "cantonica",
+      "name": "Cantonica",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "unknown",
+      "diameter": "unknown",
+      "climate": "temperate",
+      "gravity": "1 standard",
+      "terrain": "urban, deserts",
+      "surfaceWater": "unknown",
+      "population": "unknown",
+      "residents": [],
+      "films": [
+        "the-last-jedi"
+      ]
+    },
+    {
+      "id": "pasaana",
+      "name": "Pasaana",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "unknown",
+      "diameter": "unknown",
+      "climate": "arid",
+      "gravity": "1 standard",
+      "terrain": "desert, mesas",
+      "surfaceWater": "unknown",
+      "population": "unknown",
+      "residents": [],
+      "films": [
+        "the-rise-of-skywalker"
+      ]
+    },
+    {
+      "id": "kijimi",
+      "name": "Kijimi",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "unknown",
+      "diameter": "unknown",
+      "climate": "cold",
+      "gravity": "1 standard",
+      "terrain": "urban, mountains",
+      "surfaceWater": "unknown",
+      "population": "unknown",
+      "residents": [],
+      "films": [
+        "the-rise-of-skywalker"
+      ]
+    },
+    {
+      "id": "exegol",
+      "name": "Exegol",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "unknown",
+      "diameter": "unknown",
+      "climate": "dry, stormy",
+      "gravity": "unknown",
+      "terrain": "plateaus, monoliths",
+      "surfaceWater": "unknown",
+      "population": "unknown",
+      "residents": [],
+      "films": [
+        "the-rise-of-skywalker"
+      ]
+    },
+    {
+      "id": "kef-bir",
+      "name": "Kef Bir",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "unknown",
+      "diameter": "unknown",
+      "climate": "oceanic",
+      "gravity": "1 standard",
+      "terrain": "oceans, islands",
+      "surfaceWater": "unknown",
+      "population": "unknown",
+      "residents": [],
+      "films": [
+        "the-rise-of-skywalker"
+      ]
+    },
+    {
+      "id": "ajan-kloss",
+      "name": "Ajan Kloss",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "unknown",
+      "diameter": "unknown",
       "climate": "temperate",
       "gravity": "1 standard",
       "terrain": "forests, mountains",
-      "surfaceWater": "70",
-      "population": "5000000",
-      "residents": ["test-person-1"],
-      "films": ["test-film-1"]
+      "surfaceWater": "unknown",
+      "population": "unknown",
+      "residents": [],
+      "films": [
+        "the-rise-of-skywalker"
+      ]
     },
     {
-      "id": "test-planet-2",
-      "name": "Test World Secondary",
-      "rotationPeriod": "28",
-      "orbitalPeriod": "400",
-      "diameter": "10000",
+      "id": "lahmu",
+      "name": "Lah'mu",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "unknown",
+      "diameter": "unknown",
+      "climate": "wet",
+      "gravity": "1 standard",
+      "terrain": "bogs, plains",
+      "surfaceWater": "unknown",
+      "population": "unknown",
+      "residents": [],
+      "films": [
+        "rogue-one"
+      ]
+    },
+    {
+      "id": "jedha",
+      "name": "Jedha",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "unknown",
+      "diameter": "unknown",
       "climate": "arid",
       "gravity": "0.9 standard",
-      "terrain": "desert, canyons",
-      "surfaceWater": "15",
-      "population": "1000000",
-      "residents": ["test-person-2"],
-      "films": ["test-film-2"]
+      "terrain": "deserts, canyons",
+      "surfaceWater": "unknown",
+      "population": "unknown",
+      "residents": [],
+      "films": [
+        "rogue-one"
+      ]
+    },
+    {
+      "id": "eadu",
+      "name": "Eadu",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "unknown",
+      "diameter": "unknown",
+      "climate": "stormy",
+      "gravity": "1 standard",
+      "terrain": "mountains, mesas",
+      "surfaceWater": "unknown",
+      "population": "unknown",
+      "residents": [],
+      "films": [
+        "rogue-one"
+      ]
+    },
+    {
+      "id": "scarif",
+      "name": "Scarif",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "unknown",
+      "diameter": "unknown",
+      "climate": "tropical",
+      "gravity": "1 standard",
+      "terrain": "beaches, jungles",
+      "surfaceWater": "unknown",
+      "population": "unknown",
+      "residents": [],
+      "films": [
+        "rogue-one"
+      ]
+    },
+    {
+      "id": "corellia",
+      "name": "Corellia",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "unknown",
+      "diameter": "unknown",
+      "climate": "temperate",
+      "gravity": "1 standard",
+      "terrain": "urban, shipyards",
+      "surfaceWater": "unknown",
+      "population": "unknown",
+      "residents": [
+        "qi-ra"
+      ],
+      "films": [
+        "solo"
+      ]
+    },
+    {
+      "id": "mimban",
+      "name": "Mimban",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "unknown",
+      "diameter": "unknown",
+      "climate": "swampy",
+      "gravity": "1 standard",
+      "terrain": "swamps",
+      "surfaceWater": "unknown",
+      "population": "unknown",
+      "residents": [],
+      "films": [
+        "solo"
+      ]
+    },
+    {
+      "id": "vandor",
+      "name": "Vandor",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "unknown",
+      "diameter": "unknown",
+      "climate": "cold",
+      "gravity": "1 standard",
+      "terrain": "mountains, snowfields",
+      "surfaceWater": "unknown",
+      "population": "unknown",
+      "residents": [],
+      "films": [
+        "solo"
+      ]
+    },
+    {
+      "id": "kessel",
+      "name": "Kessel",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "unknown",
+      "diameter": "unknown",
+      "climate": "arid",
+      "gravity": "1 standard",
+      "terrain": "caves, mines",
+      "surfaceWater": "unknown",
+      "population": "unknown",
+      "residents": [],
+      "films": [
+        "solo"
+      ]
+    },
+    {
+      "id": "savareen",
+      "name": "Savareen",
+      "rotationPeriod": "unknown",
+      "orbitalPeriod": "unknown",
+      "diameter": "unknown",
+      "climate": "arid",
+      "gravity": "1 standard",
+      "terrain": "coastal cliffs, beaches",
+      "surfaceWater": "unknown",
+      "population": "unknown",
+      "residents": [],
+      "films": [
+        "solo"
+      ]
     }
   ]
 }

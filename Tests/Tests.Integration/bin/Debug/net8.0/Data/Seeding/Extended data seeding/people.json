@@ -1,36 +1,936 @@
 {
   "data": [
     {
-      "id": "test-person-1",
-      "name": "Test Hero Alpha",
-      "height": "180",
-      "mass": "75",
+      "id": "rey",
+      "name": "Rey",
+      "height": "170",
+      "mass": "unknown",
       "hairColor": "brown",
-      "skinColor": "fair",
-      "eyeColor": "blue",
-      "birthYear": "25BBY",
-      "gender": "male",
-      "homeworld": "test-planet-1",
-      "films": ["test-film-1"],
-      "species": ["test-species-1"],
-      "starships": ["test-ship-1"],
-      "vehicles": ["test-vehicle-1"]
+      "skinColor": "light",
+      "eyeColor": "brown",
+      "birthYear": "15ABY",
+      "gender": "female",
+      "homeworld": "jakku",
+      "films": [
+        "the-force-awakens",
+        "the-last-jedi",
+        "the-rise-of-skywalker"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [
+        "10"
+      ],
+      "vehicles": [
+        "reys-speeder"
+      ]
     },
     {
-      "id": "test-person-2",
-      "name": "Test Hero Beta",
-      "height": "165",
-      "mass": "60",
+      "id": "finn",
+      "name": "Finn",
+      "height": "178",
+      "mass": "unknown",
+      "hairColor": "black",
+      "skinColor": "dark",
+      "eyeColor": "brown",
+      "birthYear": "11ABY",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "the-force-awakens",
+        "the-last-jedi",
+        "the-rise-of-skywalker"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [
+        "first-order-tie-fighter",
+        "10",
+        "resistance-transport-pod"
+      ],
+      "vehicles": [
+        "ski-speeder"
+      ]
+    },
+    {
+      "id": "poe-dameron",
+      "name": "Poe Dameron",
+      "height": "172",
+      "mass": "unknown",
+      "hairColor": "brown",
+      "skinColor": "light",
+      "eyeColor": "brown",
+      "birthYear": "2ABY",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "the-force-awakens",
+        "the-last-jedi",
+        "the-rise-of-skywalker"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [
+        "t-70-x-wing",
+        "first-order-tie-fighter"
+      ],
+      "vehicles": []
+    },
+    {
+      "id": "kylo-ren",
+      "name": "Kylo Ren",
+      "height": "190",
+      "mass": "unknown",
+      "hairColor": "black",
+      "skinColor": "fair",
+      "eyeColor": "brown",
+      "birthYear": "5ABY",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "the-force-awakens",
+        "the-last-jedi",
+        "the-rise-of-skywalker"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [
+        "upsilon-class-command-shuttle",
+        "tie-silencer"
+      ],
+      "vehicles": []
+    },
+    {
+      "id": "supreme-leader-snoke",
+      "name": "Supreme Leader Snoke",
+      "height": "213",
+      "mass": "unknown",
+      "hairColor": "none",
+      "skinColor": "pale",
+      "eyeColor": "blue",
+      "birthYear": "unknown",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "the-force-awakens",
+        "the-last-jedi"
+      ],
+      "species": [],
+      "starships": [],
+      "vehicles": []
+    },
+    {
+      "id": "general-hux",
+      "name": "Armitage Hux",
+      "height": "185",
+      "mass": "75",
+      "hairColor": "red",
+      "skinColor": "pale",
+      "eyeColor": "green",
+      "birthYear": "0ABY",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "the-force-awakens",
+        "the-last-jedi",
+        "the-rise-of-skywalker"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [
+        "resurgent-class-star-destroyer",
+        "steadfast"
+      ],
+      "vehicles": []
+    },
+    {
+      "id": "captain-phasma",
+      "name": "Phasma",
+      "height": "200",
+      "mass": "76",
+      "hairColor": "blonde",
+      "skinColor": "light",
+      "eyeColor": "blue",
+      "birthYear": "unknown",
+      "gender": "female",
+      "homeworld": "unknown",
+      "films": [
+        "the-force-awakens",
+        "the-last-jedi"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [],
+      "vehicles": []
+    },
+    {
+      "id": "maz-kanata",
+      "name": "Maz Kanata",
+      "height": "124",
+      "mass": "unknown",
+      "hairColor": "white",
+      "skinColor": "orange",
+      "eyeColor": "brown",
+      "birthYear": "973BBY",
+      "gender": "female",
+      "homeworld": "takodana",
+      "films": [
+        "the-force-awakens",
+        "the-last-jedi"
+      ],
+      "species": [],
+      "starships": [],
+      "vehicles": []
+    },
+    {
+      "id": "bb-8",
+      "name": "BB-8",
+      "height": "67",
+      "mass": "18",
+      "hairColor": "none",
+      "skinColor": "white, orange, silver",
+      "eyeColor": "black",
+      "birthYear": "unknown",
+      "gender": "n/a",
+      "homeworld": "unknown",
+      "films": [
+        "the-force-awakens",
+        "the-last-jedi",
+        "the-rise-of-skywalker"
+      ],
+      "species": [
+        "2"
+      ],
+      "starships": [
+        "t-70-x-wing"
+      ],
+      "vehicles": []
+    },
+    {
+      "id": "lor-san-tekka",
+      "name": "Lor San Tekka",
+      "height": "185",
+      "mass": "unknown",
+      "hairColor": "white",
+      "skinColor": "light",
+      "eyeColor": "blue",
+      "birthYear": "unknown",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "the-force-awakens"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [],
+      "vehicles": []
+    },
+    {
+      "id": "unkar-plutt",
+      "name": "Unkar Plutt",
+      "height": "180",
+      "mass": "unknown",
+      "hairColor": "none",
+      "skinColor": "grey",
+      "eyeColor": "brown",
+      "birthYear": "unknown",
+      "gender": "male",
+      "homeworld": "jakku",
+      "films": [
+        "the-force-awakens"
+      ],
+      "species": [
+        "crolute"
+      ],
+      "starships": [],
+      "vehicles": []
+    },
+    {
+      "id": "temmin-wexley",
+      "name": "Temmin Wexley",
+      "height": "188",
+      "mass": "110",
+      "hairColor": "brown",
+      "skinColor": "light",
+      "eyeColor": "brown",
+      "birthYear": "11BBY",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "the-force-awakens",
+        "the-rise-of-skywalker"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [
+        "t-70-x-wing"
+      ],
+      "vehicles": []
+    },
+    {
+      "id": "jessika-pava",
+      "name": "Jessika Pava",
+      "height": "169",
+      "mass": "unknown",
+      "hairColor": "black",
+      "skinColor": "light",
+      "eyeColor": "brown",
+      "birthYear": "unknown",
+      "gender": "female",
+      "homeworld": "unknown",
+      "films": [
+        "the-force-awakens"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [
+        "t-70-x-wing"
+      ],
+      "vehicles": []
+    },
+    {
+      "id": "ello-asty",
+      "name": "Ello Asty",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "none",
+      "skinColor": "tan",
+      "eyeColor": "black",
+      "birthYear": "unknown",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "the-force-awakens"
+      ],
+      "species": [
+        "abednedo"
+      ],
+      "starships": [
+        "t-70-x-wing"
+      ],
+      "vehicles": []
+    },
+    {
+      "id": "sidon-ithano",
+      "name": "Sidon Ithano",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "none",
+      "skinColor": "red",
+      "eyeColor": "black",
+      "birthYear": "unknown",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "the-force-awakens"
+      ],
+      "species": [
+        "delphidian"
+      ],
+      "starships": [],
+      "vehicles": []
+    },
+    {
+      "id": "bazine-netal",
+      "name": "Bazine Netal",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "black",
+      "skinColor": "light",
+      "eyeColor": "brown",
+      "birthYear": "unknown",
+      "gender": "female",
+      "homeworld": "unknown",
+      "films": [
+        "the-force-awakens"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [],
+      "vehicles": []
+    },
+    {
+      "id": "teedo",
+      "name": "Teedo",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "none",
+      "skinColor": "tan",
+      "eyeColor": "yellow",
+      "birthYear": "unknown",
+      "gender": "male",
+      "homeworld": "jakku",
+      "films": [
+        "the-force-awakens"
+      ],
+      "species": [
+        "teedo-species"
+      ],
+      "starships": [],
+      "vehicles": [
+        "luggabeast"
+      ]
+    },
+    {
+      "id": "rose-tico",
+      "name": "Rose Tico",
+      "height": "157",
+      "mass": "unknown",
+      "hairColor": "black",
+      "skinColor": "light",
+      "eyeColor": "brown",
+      "birthYear": "unknown",
+      "gender": "female",
+      "homeworld": "unknown",
+      "films": [
+        "the-last-jedi",
+        "the-rise-of-skywalker"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [
+        "resistance-transport-pod"
+      ],
+      "vehicles": [
+        "ski-speeder"
+      ]
+    },
+    {
+      "id": "paige-tico",
+      "name": "Paige Tico",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "black",
+      "skinColor": "light",
+      "eyeColor": "brown",
+      "birthYear": "unknown",
+      "gender": "female",
+      "homeworld": "unknown",
+      "films": [
+        "the-last-jedi"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [
+        "mg-100-starfortress"
+      ],
+      "vehicles": []
+    },
+    {
+      "id": "amilyn-holdo",
+      "name": "Amilyn Holdo",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "purple",
+      "skinColor": "light",
+      "eyeColor": "blue",
+      "birthYear": "unknown",
+      "gender": "female",
+      "homeworld": "unknown",
+      "films": [
+        "the-last-jedi"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [
+        "raddus"
+      ],
+      "vehicles": []
+    },
+    {
+      "id": "dj",
+      "name": "DJ",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "dark",
+      "skinColor": "tan",
+      "eyeColor": "brown",
+      "birthYear": "unknown",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "the-last-jedi"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [
+        "resistance-transport-pod"
+      ],
+      "vehicles": []
+    },
+    {
+      "id": "bb-9e",
+      "name": "BB-9E",
+      "height": "67",
+      "mass": "unknown",
+      "hairColor": "none",
+      "skinColor": "black",
+      "eyeColor": "red",
+      "birthYear": "unknown",
+      "gender": "n/a",
+      "homeworld": "unknown",
+      "films": [
+        "the-last-jedi"
+      ],
+      "species": [
+        "2"
+      ],
+      "starships": [],
+      "vehicles": []
+    },
+    {
+      "id": "zorii-bliss",
+      "name": "Zorii Bliss",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "unknown",
+      "skinColor": "unknown",
+      "eyeColor": "unknown",
+      "birthYear": "unknown",
+      "gender": "female",
+      "homeworld": "kijimi",
+      "films": [
+        "the-rise-of-skywalker"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [],
+      "vehicles": []
+    },
+    {
+      "id": "jannah",
+      "name": "Jannah",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "black",
+      "skinColor": "dark",
+      "eyeColor": "brown",
+      "birthYear": "unknown",
+      "gender": "female",
+      "homeworld": "kef-bir",
+      "films": [
+        "the-rise-of-skywalker"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [],
+      "vehicles": [
+        "orbak-mount"
+      ]
+    },
+    {
+      "id": "babu-frik",
+      "name": "Babu Frik",
+      "height": "22",
+      "mass": "unknown",
+      "hairColor": "none",
+      "skinColor": "brown",
+      "eyeColor": "green",
+      "birthYear": "unknown",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "the-rise-of-skywalker"
+      ],
+      "species": [
+        "anzellan"
+      ],
+      "starships": [],
+      "vehicles": []
+    },
+    {
+      "id": "d-o",
+      "name": "D-O",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "none",
+      "skinColor": "white, green",
+      "eyeColor": "black",
+      "birthYear": "unknown",
+      "gender": "n/a",
+      "homeworld": "unknown",
+      "films": [
+        "the-rise-of-skywalker"
+      ],
+      "species": [
+        "2"
+      ],
+      "starships": [],
+      "vehicles": []
+    },
+    {
+      "id": "allegiant-general-pryde",
+      "name": "Allegiant General Pryde",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "gray",
+      "skinColor": "light",
+      "eyeColor": "blue",
+      "birthYear": "unknown",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "the-rise-of-skywalker"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [
+        "steadfast"
+      ],
+      "vehicles": []
+    },
+    {
+      "id": "jyn-erso",
+      "name": "Jyn Erso",
+      "height": "160",
+      "mass": "unknown",
+      "hairColor": "brown",
+      "skinColor": "light",
+      "eyeColor": "green",
+      "birthYear": "21BBY",
+      "gender": "female",
+      "homeworld": "unknown",
+      "films": [
+        "rogue-one"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [
+        "u-wing"
+      ],
+      "vehicles": []
+    },
+    {
+      "id": "cassian-andor",
+      "name": "Cassian Andor",
+      "height": "178",
+      "mass": "unknown",
+      "hairColor": "brown-black",
+      "skinColor": "tan",
+      "eyeColor": "brown",
+      "birthYear": "26BBY",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "rogue-one"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [
+        "u-wing"
+      ],
+      "vehicles": []
+    },
+    {
+      "id": "k-2so",
+      "name": "K-2SO",
+      "height": "216",
+      "mass": "106",
+      "hairColor": "none",
+      "skinColor": "black",
+      "eyeColor": "yellow",
+      "birthYear": "unknown",
+      "gender": "n/a",
+      "homeworld": "unknown",
+      "films": [
+        "rogue-one"
+      ],
+      "species": [
+        "2"
+      ],
+      "starships": [],
+      "vehicles": []
+    },
+    {
+      "id": "bodhi-rook",
+      "name": "Bodhi Rook",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "black",
+      "skinColor": "brown",
+      "eyeColor": "brown",
+      "birthYear": "unknown",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "rogue-one"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [],
+      "vehicles": []
+    },
+    {
+      "id": "saw-gerrera",
+      "name": "Saw Gerrera",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "black",
+      "skinColor": "dark",
+      "eyeColor": "brown",
+      "birthYear": "unknown",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "rogue-one"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [],
+      "vehicles": []
+    },
+    {
+      "id": "chirrut-imwe",
+      "name": "Chirrut \u00cele",
+      "height": "unknown",
+      "mass": "unknown",
       "hairColor": "black",
       "skinColor": "tan",
-      "eyeColor": "green",
-      "birthYear": "30BBY",
-      "gender": "female",
-      "homeworld": "test-planet-2",
-      "films": ["test-film-1", "test-film-2"],
-      "species": [],
-      "starships": ["test-ship-2"],
+      "eyeColor": "blue",
+      "birthYear": "unknown",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "rogue-one"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [],
       "vehicles": []
+    },
+    {
+      "id": "baze-malbus",
+      "name": "Baze Malbus",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "black",
+      "skinColor": "tan",
+      "eyeColor": "brown",
+      "birthYear": "unknown",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "rogue-one"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [],
+      "vehicles": []
+    },
+    {
+      "id": "director-krennic",
+      "name": "Orson Krennic",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "black",
+      "skinColor": "light",
+      "eyeColor": "blue",
+      "birthYear": "unknown",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "rogue-one"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [],
+      "vehicles": []
+    },
+    {
+      "id": "galen-erso",
+      "name": "Galen Erso",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "brown",
+      "skinColor": "light",
+      "eyeColor": "blue",
+      "birthYear": "unknown",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "rogue-one"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [],
+      "vehicles": []
+    },
+    {
+      "id": "qi-ra",
+      "name": "Qi'ra",
+      "height": "158",
+      "mass": "unknown",
+      "hairColor": "brown",
+      "skinColor": "light",
+      "eyeColor": "blue",
+      "birthYear": "unknown",
+      "gender": "female",
+      "homeworld": "corellia",
+      "films": [
+        "solo"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [],
+      "vehicles": []
+    },
+    {
+      "id": "tobias-beckett",
+      "name": "Tobias Beckett",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "brown",
+      "skinColor": "light",
+      "eyeColor": "brown",
+      "birthYear": "unknown",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "solo"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [
+        "at-hauler"
+      ],
+      "vehicles": []
+    },
+    {
+      "id": "dryden-vos",
+      "name": "Dryden Vos",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "auburn",
+      "skinColor": "light",
+      "eyeColor": "brown",
+      "birthYear": "unknown",
+      "gender": "male",
+      "homeworld": "unknown",
+      "films": [
+        "solo"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [
+        "first-light"
+      ],
+      "vehicles": []
+    },
+    {
+      "id": "l3-37",
+      "name": "L3-37",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "none",
+      "skinColor": "white",
+      "eyeColor": "yellow",
+      "birthYear": "unknown",
+      "gender": "female",
+      "homeworld": "unknown",
+      "films": [
+        "solo"
+      ],
+      "species": [
+        "2"
+      ],
+      "starships": [
+        "10"
+      ],
+      "vehicles": []
+    },
+    {
+      "id": "rio-durant",
+      "name": "Rio Durant",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "brown",
+      "skinColor": "blue",
+      "eyeColor": "yellow",
+      "birthYear": "unknown",
+      "gender": "male",
+      "homeworld": "ardennia",
+      "films": [
+        "solo"
+      ],
+      "species": [
+        "ardennian"
+      ],
+      "starships": [
+        "at-hauler"
+      ],
+      "vehicles": []
+    },
+    {
+      "id": "val",
+      "name": "Val",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "black",
+      "skinColor": "dark",
+      "eyeColor": "brown",
+      "birthYear": "unknown",
+      "gender": "female",
+      "homeworld": "unknown",
+      "films": [
+        "solo"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [
+        "at-hauler"
+      ],
+      "vehicles": []
+    },
+    {
+      "id": "enfys-nest",
+      "name": "Enfys Nest",
+      "height": "unknown",
+      "mass": "unknown",
+      "hairColor": "brown",
+      "skinColor": "light",
+      "eyeColor": "brown",
+      "birthYear": "unknown",
+      "gender": "female",
+      "homeworld": "unknown",
+      "films": [
+        "solo"
+      ],
+      "species": [
+        "1"
+      ],
+      "starships": [],
+      "vehicles": [
+        "cloud-rider-swoop-bike"
+      ]
     }
   ]
 }
