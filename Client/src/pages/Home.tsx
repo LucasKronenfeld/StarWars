@@ -159,18 +159,22 @@ export function Home() {
           </div>
 
           {/* Quick stats */}
-          <div className="mt-16 grid grid-cols-3 gap-4 max-w-lg mx-auto">
+          <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-yellow-400">36+</div>
+              <div className="text-2xl sm:text-3xl font-bold text-yellow-400">55</div>
               <div className="text-xs sm:text-sm text-gray-400">Starships</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-yellow-400">6</div>
+              <div className="text-2xl sm:text-3xl font-bold text-yellow-400">11</div>
               <div className="text-xs sm:text-sm text-gray-400">Films</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-yellow-400">80+</div>
+              <div className="text-2xl sm:text-3xl font-bold text-yellow-400">125</div>
               <div className="text-xs sm:text-sm text-gray-400">Characters</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl sm:text-3xl font-bold text-yellow-400">81</div>
+              <div className="text-xs sm:text-sm text-gray-400">Planets</div>
             </div>
           </div>
         </div>
