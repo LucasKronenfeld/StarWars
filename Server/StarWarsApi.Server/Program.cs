@@ -119,7 +119,7 @@ var corsPolicyName = "ClientCors";
 // CORS: support both config-based and default localhost origins
 var configuredOrigins = builder.Configuration.GetSection("CORS:Origins").Get<string[]>() 
     ?? Array.Empty<string>();
-var defaultOrigins = new[] { "http://localhost:5173", "http://localhost:5174", "http://localhost:3000", "https://star-wars-seven-xi.vercel.app/"};
+var defaultOrigins = new[] { "http://localhost:5173", "http://localhost:5174", "http://localhost:3000", "https://star-wars-seven-xi.vercel.app"};
 var allowedOrigins = configuredOrigins.Length > 0 ? configuredOrigins : defaultOrigins;
 
 builder.Services.AddCors(options =>
