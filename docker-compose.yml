@@ -39,10 +39,11 @@ services:
       Seed__ExtendedJsonPath: "Data/Seeding/Extended data seeding"
       Seed__AdminEmails__0: "admin@starwars.local"
       
-      # CORS - allow frontend container and dev servers
+      # CORS - allow frontend container, dev servers, and Vercel deployment
       CORS__Origins__0: "http://localhost:3000"
       CORS__Origins__1: "http://localhost:5173"
       CORS__Origins__2: "http://localhost:5174"
+      CORS__Origins__3: "https://star-wars-seven-xi.vercel.app"
       
       # Environment
       ASPNETCORE_ENVIRONMENT: "Production"
