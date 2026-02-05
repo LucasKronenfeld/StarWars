@@ -18,6 +18,9 @@ docker-compose up --build
 # Health: http://localhost:8080/health
 # Swagger: http://localhost:8080/swagger (dev only)
 # Films: http://localhost:8080/api/films
+
+# 5. Access Frontend
+# App: http://localhost:3000
 ```
 
 ---
@@ -49,6 +52,9 @@ The `docker-compose.yml` supports these environment variables:
 #### Environment
 - `ASPNETCORE_ENVIRONMENT` - Development/Production
 - `ASPNETCORE_URLS` - Binding URLs (default: http://+:8080)
+
+#### Frontend
+- `VITE_API_BASE_URL` - API base URL used at build time (default: http://localhost:8080)
 
 ### Override in Docker Compose
 
@@ -82,7 +88,9 @@ StarWars/
 │                   ├── species.json
 │                   ├── starships.json
 │                   └── vehicles.json
-└── Client/                      # React frontend (separate)
+└── Client/                      # React frontend (containerized)
+  ├── Dockerfile               # Multi-stage Vite build + nginx
+  └── nginx.conf               # SPA routing and static caching
 ```
 
 ---
@@ -126,6 +134,9 @@ docker-compose logs --tail=100
 ```bash
 # Rebuild API image
 docker-compose build api
+
+# Rebuild frontend image
+docker-compose build frontend
 
 # Rebuild and restart
 docker-compose up --build
@@ -179,6 +190,7 @@ docker-compose -f docker-compose.dev.yml up
 - Dev wipe endpoint available
 - Optional hot reload (if configured)
 - Seed key for additional security
+- Frontend served via nginx on port 3000
 
 ### Production (`docker-compose.yml`)
 
@@ -191,6 +203,7 @@ docker-compose up
 - Swagger UI disabled
 - Dev wipe endpoint blocked
 - Optimized build
+- Frontend served via nginx on port 3000
 
 ---
 

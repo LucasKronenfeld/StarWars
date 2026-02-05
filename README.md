@@ -109,6 +109,11 @@ docker-compose up --build
 # API: http://localhost:8080
 # Swagger: http://localhost:8080/swagger
 # Frontend: http://localhost:3000
+
+# The frontend is served by nginx in the frontend container.
+
+### When to use docker-compose.dev.yml
+Use the dev compose if you want a Development API environment (Swagger enabled, dev wipe endpoint). It now also includes the frontend.
 ```
 
 See [DOCKER_README.md](DOCKER_README.md) for detailed Docker configuration.

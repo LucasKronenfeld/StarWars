@@ -39,10 +39,10 @@ services:
       Seed__ExtendedJsonPath: "Data/Seeding/Extended data seeding"
       Seed__AdminEmails__0: "admin@starwars.local"
       
-      # CORS - allow Vite dev server and docker network
-      CORS__Origins__0: "http://localhost:5173"
-      CORS__Origins__1: "http://localhost:5174"
-      CORS__Origins__2: "http://localhost:3000"
+      # CORS - allow frontend container and dev servers
+      CORS__Origins__0: "http://localhost:3000"
+      CORS__Origins__1: "http://localhost:5173"
+      CORS__Origins__2: "http://localhost:5174"
       
       # Environment
       ASPNETCORE_ENVIRONMENT: "Production"
@@ -60,6 +60,20 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
+
+  frontend:
+    build:
+      context: ./Client
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: "http://localhost:8080"
+    container_name: starwars-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+    networks:
+      - starwars-network
 
 volumes:
   postgres-data:

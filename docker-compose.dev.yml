@@ -68,6 +68,20 @@ services:
       retries: 3
       start_period: 40s
 
+  frontend:
+    build:
+      context: ./Client
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: "http://localhost:8080"
+    container_name: starwars-frontend-dev
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+    networks:
+      - starwars-network
+
 volumes:
   postgres-data-dev:
 
