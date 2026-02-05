@@ -20,123 +20,6 @@ docker-compose up --build
 # Films: http://localhost:8080/api/films
 ```
 
-### Create Admin User
-
-```bash
-# 1. Register user (email must match config)
-curl -X POST http://localhost:8080/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"email":"admin@starwars.local","password":"Admin123!","username":"admin"}'
-
-# 2. Restart API to assign admin role
-docker-compose restart api
-
-# 3. Login to get JWT token
-curl -X POST http://localhost:8080/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"admin@starwars.local","password":"Admin123!"}'
-```
-
----
-
-## Troubleshooting
-
-### Network Connectivity Issues
-
-If you see errors like:
-```
-Error response from daemon: failed to resolve reference "mcr.microsoft.com/dotnet/sdk:8.0": 
-  failed to do request: Head "https://mcr.microsoft.com/v2/dotnet/sdk/manifests/8.0": EOF
-```
-
-**This means Docker cannot reach Microsoft Container Registry.**
-
-#### Solutions (in order):
-
-1. **Restart Docker Desktop completely**
-   - Close Docker Desktop entirely (not just minimize)
-   - Wait 30 seconds
-   - Reopen Docker Desktop
-   - Wait for it to fully initialize before running `docker-compose up --build`
-
-2. **Verify Docker is running and ready**
-   ```bash
-   docker ps  # Should show no errors
-   docker info  # Should show system info
-   ```
-
-3. **Check internet connectivity**
-   ```bash
-   # PowerShell: Test connection to MCR
-   Invoke-WebRequest -Uri "https://mcr.microsoft.com" -UseBasicParsing
-   
-   # Linux/Mac: Test connection to MCR
-   curl -I https://mcr.microsoft.com
-   ```
-
-4. **Clear Docker cache and retry**
-   ```bash
-   docker system prune -a  # Remove dangling images
-   docker-compose down     # Stop containers
-   docker-compose up --build  # Rebuild
-   ```
-
-5. **Check Docker Desktop Settings**
-   - Go to Settings → Resources → Network
-   - Ensure DNS is set to automatic
-   - Try toggling "Use WSL 2 based engine" if on Windows
-
-6. **Configure Docker proxy (if behind corporate proxy)**
-   - Docker Desktop → Settings → Docker Engine
-   - Add proxy settings if your network requires them:
-   ```json
-   {
-     "proxies": {
-       "default": {
-         "httpProxy": "http://proxy.example.com:3128",
-         "httpsProxy": "https://proxy.example.com:3128",
-         "noProxy": "localhost,127.0.0.1"
-       }
-     }
-   }
-   ```
-
-7. **Use local development as fallback** (no Docker needed)
-   ```bash
-   # Frontend
-   cd Client
-   npm install
-   npm run dev
-   
-   # Backend (in another terminal)
-   cd Server/StarWarsApi.Server
-   dotnet ef database update
-   dotnet run
-   ```
-
-### Container Issues
-
-**PostgreSQL connection fails:**
-```bash
-# Check if postgres container is running
-docker ps
-
-# View postgres logs
-docker logs starwars-postgres
-
-# Verify network connectivity between containers
-docker exec starwars-api ping postgres
-```
-
-**API won't start:**
-```bash
-# Check API logs
-docker logs starwars-api
-
-# Check if migrations ran
-docker logs starwars-api | grep -i migration
-```
-
 ---
 
 ## Configuration
@@ -158,7 +41,6 @@ The `docker-compose.yml` supports these environment variables:
 - `Seed__AutoBootstrap` - Auto-seed empty database (default: true)
 - `Seed__UseExtendedJson` - Load extended JSON files (default: true)
 - `Seed__ExtendedJsonPath` - Path to extended data (default: "Data/Extended")
-- `Seed__AdminEmails__0` - Admin email (can add more with __1, __2, etc.)
 - `Seed__ApiKey` - Optional API key for dev wipe endpoint
 
 #### CORS
@@ -170,20 +52,12 @@ The `docker-compose.yml` supports these environment variables:
 
 ### Override in Docker Compose
 
-```bash
-# Set custom admin email and JWT key
-docker-compose up -d \
-  -e Seed__AdminEmails__0=your-admin@company.com \
-  -e Jwt__Key=YourVerySecureKeyHere32CharsMin
-```
-
-Or create `docker-compose.override.yml`:
+Create `docker-compose.override.yml` to customize environment variables:
 
 ```yaml
 services:
   api:
     environment:
-      Seed__AdminEmails__0: your-admin@company.com
       Jwt__Key: YourVerySecureKeyHere32CharsMin
 ```
 
@@ -352,13 +226,6 @@ docker-compose up
 docker-compose up --build
 ```
 
-3. Or sync via API (without rebuild):
-
-```bash
-curl -X POST http://localhost:8080/api/admin/sync-catalog \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
-```
-
 ### Merge into Existing SWAPI Entity
 
 Use `sameAs` to update an existing entity instead of creating new:
@@ -457,25 +324,6 @@ docker exec starwars-postgres pg_isready -U starwars
 
 **Solution**: Wait for postgres to be ready (check healthcheck)
 
-### Admin Role Not Assigned
-
-**Check configuration**:
-```bash
-docker exec starwars-api cat appsettings.json | grep -A5 Seed
-```
-
-**Check database**:
-```bash
-docker exec -it starwars-postgres psql -U starwars -d starwars \
-  -c "SELECT u.\"Email\", r.\"Name\" FROM \"AspNetUsers\" u 
-      JOIN \"AspNetUserRoles\" ur ON u.\"Id\" = ur.\"UserId\" 
-      JOIN \"AspNetRoles\" r ON ur.\"RoleId\" = r.\"Id\";"
-```
-
-**Solution**: 
-1. Ensure email in `Seed__AdminEmails__0` matches registered user
-2. Restart API to trigger role assignment
-
 ### CORS Errors
 
 **Check CORS config**:
@@ -554,8 +402,7 @@ az container create \
   --ports 8080 \
   --environment-variables \
     ConnectionStrings__DefaultConnection='...' \
-    Jwt__Key='...' \
-    Seed__AdminEmails__0='admin@yourcompany.com'
+    Jwt__Key='...'
 ```
 
 ### Azure App Service

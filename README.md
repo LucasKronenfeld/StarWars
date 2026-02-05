@@ -63,37 +63,7 @@ A full-stack Star Wars starship management application built with .NET 8 and Rea
 - [Docker Desktop](https://www.docker.com/products/docker-desktop) (optional, for containerized setup)
 - SQL Server LocalDB or PostgreSQL
 
-### Option 1: Docker (Recommended)
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/StarWars.git
-cd StarWars
-
-# Start all services
-docker-compose up --build
-
-# Access the application
-# API: http://localhost:8080
-# Swagger: http://localhost:8080/swagger
-```
-
-**Docker Troubleshooting:**
-If you encounter network errors pulling Docker images:
-
-1. **Restart Docker Desktop** - Close completely, then reopen and wait for it to fully initialize
-2. **Check Internet Connection** - Ensure you're connected to the internet
-3. **Verify Docker Settings** - Make sure Docker Desktop is using **Linux containers** (not Windows containers)
-4. **Clear Docker Cache** - If images failed to download:
-   ```bash
-   docker system prune -a
-   docker-compose up --build
-   ```
-5. **Check Firewall/Proxy** - Corporate networks or ISP restrictions may block access to container registries
-
-See [DOCKER_README.md](DOCKER_README.md) for detailed Docker configuration.
-
-### Option 2: Local Development (No Docker Required)
+### Option 1: Local Development (Recommended for Development)
 
 #### 1. Start the Backend
 
@@ -107,7 +77,9 @@ dotnet ef database update
 dotnet run
 ```
 
-The API will be available at `https://localhost:7001` (or configured port).
+The API will be available at:
+- **HTTP**: `http://localhost:5058`
+- **HTTPS**: `https://localhost:7077`
 
 #### 2. Start the Frontend
 
@@ -122,6 +94,24 @@ npm run dev
 ```
 
 The client will be available at `http://localhost:5173`.
+
+### Option 2: Docker (Containerized)
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/StarWars.git
+cd StarWars
+
+# Start all services
+docker-compose up --build
+
+# Access the application
+# API: http://localhost:8080
+# Swagger: http://localhost:8080/swagger
+# Frontend: http://localhost:3000
+```
+
+See [DOCKER_README.md](DOCKER_README.md) for detailed Docker configuration.
 
 ---
 
@@ -295,7 +285,6 @@ See [Tests/README.md](Tests/README.md) for detailed test documentation.
   - Ship forking (clone & customize catalog ships)
   - Films, People, Planets, Species, Vehicles browsing
   - Glass-morphism Star Wars themed UI
-  - Admin catalog management
 
 ---
 

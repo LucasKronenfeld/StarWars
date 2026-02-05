@@ -22,9 +22,6 @@ WORKDIR /app
 # Copy published files
 COPY --from=build /app/publish .
 
-# Copy extended JSON data
-COPY Server/StarWarsApi.Server/Data/Extended ./Data/Extended
-
 # Expose port
 EXPOSE 8080
 
