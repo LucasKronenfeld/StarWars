@@ -155,12 +155,6 @@ C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Data
 C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Data\Seeding\Extended data seeding\species.json
 C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Data\Seeding\Extended data seeding\starships.json
 C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Data\Seeding\Extended data seeding\vehicles.json
-C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Data\Extended\films.json
-C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Data\Extended\people.json
-C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Data\Extended\planets.json
-C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Data\Extended\species.json
-C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Data\Extended\starships.json
-C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Data\Extended\vehicles.json
 C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Data\Seeding\SwapiSnapshot\films.json
 C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Data\Seeding\SwapiSnapshot\people.json
 C:\Users\lucas\StarWars\StarWars\Server\StarWarsApi.Server\bin\Debug\net8.0\Data\Seeding\SwapiSnapshot\planets.json

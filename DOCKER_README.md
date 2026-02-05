@@ -39,6 +39,106 @@ curl -X POST http://localhost:8080/api/auth/login \
 
 ---
 
+## Troubleshooting
+
+### Network Connectivity Issues
+
+If you see errors like:
+```
+Error response from daemon: failed to resolve reference "mcr.microsoft.com/dotnet/sdk:8.0": 
+  failed to do request: Head "https://mcr.microsoft.com/v2/dotnet/sdk/manifests/8.0": EOF
+```
+
+**This means Docker cannot reach Microsoft Container Registry.**
+
+#### Solutions (in order):
+
+1. **Restart Docker Desktop completely**
+   - Close Docker Desktop entirely (not just minimize)
+   - Wait 30 seconds
+   - Reopen Docker Desktop
+   - Wait for it to fully initialize before running `docker-compose up --build`
+
+2. **Verify Docker is running and ready**
+   ```bash
+   docker ps  # Should show no errors
+   docker info  # Should show system info
+   ```
+
+3. **Check internet connectivity**
+   ```bash
+   # PowerShell: Test connection to MCR
+   Invoke-WebRequest -Uri "https://mcr.microsoft.com" -UseBasicParsing
+   
+   # Linux/Mac: Test connection to MCR
+   curl -I https://mcr.microsoft.com
+   ```
+
+4. **Clear Docker cache and retry**
+   ```bash
+   docker system prune -a  # Remove dangling images
+   docker-compose down     # Stop containers
+   docker-compose up --build  # Rebuild
+   ```
+
+5. **Check Docker Desktop Settings**
+   - Go to Settings → Resources → Network
+   - Ensure DNS is set to automatic
+   - Try toggling "Use WSL 2 based engine" if on Windows
+
+6. **Configure Docker proxy (if behind corporate proxy)**
+   - Docker Desktop → Settings → Docker Engine
+   - Add proxy settings if your network requires them:
+   ```json
+   {
+     "proxies": {
+       "default": {
+         "httpProxy": "http://proxy.example.com:3128",
+         "httpsProxy": "https://proxy.example.com:3128",
+         "noProxy": "localhost,127.0.0.1"
+       }
+     }
+   }
+   ```
+
+7. **Use local development as fallback** (no Docker needed)
+   ```bash
+   # Frontend
+   cd Client
+   npm install
+   npm run dev
+   
+   # Backend (in another terminal)
+   cd Server/StarWarsApi.Server
+   dotnet ef database update
+   dotnet run
+   ```
+
+### Container Issues
+
+**PostgreSQL connection fails:**
+```bash
+# Check if postgres container is running
+docker ps
+
+# View postgres logs
+docker logs starwars-postgres
+
+# Verify network connectivity between containers
+docker exec starwars-api ping postgres
+```
+
+**API won't start:**
+```bash
+# Check API logs
+docker logs starwars-api
+
+# Check if migrations ran
+docker logs starwars-api | grep -i migration
+```
+
+---
+
 ## Configuration
 
 ### Environment Variables

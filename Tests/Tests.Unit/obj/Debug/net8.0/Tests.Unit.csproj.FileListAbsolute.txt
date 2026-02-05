@@ -5,12 +5,6 @@ C:\Users\lucas\StarWars\StarWars\Tests\Tests.Unit\bin\Debug\net8.0\StarWarsApi.S
 C:\Users\lucas\StarWars\StarWars\Tests\Tests.Unit\bin\Debug\net8.0\StarWarsApi.Server.runtimeconfig.json
 C:\Users\lucas\StarWars\StarWars\Tests\Tests.Unit\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\lucas\StarWars\StarWars\Tests\Tests.Unit\bin\Debug\net8.0\appsettings.json
-C:\Users\lucas\StarWars\StarWars\Tests\Tests.Unit\bin\Debug\net8.0\Data\Extended\films.json
-C:\Users\lucas\StarWars\StarWars\Tests\Tests.Unit\bin\Debug\net8.0\Data\Extended\people.json
-C:\Users\lucas\StarWars\StarWars\Tests\Tests.Unit\bin\Debug\net8.0\Data\Extended\planets.json
-C:\Users\lucas\StarWars\StarWars\Tests\Tests.Unit\bin\Debug\net8.0\Data\Extended\species.json
-C:\Users\lucas\StarWars\StarWars\Tests\Tests.Unit\bin\Debug\net8.0\Data\Extended\starships.json
-C:\Users\lucas\StarWars\StarWars\Tests\Tests.Unit\bin\Debug\net8.0\Data\Extended\vehicles.json
 C:\Users\lucas\StarWars\StarWars\Tests\Tests.Unit\bin\Debug\net8.0\Data\Seeding\Extended data seeding\films.json
 C:\Users\lucas\StarWars\StarWars\Tests\Tests.Unit\bin\Debug\net8.0\Data\Seeding\Extended data seeding\people.json
 C:\Users\lucas\StarWars\StarWars\Tests\Tests.Unit\bin\Debug\net8.0\Data\Seeding\Extended data seeding\planets.json
